@@ -36,7 +36,7 @@ const PageStarts = () => {
         <C.ContainerPlay>
           <C.ContentVideo>
             <img src={play_bg} alt="" />
-            <h4>Como usar a plataforma  aaaa</h4>
+            <h4>Como usar a plataforma</h4>
           </C.ContentVideo>
           <C.Linhaa />
           <C.Description>
