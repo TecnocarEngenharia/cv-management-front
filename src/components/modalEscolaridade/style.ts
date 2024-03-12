@@ -115,3 +115,48 @@ export const ContentMessage = styled.div`
     margin-bottom: 2em;
   }
 `;
+
+
+export const ModalEditStyle = styled.div`
+  width: 450px;
+  height: 250px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+`;
+
+export const ContentModalTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1em 0;
+
+  & > * {
+    margin: 0 1em;
+  }
+
+  button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+`;
+
+export const ContentModalStyled = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  & > * {
+    margin: 0.5em 1em;
+  }
+
+  img {
+    cursor: pointer;
+  }
+`;

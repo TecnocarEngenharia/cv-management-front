@@ -3,6 +3,7 @@ import InputField from "../inputField";
 import * as C from "./style";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Icon_Edit from "../../image/Icon_Edit.svg";
 
 interface Experiencia {
   empresa: string;
@@ -10,7 +11,7 @@ interface Experiencia {
   esta_atualmente: boolean;
   periodo_inicial: string;
   periodo_final: string;
-  atividades: string[]; // Agora atividades é um array de strings
+  atividades: string[];
 }
 
 interface IModalProps {
@@ -29,6 +30,8 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
     atividades: [],
   });
   const [feedbackMessage, setFeedbackMessage] = useState<string>("");
+  const [editIndex, setEditIndex] = useState<number>(-1);
+  const [isBlock, setIsBlock] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +43,6 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
         if (data && data.experiencias) {
           setExperiencieList(data.experiencias);
         }
-        console.log("Experiencias ", data.experiencias);
       } catch (error) {
         console.error("Erro ao carregar experiencias:", error);
       }
@@ -56,24 +58,45 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
       type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
     setExperiencias((prevState) => ({
       ...prevState,
-      [name]: name === "atividades" ? value.split(".") : newValue, // Separar as atividades por ponto (".")
+      [name]: name === "atividades" ? value.split(".") : newValue,
     }));
   };
 
-  const handlePatchExperiencies = async () => {
-    try {
-      const experienciesToUpdate = experiencieList.map((experiencia) => ({
-        ...experiencia,
-      }));
-      await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
-        experiencias: experienciesToUpdate,
-      });
-      setFeedbackMessage("Experiências profissionais salvas com sucesso!");
+  const handleSaveEdit = async () => {
+    if (
+      experiencias.empresa &&
+      experiencias.cargo &&
+      experiencias.periodo_inicial &&
+      experiencias.atividades.length > 0
+    ) {
+      try {
+        const updatedExperiencieList: Experiencia[] = [...experiencieList];
+        updatedExperiencieList[editIndex] = experiencias;
+        await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
+          experiencias: updatedExperiencieList,
+        });
+        setExperiencieList(updatedExperiencieList);
+        setFeedbackMessage("Experiência atualizada com sucesso!");
+        setExperiencias({
+          empresa: "",
+          cargo: "",
+          esta_atualmente: false,
+          periodo_inicial: "",
+          periodo_final: "",
+          atividades: [],
+        });
+        setEditIndex(-1);
+        setTimeout(() => {
+          setFeedbackMessage("");
+        }, 2000);
+      } catch (error) {
+        console.error("Erro ao atualizar experiência:", error);
+      }
+    } else {
+      setFeedbackMessage("Por favor, preencha todos os campos.");
       setTimeout(() => {
         setFeedbackMessage("");
       }, 2000);
-    } catch (error) {
-      console.log("Error ao enviar as experiencias", error);
     }
   };
 
@@ -82,29 +105,39 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
       experiencias.empresa &&
       experiencias.cargo &&
       experiencias.periodo_inicial &&
-      experiencias.atividades.length > 0 // Verifica se há pelo menos uma atividade
+      experiencias.atividades.length > 0
     ) {
-      const updatedExperienciesList = [...experiencieList, experiencias];
-      setExperiencieList(updatedExperienciesList);
-      setFeedbackMessage("Experiência adicionada com sucesso!");
-      console.log("Dados do fómulario:", updatedExperienciesList);
-      setExperiencias({
-        empresa: "",
-        cargo: "",
-        esta_atualmente: false,
-        periodo_inicial: "",
-        periodo_final: "",
-        atividades: [],
-      });
-      setTimeout(() => {
-        setFeedbackMessage("");
-      }, 2000);
+      if (editIndex !== -1) {
+        handleSaveEdit();
+      } else {
+        const updatedExperiencieList = [...experiencieList, experiencias];
+        setExperiencieList(updatedExperiencieList);
+        setFeedbackMessage("Experiência adicionada com sucesso!");
+        setExperiencias({
+          empresa: "",
+          cargo: "",
+          esta_atualmente: false,
+          periodo_inicial: "",
+          periodo_final: "",
+          atividades: [],
+        });
+        setTimeout(() => {
+          setFeedbackMessage("");
+        }, 2000);
+      }
     } else {
       setFeedbackMessage("Por favor, preencha todos os campos.");
       setTimeout(() => {
         setFeedbackMessage("");
       }, 2000);
     }
+  };
+
+  const handleEdit = (index: number) => {
+    setExperiencias(experiencieList[index]);
+
+    setEditIndex(index);
+    setIsBlock(false);
   };
 
   return (
@@ -163,29 +196,51 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
               className="escolaridade"
             />
           )}
-          {/* <InputField
-            label="Atividades Profissional"
-            name="atividades"
-            value={experiencias.atividades.join(".")} 
-            onChange={handleChange}
-            className="escolaridade atividades-profissional"
-          /> */}
           <C.ContentLabel htmlFor="textarea">Atividades</C.ContentLabel>
           <C.TextArea
             id="textarea"
             name="atividades"
-            value={experiencias.atividades.join(".")} 
+            value={experiencias.atividades.join(".")}
             onChange={handleChange}
             className="escolaridade atividades-profissional"
           />
 
           <C.ContentButtons>
-            {experiencieList.length > 0 && (
-              <button onClick={handlePatchExperiencies}>Salvar</button>
-            )}
-            <button onClick={handleRegister}>Adicionar Experiência</button>
+            <button onClick={() => setIsBlock(true)}>
+              Editar Experiencias
+            </button>
+            <button onClick={handleRegister}>
+              {editIndex === -1 ? "Adicionar Experiência" : "Salvar Edição"}
+            </button>
           </C.ContentButtons>
         </C.ContainerModal>
+        {isBlock ? (
+          <C.ModalBG>
+            <C.ModalEditStyle>
+              <C.ContentModalTitle>
+                <h3>Experiencias</h3>
+                <button onClick={() => setIsBlock(false)}> X</button>
+              </C.ContentModalTitle>
+              {experiencieList.length > 0 ? (
+                experiencieList.map((experiencia, index) => (
+                  <C.ContentModalStyled key={index}>
+                    <p>{index}</p>
+                    <p>{experiencia.empresa}</p>
+                    <p>{experiencia.cargo}</p>
+
+                    <img
+                      src={Icon_Edit}
+                      alt="Editar"
+                      onClick={() => handleEdit(index)}
+                    />
+                  </C.ContentModalStyled>
+                ))
+              ) : (
+                <p>Carregando...</p>
+              )}
+            </C.ModalEditStyle>
+          </C.ModalBG>
+        ) : null}
       </C.ContentModal>
     </C.ModalBG>
   );

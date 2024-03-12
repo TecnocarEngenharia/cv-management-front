@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import InputField from "../inputField";
-import InputSelect from "../inputSelect";
 import * as C from "./style";
 import { Cursos } from "../../types/cursos.types";
 import { useParams } from "react-router-dom";
@@ -16,10 +15,13 @@ const ModalCurso = ({ toggleModal }: IModalProps) => {
     { chave: string; curso: string; nivel: string }[]
   >([]);
   const [cursos, setCursos] = useState<Cursos>({
+    chave: "",
     curso: "",
-    nivel: "",
+    nivel: "Avançado",
   });
   const [feedbackMessage, setFeedbackMessage] = useState<string>("");
+  const [editIndex, setEditIndex] = useState<number>(-1);
+  const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,14 +51,49 @@ const ModalCurso = ({ toggleModal }: IModalProps) => {
     setCursos({ ...cursos, [fieldName]: value });
   };
 
-  const handlePatchCursos = async () => {
-    try {
-      const cursosToUpdate = cursosList.map((curso) => ({
-        ...curso,
-      }));
+  const handleRegister = async () => {
+    if (cursos.curso) {
+      if (editIndex === -1) {
+        const chave = cursos.curso + cursos.nivel;
+        const updateCursoList = [
+          ...cursosList,
+          { chave, curso: cursos.curso, nivel: cursos.nivel },
+        ];
+        setCursosList(updateCursoList);
+        setCursos({
+          chave: "",
+          curso: "",
+          nivel: "Avançado",
+        });
+        setFeedbackMessage("Cursos adicionados com sucesso");
+        setTimeout(() => {
+          setFeedbackMessage("");
+        }, 2000);
+      } else {
+        const updatedCurso = [...cursosList];
+        updatedCurso[editIndex] = cursos;
+        setCursosList(updatedCurso);
+        setFeedbackMessage("Curso atualizado com sucesso");
+        setEditIndex(-1);
+        await handlePatchCursos(updatedCurso);
+      }
+      setCursos({
+        chave: "",
+        curso: "",
+        nivel: "",
+      });
+    } else {
+      setFeedbackMessage("Preencha todos os campos!");
+      setTimeout(() => {
+        setFeedbackMessage("");
+      }, 2000);
+    }
+  };
 
+  const handlePatchCursos = async (updatedCurso: Cursos[]) => {
+    try {
       await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
-        cursos: cursosToUpdate,
+        cursos: updatedCurso,
       });
       setFeedbackMessage("Cursos salvas com sucesso!");
 
@@ -68,36 +105,13 @@ const ModalCurso = ({ toggleModal }: IModalProps) => {
     }
   };
 
-  const handleRegister = () => {
-    if (cursos.curso && cursos.nivel) {
-      const chave = cursos.curso + cursos.nivel;
-      const updateCursoList = [
-        ...cursosList,
-        { chave, curso: cursos.curso, nivel: cursos.nivel },
-      ];
-      setCursosList(updateCursoList);
-      setCursos({
-        curso: "",
-        nivel: "",
-      });
-      setFeedbackMessage("Cursos adicionados com sucesso");
-      setTimeout(() => {
-        setFeedbackMessage("");
-      }, 2000);
-    } else {
-      setFeedbackMessage("Preencha todos os campos!");
-      setTimeout(() => {
-        setFeedbackMessage("");
-      }, 2000);
-    }
-  };
+  const handleEdit = (index: number) => {
+    setEditIndex(index);
+    const cursoToEdit = cursosList[index];
 
-  // const handleDeleteCurso = (chave: string) => {
-  //   const updatedCursosList = cursosList.filter(
-  //     (curso) => curso.chave !== chave
-  //   );
-  //   setCursosList(updatedCursosList);
-  // };
+    setCursos({ ...cursoToEdit });
+    setIsShow(false);
+  };
 
   return (
     <C.ModalBG>
@@ -117,34 +131,32 @@ const ModalCurso = ({ toggleModal }: IModalProps) => {
               value={cursos.curso}
               onChange={(e) => handleInputChange("curso", e.target.value)}
             />
-            <InputSelect
-              label="Nível"
-              className="cursos"
-              value={cursos.nivel}
-              onChange={(e) => handleInputChange("nivel", e.target.value)}
-              options={["", "Básico", "Intermediario", "Avançado"]}
-            />
           </C.ContentInputs>
           <C.ContentButtons>
-            {cursosList.length > 0 && (
-              <button onClick={handlePatchCursos}>Salvar todos cursos</button>
-            )}
-            <button onClick={handleRegister}>Adicionar novos cursos</button>
+            <button onClick={() => setIsShow(true)}> Editar Cursos</button>
+            <button onClick={handleRegister}>
+              {editIndex === -1 ? "Adicionar" : "Salvar"}
+            </button>
           </C.ContentButtons>
-          {/* <div>
-            {cursosList.map((curso) => (
-              <div key={curso.chave}>
-                <p>
-                  {curso.curso} - {curso.nivel}
-                </p>
-                <button onClick={() => handleDeleteCurso(curso.chave)}>
-                  Excluir
-                </button>
-              </div>
-            ))}
-          </div> */}
         </C.ContainerModal>
       </C.ContentModal>
+      {isShow && (
+        <C.ModalBG>
+          <C.ModalEditStyle>
+            <C.ContentModalTitle>
+              <h3>Cursos</h3>
+              <button onClick={() => setIsShow(false)}> X</button>
+            </C.ContentModalTitle>
+            {cursosList.map((curso, index) => (
+              <C.ContentModalStyled key={index}>
+                <p>{index}</p>
+                <p>{curso.curso}</p>
+                <button onClick={() => handleEdit(index)}>Editar</button>
+              </C.ContentModalStyled>
+            ))}
+          </C.ModalEditStyle>
+        </C.ModalBG>
+      )}
     </C.ModalBG>
   );
 };
