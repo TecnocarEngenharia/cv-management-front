@@ -5,6 +5,7 @@ import * as C from "./style";
 import { Formations } from "../../types/formations.types";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Icon_Edit from "../../image/Icon_Edit.svg";
 
 interface IModalProps {
   toggleModal: () => void;
@@ -22,6 +23,8 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
     curso: "",
   });
   const [feedbackMessage, setFeedbackMessage] = useState<string>("");
+  const [editIndex, setEditIndex] = useState<number>(-1);
+  const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +36,6 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
         if (data && data.formacoes) {
           setFormationsList(data.formacoes);
         }
-        console.log(data);
       } catch (error) {
         console.error("Erro ao carregar formações:", error);
       }
@@ -46,7 +48,7 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
     setFormations({ ...formations, [fieldName]: value });
   };
 
-  const handleCadastro = () => {
+  const handleCadastro = async () => {
     if (
       formations.escolaridade &&
       formations.status &&
@@ -55,9 +57,18 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
       formations.termino_previsao &&
       formations.curso
     ) {
-      const updatedFormationsList = [...formationsList, formations];
-      setFormationsList(updatedFormationsList);
-      setFeedbackMessage("Formação adicionada com sucesso!");
+      if (editIndex === -1) {
+        const updatedFormationsList = [...formationsList, formations];
+        setFormationsList(updatedFormationsList);
+        setFeedbackMessage("Formação adicionada com sucesso!");
+      } else {
+        const updatedFormationsList = [...formationsList];
+        updatedFormationsList[editIndex] = formations;
+        setFormationsList(updatedFormationsList);
+        setFeedbackMessage("Formação atualizada com sucesso!");
+        setEditIndex(-1);
+        await handlePatchFormations(updatedFormationsList);
+      }
       setFormations({
         escolaridade: "",
         status: "",
@@ -77,25 +88,12 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
     }
   };
 
-  const handlePatchFormations = async () => {
+  const handlePatchFormations = async (updatedFormationsList: Formations[]) => {
     try {
-      const formationsToUpdate = formationsList.map((formation) => ({
-        ...formation,
-        inicio: formation.inicio.substring(0, 7),
-        termino_previsao: formation.termino_previsao.substring(0, 7),
-      }));
-      const hasDifference = formationsList.some(
-        (formation, index) => formation.inicio !== formationsToUpdate[index].inicio
-      );
-  
-      if (hasDifference) {
-        await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
-          formacoes: formationsToUpdate,
-        });
-        setFeedbackMessage("Formações adicionadas com sucesso!");
-      } else {
-        setFeedbackMessage("Nenhuma alteração nas formações.");
-      }
+      await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
+        formacoes: updatedFormationsList,
+      });
+      setFeedbackMessage("Formações atualizadas com sucesso!");
       setTimeout(() => {
         setFeedbackMessage("");
       }, 2000);
@@ -103,11 +101,23 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
       console.error("Erro ao atualizar formações:", error);
     }
   };
+
+  const handleEdit = (index: number) => {
+    setEditIndex(index);
+    const formationToEdit = formationsList[index];
+    setFormations({
+      ...formationToEdit,
+      inicio: formationToEdit.inicio.split("T")[0],
+      termino_previsao: formationToEdit.termino_previsao.split("T")[0], 
+    });
+    setIsShow(false)
+  };
+
   return (
     <C.ModalBG>
       <C.ContentModal>
         <C.ContentTitle>
-          <h1>Adicionar Escolaridade</h1>
+          <h1>{editIndex === -1 ? "Adicionar" : "Editar"} Escolaridade</h1>
           <button onClick={toggleModal}> X</button>
         </C.ContentTitle>
         <C.ContentMessage>
@@ -167,12 +177,33 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
           />
         </C.ContentInputs>
         <C.ContentButtons>
-          {formationsList.length > 0 && (
-            <button onClick={handlePatchFormations}>Salvar</button>
-          )}
-          <button onClick={handleCadastro}>Adicionar Formação</button>
+          <button onClick={() => setIsShow(true)}>Editar Escolaridade</button>
+          <button onClick={handleCadastro}>
+            {editIndex === -1 ? "Adicionar" : "Salvar"}
+          </button>
         </C.ContentButtons>
       </C.ContentModal>
+      {isShow && (
+        <C.ModalBG>
+          <C.ModalEditStyle>
+            <C.ContentModalTitle>
+              <h3>Escolaridade</h3>
+              <button onClick={() => setIsShow(false)}> X</button>
+            </C.ContentModalTitle>
+            {formationsList.map((formation, index) => (
+              <C.ContentModalStyled key={index}>
+                <p>{index}</p>
+                <p>{formation.curso}</p>
+                <img
+                  src={Icon_Edit}
+                  alt="Editar"
+                  onClick={() => handleEdit(index)}
+                />
+              </C.ContentModalStyled>
+            ))}
+          </C.ModalEditStyle>
+        </C.ModalBG>
+      )}
     </C.ModalBG>
   );
 };

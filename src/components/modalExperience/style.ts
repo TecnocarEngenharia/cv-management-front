@@ -141,3 +141,45 @@ export const TextArea = styled.textarea`
   resize: none;
   border: 1px solid #333;
 `;
+
+export const ModalEditStyle = styled.div`
+  width: 400px;
+  height: 250px;
+  background-color: #ffff;
+`;
+
+export const ContentModalTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1em 0;
+
+  & > * {
+    margin: 0 1em;
+  }
+
+  button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+`;
+
+export const ContentModalStyled = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  & > * {
+    margin: 0.5em 1em;
+  }
+
+  img {
+    cursor: pointer;
+  }
+`;

@@ -239,7 +239,7 @@ const Curriculum = () => {
                       {Array.isArray(item.atividades) ? (
                         item.atividades.map(
                           (atividade: string, indexAtividade: number) => (
-                            <C.ContentAtividade>
+                            <C.ContentAtividade key={indexAtividade}>
                               <div key={indexAtividade}>
                                 <li>{atividade}</li>
                               </div>
