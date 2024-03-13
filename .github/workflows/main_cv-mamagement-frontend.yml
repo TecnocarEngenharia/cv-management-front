@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      
   workflow_dispatch:
 
 jobs:
@@ -27,11 +26,17 @@ jobs:
           npm install
           npm run build --if-present
       
+      - name: Zip Release
+        uses: TheDoctor0/zip-release@0.6.1
+        with:
+          filename: release.zip
+          path: ./build/*
+      
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: dist
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,5 +57,5 @@ jobs:
         with:
           app-name: 'cv-mamagement-frontend'
           slot-name: 'Production'
-          package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5A3539EF677A4D46B5B35BCE768EC8EF }}
+          package: release.zip
