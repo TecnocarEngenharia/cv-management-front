@@ -1,4 +1,4 @@
-name: Build and deploy Node.js app to Azure Web App - noblecausecode-react
+name: Build and deploy Node.js app to Azure Web App - cv-mamagement-frontend
 
 on:
   push:
