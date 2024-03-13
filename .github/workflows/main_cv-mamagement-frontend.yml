@@ -26,14 +26,14 @@ jobs:
       - name: Zip Release
         uses: TheDoctor0/zip-release@0.6.1
         with:
-          filename: release.zip
-          path: ./build/*
-      
+            filename: release.zip
+            path: ./build/*
+        
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
-          name: node-app
-          path: dist
+            name: node-app
+            path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
