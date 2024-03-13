@@ -132,7 +132,20 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
       }, 2000);
     }
   };
-
+  const saveExperiencieList = async (updatedExperiencieList: Experiencia[]) => {
+    try {
+      await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
+        experiencias: updatedExperiencieList,
+      });
+      setExperiencieList(updatedExperiencieList);
+      setFeedbackMessage("Lista de experiências atualizada com sucesso!");
+      setTimeout(() => {
+        setFeedbackMessage("");
+      }, 2000);
+    } catch (error) {
+      console.error("Erro ao atualizar lista de experiências:", error);
+    }
+  };
   const handleEdit = (index: number) => {
     setExperiencias(experiencieList[index]);
 
@@ -206,9 +219,16 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
           />
 
           <C.ContentButtons>
-            <button onClick={() => setIsBlock(true)}>
-              Editar Experiencias
-            </button>
+            {!experiencieList.length ? (
+              <button onClick={() => saveExperiencieList(experiencieList)}>
+                Salvar
+              </button>
+            ) : null}
+            {experiencieList.length ? (
+              <button onClick={() => setIsBlock(true)}>
+                Editar Experiencias
+              </button>
+            ) : null}
             <button onClick={handleRegister}>
               {editIndex === -1 ? "Adicionar Experiência" : "Salvar Edição"}
             </button>
