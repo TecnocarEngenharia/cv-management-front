@@ -49,16 +49,3 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5A3539EF677A4D46B5B35BCE768EC8EF }}
           package: .
-
-      - name: Set environment variables
-        run: |
-          echo "RECRUITMENT_EVALUATED=true" >> $GITHUB_ENV
-
-      - name: Make API request
-        run: |
-          API_URL="https://cv-mamagement-frontend.azurewebsites.net"
-          if [ "$RECRUITMENT_EVALUATED" = "true" ]; then
-            API_URL="$API_URL/your-api-endpoint-here"
-          fi
-          echo "API URL: $API_URL"
-          # You can use curl or any other tool to make the API request with the constructed URL
