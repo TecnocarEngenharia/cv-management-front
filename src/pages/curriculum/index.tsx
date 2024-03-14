@@ -37,7 +37,7 @@ const Curriculum = () => {
     // Definindo as configurações do PDF
     const options = {
       filename: `Tecnocar - ${data?.codigoCandidate} - ${data?.idade} anos - ${data?.genero} - ${data?.cidade}/${data?.uf}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
+      image: { type: "jpeg", quality: 0.1 },
       html2canvas: { scale: 2 },
       jsPDF: {
         unit: "in",
