@@ -4,9 +4,7 @@ import Email from "../../image/email.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAxiosCandidate } from "../../hooks/requestAxios";
 import * as C from "./style";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import { MouseEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import icon_add from "../../image/icon_add.svg";
 import { ModalEscolaridade } from "../../components/modalEscolaridade";
 import { ModalExperiencia } from "../../components/modalExperience";
@@ -14,6 +12,7 @@ import { ModalSoftware } from "../../components/modalSoftwares";
 import { converterData, formatarDataPT } from "../../functions/formatarDate";
 import { ModalAtividade } from "../../components/modalAtividades";
 import { ModalCurso } from "../../components/modalCurso";
+import html2pdf from "html2pdf.js";
 
 const Curriculum = () => {
   const { id } = useParams();
@@ -27,56 +26,34 @@ const Curriculum = () => {
   const [atividades, setAtividades] = useState(false);
   const [hideImage, setHideImage] = useState(false);
 
-  useEffect(() => {
-    const container = document.querySelector(
-      ".container-to-pdf"
-    ) as HTMLElement;
-    if (container) {
-      container.style.width = "260mm";
-    }
-  }, []);
-
-  const saveAsPDF = () => {
-    const container = document.querySelector(
-      ".container-to-pdf"
-    ) as HTMLElement;
-
-    if (container) {
-      const options = { scale: 2 };
-
-      html2canvas(container, options).then((canvas) => {
-        const imgData = canvas.toDataURL("image/jpeg", 0.1);
-        const pdf = new jsPDF("p", "mm", "a4");
-
-        const imgWidth = 210;
-        const imgHeight = canvas.height * (imgWidth / canvas.width);
-
-        const pageHeight = 297;
-        const fitsInOnePage = imgHeight <= pageHeight;
-        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-
-        if (!fitsInOnePage) {
-          pdf.addPage();
-          pdf.addImage(imgData, "PNG", 0, -pageHeight, imgWidth, imgHeight);
-        }
-
-        pdf.save(
-          `Tecnocar - ${data?.codigoCandidate} - ${data?.idade} anos - ${data?.genero} - ${data?.cidade}/${data?.uf}.pdf`
-        );
-      });
-      setHideImage(false);
-    }
-  };
   const toggleModal = (state: boolean, setState: (state: boolean) => void) => {
     setState(!state);
     refetch();
   };
 
+  const saveAsPDF = () => {
+    const content = document.querySelector(".container-to-pdf"); // Seletor da seção que você deseja converter em PDF
+
+    // Definindo as configurações do PDF
+    const options = {
+      filename: `Tecnocar - ${data?.codigoCandidate} - ${data?.idade} anos - ${data?.genero} - ${data?.cidade}/${data?.uf}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: {
+        unit: "in",
+        format: [11, 11.69], // Largura: 8.5 polegadas, Altura: 11.69 polegadas (formato padrão A4 com largura maior)
+        orientation: "portrait",
+      },
+    };
+
+    // Gerando e salvando o PDF
+    html2pdf().from(content).set(options).save();
+  };
   return (
     <>
       <C.ContentButton>
         <button
-          onClick={(_e: MouseEvent<HTMLButtonElement>) => {
+          onClick={() => {
             setHideImage(true);
             setTimeout(() => {
               saveAsPDF();
@@ -326,24 +303,24 @@ const Curriculum = () => {
                               Inglês - Nível {data.conhecimento_ingles.trim()}.
                             </p>
                           )}
-                        {data.conhecimento_frances && 
+                        {data.conhecimento_frances &&
                           data.conhecimento_frances.trim() !== "N/A" && (
                             <p>
                               Francês - Nível {data.conhecimento_frances.trim()}
                               .
                             </p>
                           )}
-                        {data.conhecimento_italiano && 
+                        {data.conhecimento_italiano &&
                           data.conhecimento_italiano.trim() !== "N/A" && (
                             <p>
-                              Italiano - Nível 
+                              Italiano - Nível
                               {data.conhecimento_italiano.trim()}.
                             </p>
                           )}
                         {data.conhecimento_espanhol &&
                           data.conhecimento_espanhol.trim() !== "N/A" && (
                             <p>
-                              Espanhol - Nível 
+                              Espanhol - Nível
                               {data.conhecimento_espanhol.trim()}.
                             </p>
                           )}

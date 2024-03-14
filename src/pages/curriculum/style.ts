@@ -103,7 +103,7 @@ export const Bolinha = styled.div`
 
 export const LinhaComBolinhas = styled.div`
   position: relative;
-  /* margin-top: 21px; */
+  margin-top: 30px;
   margin-left: 24px;
   margin-bottom: 0px;
 
