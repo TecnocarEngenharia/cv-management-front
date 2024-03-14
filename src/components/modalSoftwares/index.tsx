@@ -44,7 +44,9 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
   const handleCadastro = () => {
     const updatedSoftwaresList = [...softwaresList, software];
     setSoftwaresList(updatedSoftwaresList);
-    setFeedBack("Softwares adicionados com sucesso")
+    setFeedBack("Softwares adicionados com sucesso");
+
+    setTimeout(() => setFeedBack(""), 2000);
     setSoftware({
       software: "",
       nivel: "",
@@ -59,7 +61,8 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
       await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
         software: softwareToUpdate,
       });
-      setFeedBack("Softwares salvos com sucesso")
+      setFeedBack("Softwares salvos com sucesso");
+      setTimeout(() => setFeedBack(""), 2000);
     } catch (error) {
       console.log("Error ao enviar os softwares", error);
     }

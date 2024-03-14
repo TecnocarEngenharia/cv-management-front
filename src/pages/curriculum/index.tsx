@@ -326,24 +326,24 @@ const Curriculum = () => {
                               Inglês - Nível {data.conhecimento_ingles.trim()}.
                             </p>
                           )}
-                        {data.conhecimento_frances &&
+                        {data.conhecimento_frances && 
                           data.conhecimento_frances.trim() !== "N/A" && (
                             <p>
                               Francês - Nível {data.conhecimento_frances.trim()}
                               .
                             </p>
                           )}
-                        {data.conhecimento_italiano &&
+                        {data.conhecimento_italiano && 
                           data.conhecimento_italiano.trim() !== "N/A" && (
                             <p>
-                              Italiano - Nível
+                              Italiano - Nível 
                               {data.conhecimento_italiano.trim()}.
                             </p>
                           )}
                         {data.conhecimento_espanhol &&
                           data.conhecimento_espanhol.trim() !== "N/A" && (
                             <p>
-                              Espanhol - Nível
+                              Espanhol - Nível 
                               {data.conhecimento_espanhol.trim()}.
                             </p>
                           )}
