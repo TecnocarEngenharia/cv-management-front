@@ -25,11 +25,10 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow: auto;
 
   @media (min-width: 1900px) {
     width: 60%;
-    height: 70vh;
+    height: 60vh;
   }
 
   @media (max-width: 490px) {
@@ -255,7 +254,7 @@ export const Footeer = styled.footer`
   bottom: 0em;
   right: 1.3em;
   width: 100%;
-  height: 8%;
+  height: 15%;
 
   display: flex;
   justify-content: flex-end;
