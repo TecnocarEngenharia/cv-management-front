@@ -12,6 +12,7 @@ import { ModalSoftware } from "../../components/modalSoftwares";
 import { converterData, formatarDataPT } from "../../functions/formatarDate";
 import { ModalAtividade } from "../../components/modalAtividades";
 import { ModalCurso } from "../../components/modalCurso";
+// @ts-ignore
 import html2pdf from "html2pdf.js";
 
 const Curriculum = () => {
@@ -48,6 +49,10 @@ const Curriculum = () => {
 
     // Gerando e salvando o PDF
     html2pdf().from(content).set(options).save();
+  };
+
+  const handleCapitaliza = (text: string) => {
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   };
   return (
     <>
@@ -110,72 +115,62 @@ const Curriculum = () => {
                   <C.VagasItem>
                     {data.vaga_100_presencial_betim_mg === "Sim" && (
                       <div>
-                        <span>Vaga 100% Presencial Betim/MG:</span>
+                        <span>Vaga 100% Presencial Betim/MG:</span>{" "}
                         {data.vaga_100_presencial_betim_mg}
                       </div>
                     )}
-
                     {data.vaga_100_presencial_goiana_pe === "Sim" && (
                       <div>
-                        <span>Vaga 100% Presencial Goiana/PE:</span>
+                        <span>Vaga 100% Presencial Goiana/PE:</span>{" "}
                         {data.vaga_100_presencial_goiana_pe}
                       </div>
                     )}
-
                     {data.vaga_100_presencial_porto_real_rj === "Sim" && (
                       <div>
-                        <span>Vaga 100% Presencial Porto Real/RJ:</span>
+                        <span>Vaga 100% Presencial Porto Real/RJ:</span>{" "}
                         {data.vaga_100_presencial_porto_real_rj}
                       </div>
                     )}
-
                     {data.vaga_100_presencial_sao_paulo === "Sim" && (
                       <div>
-                        <span>Vaga 100% Presencial São Paulo/SP:</span>
+                        <span>Vaga 100% Presencial São Paulo/SP:</span>{" "}
                         {data.vaga_100_presencial_sao_paulo}
                       </div>
                     )}
-
                     {data.home_office === "Sim" && (
                       <div>
-                        <span>Home Office:</span>
-                        {data.home_office}
+                        <span>Home Office:</span> {data.home_office}
                       </div>
                     )}
                   </C.VagasItem>
-
                   <C.VagasItem className="item_right">
                     {data.vaga_hibrida_betim === "Sim" && (
                       <div>
-                        <span>Vaga Híbrida Betim:</span>
+                        <span>Vaga Híbrida Betim:</span>{" "}
                         {data.vaga_hibrida_betim}
                       </div>
                     )}
-
                     {data.vaga_hibrida_goiana_pe === "Sim" && (
                       <div>
-                        <span>Vaga Híbrida Goiana:</span>
+                        <span>Vaga Híbrida Goiana:</span>{" "}
                         {data.vaga_hibrida_goiana_pe}
                       </div>
                     )}
-
                     {data.vaga_hibrida_porto_real_rj === "Sim" && (
                       <div>
-                        <span>Vaga Híbrida Porto Real:</span>
+                        <span>Vaga Híbrida Porto Real:</span>{" "}
                         {data.vaga_hibrida_porto_real_rj}
                       </div>
                     )}
-
                     {data.vaga_hibrida_sao_paulo === "Sim" && (
                       <div>
-                        <span>Vaga Híbrida São Paulo:</span>
+                        <span>Vaga Híbrida São Paulo:</span>{" "}
                         {data.vaga_hibrida_sao_paulo}
                       </div>
                     )}
-
                     {data.vaga_internacional === "Sim" && (
                       <div>
-                        <span>Vaga Internacional:</span>
+                        <span>Vaga Internacional:</span>{" "}
                         {data.vaga_internacional}
                       </div>
                     )}
@@ -352,7 +347,7 @@ const Curriculum = () => {
                       ) => {
                         return (
                           <div key={index}>
-                            <p>{item.curso}</p>
+                            <p>- {handleCapitaliza(item.curso)}</p>
                           </div>
                         );
                       }

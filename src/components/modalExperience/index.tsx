@@ -247,7 +247,6 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
                     <p>{index}</p>
                     <p>{experiencia.empresa}</p>
                     <p>{experiencia.cargo}</p>
-
                     <img
                       src={Icon_Edit}
                       alt="Editar"
