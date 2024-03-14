@@ -125,7 +125,6 @@ const Candidate = () => {
       .join("&");
   };
   const handleModalClose = () => {
-    console.log("Modal fechado");
     refetch();
   };
 

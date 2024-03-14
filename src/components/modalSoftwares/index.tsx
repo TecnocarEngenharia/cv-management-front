@@ -29,7 +29,6 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
         if (data && data.software) {
           setSoftwaresList(data.software);
         }
-        console.log("Softwares: ", data.software);
       } catch (error) {
         console.error("Erro ao carregar software:", error);
       }
@@ -64,7 +63,7 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
       setFeedBack("Softwares salvos com sucesso");
       setTimeout(() => setFeedBack(""), 2000);
     } catch (error) {
-      console.log("Error ao enviar os softwares", error);
+      console.error("Error ao enviar os softwares", error);
     }
   };
 

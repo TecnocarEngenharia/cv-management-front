@@ -25,7 +25,6 @@ const ModalAtividade = ({ toggleModal }: IModalProps) => {
           `${import.meta.env.VITE_API_URL}${id}`
         );
         const { data } = response;
-        console.log(data);
         if (data && data.Atividades) {
           setAtividadesList(data.Atividades);
         }

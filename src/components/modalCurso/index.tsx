@@ -101,7 +101,7 @@ const ModalCurso = ({ toggleModal }: IModalProps) => {
         setFeedbackMessage("");
       }, 2000);
     } catch (error) {
-      console.log("Error ao enviar as experiencias", error);
+      console.error("Error ao enviar as experiencias", error);
     }
   };
 

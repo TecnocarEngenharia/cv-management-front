@@ -155,7 +155,6 @@ const Register: React.FC = () => {
         foi_avaliado_recrutamento: token,
         curriculo: upload,
       };
-      console.log(newDataWithUpload.pretensao_pj);
       await axios.post(import.meta.env.VITE_API_URL, newDataWithUpload, {
         headers: {
           "Content-Type": "multipart/form-data",
