@@ -23,7 +23,7 @@ export const InputWrapper = styled.div`
   }
   &.genero {
     margin: 0;
-    margin: 5px 1.4em;
+    margin: 5px 1.1em;
   }
 
   &.cursos {

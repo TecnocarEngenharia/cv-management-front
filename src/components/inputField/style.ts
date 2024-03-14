@@ -90,7 +90,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  width: 95%;
+  width: 94.5%;
   padding: 8px;
   font-size: 14px;
   border: 1px solid #ccc;

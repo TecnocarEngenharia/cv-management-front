@@ -238,5 +238,5 @@ export const ContentUpload = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 43%;
+  width: 40%;
 `;
