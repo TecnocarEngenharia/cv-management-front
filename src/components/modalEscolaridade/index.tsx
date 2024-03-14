@@ -108,9 +108,9 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
     setFormations({
       ...formationToEdit,
       inicio: formationToEdit.inicio.split("T")[0],
-      termino_previsao: formationToEdit.termino_previsao.split("T")[0], 
+      termino_previsao: formationToEdit.termino_previsao.split("T")[0],
     });
-    setIsShow(false)
+    setIsShow(false);
   };
 
   return (
@@ -177,9 +177,14 @@ const ModalEscolaridade = ({ toggleModal }: IModalProps) => {
           />
         </C.ContentInputs>
         <C.ContentButtons>
-          <button onClick={() => setIsShow(true)}>Editar Escolaridade</button>
+          {formationsList.length > 0 && (
+            <button onClick={() => setIsShow(true)}>Editar Escolaridade</button>
+          )}
+          <button onClick={() => handlePatchFormations(formationsList)}>
+            Salvar
+          </button>
           <button onClick={handleCadastro}>
-            {editIndex === -1 ? "Adicionar" : "Salvar"}
+            {editIndex === -1 ? "Adicionar" : "Salvar Edição"}
           </button>
         </C.ContentButtons>
       </C.ContentModal>

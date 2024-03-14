@@ -14,8 +14,8 @@ export const ModalBG = styled.div`
 `;
 export const ContentModal = styled.div`
   margin: 18% auto;
-  width: 408px;
-  height: 582px;
+  width: 600px;
+  height: 650px;
   border-radius: 10px;
   border: 1px solid #6a6666;
   background: #fff;
@@ -137,15 +137,18 @@ export const ContentLabel = styled.label`
 
 export const TextArea = styled.textarea`
   width: 100%;
-  height: 60px;
+  height: 90px;
   resize: none;
   border: 1px solid #333;
+  outline: none;
 `;
 
 export const ModalEditStyle = styled.div`
-  width: 400px;
+  width: 500px;
   height: 250px;
   background-color: #ffff;
+  border: 1px solid #6a6666;
+  border-radius: 15px;
 `;
 
 export const ContentModalTitle = styled.div`

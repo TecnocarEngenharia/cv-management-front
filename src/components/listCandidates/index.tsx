@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as C from "./style";
-import Loading from "../loading";
-import { InfoCandidate } from "../infoCandidate";
+import Loading from "../loading"; 
+import { ModalInfoCandidate } from "../modalInfoCandidates";
 
 interface Candidate {
   id: string;
@@ -70,7 +70,6 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
                   <C.TableHeaderSpecial>Pretensão CLT</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Pretensão PJ</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Vaga Cadastrada</C.TableHeaderSpecial>
-                  <C.TableHeaderSpecial>Inglês</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Nivel</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Informações</C.TableHeaderSpecial>
                 </tr>
@@ -98,7 +97,6 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
                     <C.TableData>
                       {candidate.tipo_desejado_linkedin}
                     </C.TableData>
-                    <C.TableData>{candidate.conhecimento_ingles}</C.TableData>
                     <C.TableData>{candidate.nivel_funcao}</C.TableData>
                     <C.TableData
                       className="info"
@@ -130,7 +128,7 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
         )}
       </C.TableContainer>
 
-      {modal && <InfoCandidate id={userID} toggleModal={closeModal} />}
+      {modal && <ModalInfoCandidate id={userID} toggleModal={closeModal} />}
     </>
   );
 };

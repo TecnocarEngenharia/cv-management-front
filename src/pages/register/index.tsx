@@ -109,6 +109,7 @@ const Register: React.FC = () => {
 
   const handleLimparCampos = () => {
     setNewCandidate(LimparCampos());
+    setUpload(undefined);
   };
 
   const handleCheckFields = () => {

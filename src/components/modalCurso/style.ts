@@ -14,7 +14,7 @@ export const ModalBG = styled.div`
 `;
 export const ContentModal = styled.div`
   margin: 18% auto;
-  width: 488px;
+  width: 558px;
   height: 213px;
   border-radius: 10px;
   border: 1px solid #6a6666;
@@ -66,7 +66,7 @@ export const ContentButtons = styled.div`
 
   button {
     cursor: pointer;
-    width: 180px;
+    width: 120px;
     height: 38px;
     border: none;
     margin-top: 15px;

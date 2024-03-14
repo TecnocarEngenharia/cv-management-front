@@ -13,6 +13,7 @@ interface IModalProps {
 const ModalSoftware = ({ toggleModal }: IModalProps) => {
   const { id } = useParams();
   const [softwaresList, setSoftwaresList] = useState<Softwares[]>([]);
+  const [feedBack, setFeedBack] = useState("");
   const [software, setSoftware] = useState<Softwares>({
     software: "",
     nivel: "",
@@ -43,7 +44,7 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
   const handleCadastro = () => {
     const updatedSoftwaresList = [...softwaresList, software];
     setSoftwaresList(updatedSoftwaresList);
-    console.log("Dados do formulário:", updatedSoftwaresList);
+    setFeedBack("Softwares adicionados com sucesso")
     setSoftware({
       software: "",
       nivel: "",
@@ -58,6 +59,7 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
       await axios.patch(`${import.meta.env.VITE_API_URL}${id}`, {
         software: softwareToUpdate,
       });
+      setFeedBack("Softwares salvos com sucesso")
     } catch (error) {
       console.log("Error ao enviar os softwares", error);
     }
@@ -71,6 +73,7 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
           <button onClick={toggleModal}> X</button>
         </C.ContentTitle>
         <C.ContainerModal>
+          {feedBack && <C.FeedbackMessage>{feedBack}</C.FeedbackMessage>}
           <InputSelect
             label="Selecione o Software"
             options={[
@@ -85,8 +88,6 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
               "SolidWorks",
               "TCAE",
               "Excel",
-  
-
             ]}
             className="software"
             value={software.software}
@@ -100,7 +101,9 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
             onChange={(e) => handleInputChange("nivel", e.target.value)}
           />
           <C.ContentButtons>
-            {softwaresList.length > 0 && <button onClick={handlePatchExperiencies}>Salvar</button>}
+            {softwaresList.length > 0 && (
+              <button onClick={handlePatchExperiencies}>Salvar</button>
+            )}
             <button onClick={handleCadastro}>Adicionar</button>
           </C.ContentButtons>
         </C.ContainerModal>

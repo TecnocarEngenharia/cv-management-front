@@ -97,9 +97,6 @@ const Login = () => {
               />
             </C.ContentPassword>
           </C.ContainerInputs>
-
-          <C.Forgotpassword>Esqueceu a senha?</C.Forgotpassword>
-
           <C.Buttons type="submit" className={loading ? "loading" : ""}>
             {loading ? <p> Entrando...</p> : <p>Entrar</p>}
           </C.Buttons>

@@ -133,9 +133,16 @@ const ModalCurso = ({ toggleModal }: IModalProps) => {
             />
           </C.ContentInputs>
           <C.ContentButtons>
-            <button onClick={() => setIsShow(true)}> Editar Cursos</button>
+            {cursosList.length > 0 && (
+              <button onClick={() => setIsShow(true)}> Editar Cursos</button>
+            )}
+            {editIndex === -1 && (
+              <button onClick={() => handlePatchCursos(cursosList)}>
+                Salvar Cursos
+              </button>
+            )}
             <button onClick={handleRegister}>
-              {editIndex === -1 ? "Adicionar" : "Salvar"}
+              {editIndex === -1 ? "Adicionar" : "Salvar Edição"}
             </button>
           </C.ContentButtons>
         </C.ContainerModal>

@@ -91,3 +91,9 @@ export const ContentButtons = styled.div`
     }
   }
 `;
+
+export const FeedbackMessage = styled.p`
+  display: block;
+  text-align: center;
+  color: #851f2c;
+`;

@@ -138,7 +138,7 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
         experiencias: updatedExperiencieList,
       });
       setExperiencieList(updatedExperiencieList);
-      setFeedbackMessage("Lista de experiências atualizada com sucesso!");
+      setFeedbackMessage("Lista de experiências salva com sucesso!");
       setTimeout(() => {
         setFeedbackMessage("");
       }, 2000);
@@ -146,9 +146,9 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
       console.error("Erro ao atualizar lista de experiências:", error);
     }
   };
+
   const handleEdit = (index: number) => {
     setExperiencias(experiencieList[index]);
-
     setEditIndex(index);
     setIsBlock(false);
   };
@@ -219,16 +219,16 @@ const ModalExperiencia = ({ toggleModal }: IModalProps) => {
           />
 
           <C.ContentButtons>
-            {!experiencieList.length ? (
-              <button onClick={() => saveExperiencieList(experiencieList)}>
-                Salvar
-              </button>
-            ) : null}
-            {experiencieList.length ? (
+            {experiencieList.length > 0 && (
               <button onClick={() => setIsBlock(true)}>
                 Editar Experiencias
               </button>
-            ) : null}
+            )}
+
+            <button onClick={() => saveExperiencieList(experiencieList)}>
+              Salvar
+            </button>
+
             <button onClick={handleRegister}>
               {editIndex === -1 ? "Adicionar Experiência" : "Salvar Edição"}
             </button>
