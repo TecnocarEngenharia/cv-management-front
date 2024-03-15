@@ -4,9 +4,9 @@ import Loading from "../loading";
 import { ModalInfoCandidate } from "../modalInfoCandidates";
 
 interface Candidate {
-  id: string;
+  id: number;
   profissional: string;
-  idade: string;
+  idade: number;
   email: string;
   telefone: string;
   cidade: string;
@@ -29,9 +29,6 @@ interface ListCandidatesProps {
 
 const ListCandidates: React.FC<ListCandidatesProps> = ({
   currentData,
-  totalPages,
-  currentPage,
-  handlePageChange,
   onCloseModal 
 }) => {
   const formatMoney = (amount: string) => {
@@ -100,7 +97,7 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
                     <C.TableData>{candidate.nivel_funcao}</C.TableData>
                     <C.TableData
                       className="info"
-                      onClick={() => openModal(parseInt(candidate.id))}
+                      onClick={() => openModal(candidate.id)}
                     >
                       Ver mais
                     </C.TableData>
@@ -108,20 +105,6 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
                 ))}
               </C.TableBody>
             </C.StyledTable>
-            <C.Pagination>
-              {totalPages &&
-                Array.from({ length: totalPages }).map((_, index) => (
-                  <C.PageButton
-                    key={index}
-                    onClick={() =>
-                      handlePageChange && handlePageChange(index + 1)
-                    }
-                    $active={currentPage === index + 1}
-                  >
-                    {index + 1}
-                  </C.PageButton>
-                ))}
-            </C.Pagination>
           </>
         ) : (
           <Loading />

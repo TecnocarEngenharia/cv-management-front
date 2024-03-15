@@ -13,9 +13,9 @@ import { ModalFilter } from "../../components/ModalFilter";
 import axios from "axios";
 
 interface Candidate {
-  id: string;
+  id: number;
   profissional: string;
-  idade: string;
+  idade: number;
   email: string;
   telefone: string;
   cidade: string;
@@ -36,36 +36,15 @@ const Candidate = () => {
   const [selectedComponent, setSelectedComponent] = useState<"bloco" | "list">(
     "bloco"
   );
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = selectedComponent === "bloco" ? 6 : 12;
   const [currentData, setCurrentData] = useState<Candidate[] | null>(null);
   const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
-    if (data) {
-      const sortedData = data.sort(
-        (a: { id: string }, b: { id: string }) =>
-          parseInt(a.id) - parseInt(b.id)
-      );
-      const indexOfLastItem = currentPage * itemsPerPage;
-      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-      const updatedCurrentData = sortedData.slice(
-        indexOfFirstItem,
-        Math.min(indexOfLastItem, sortedData.length)
-      );
-      setCurrentData(updatedCurrentData);
+    if (data !== null) {
+      //@ts-ignore
+      setCurrentData(data);
     }
-  }, [data, currentPage, itemsPerPage]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filter]);
-
-  const totalPages = Math.ceil((data?.length || 0) / itemsPerPage);
-
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
+  }, [data]);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -96,7 +75,7 @@ const Candidate = () => {
     try {
       const response = await axios.get(import.meta.env.VITE_API_URL);
       setCurrentData(response.data);
-      setFilter(false); 
+      setFilter(false);
       setIsFiltered(false);
       localStorage.removeItem("filtros");
     } catch (error) {
@@ -129,42 +108,38 @@ const Candidate = () => {
   };
 
   return (
-    <>
+    <C.Content>
+      <C.ContainerExcel onClick={() => toggleModal()}>
+        <img src={Excel} alt=" icone de excel" />
+      </C.ContainerExcel>
+
+      <C.ContainerList
+        onClick={() => handleIconClick("list")}
+        className={selectedComponent === "list" ? "list" : ""}
+      >
+        <img src={List_candidates} alt=" icone de lista" />
+      </C.ContainerList>
+
+      <C.ContainerBloco
+        onClick={() => handleIconClick("bloco")}
+        className={selectedComponent === "bloco" ? "bloco" : ""}
+      >
+        <img src={Bloco} alt="icone de bloco" />
+      </C.ContainerBloco>
+
+      <C.ContainerFilter onClick={() => toggleFilter()}>
+        <img src={Filter} alt="icone do Filtro" />
+      </C.ContainerFilter>
+
+      {isFiltered && (
+        <C.ContainerNoFilter onClick={removeQueryAndFetchData}>
+          <img src={RemoveFilter} alt="icone do Filtro" />
+        </C.ContainerNoFilter>
+      )}
       <C.Container>
-        <C.ContainerExcel onClick={() => toggleModal()}>
-          <img src={Excel} alt=" icone de excel" />
-        </C.ContainerExcel>
-
-        <C.ContainerList
-          onClick={() => handleIconClick("list")}
-          className={selectedComponent === "list" ? "list" : ""}
-        >
-          <img src={List_candidates} alt=" icone de lista" />
-        </C.ContainerList>
-
-        <C.ContainerBloco
-          onClick={() => handleIconClick("bloco")}
-          className={selectedComponent === "bloco" ? "bloco" : ""}
-        >
-          <img src={Bloco} alt="icone de bloco" />
-        </C.ContainerBloco>
-
-        <C.ContainerFilter onClick={() => toggleFilter()}>
-          <img src={Filter} alt="icone do Filtro" />
-        </C.ContainerFilter>
-
-        {isFiltered && (
-          <C.ContainerNoFilter onClick={removeQueryAndFetchData}>
-            <img src={RemoveFilter} alt="icone do Filtro" />
-          </C.ContainerNoFilter>
-        )}
-
         {selectedComponent === "bloco" && (
           <CardCandidates
             currentData={currentData}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            handlePageChange={handlePageChange}
             onCloseModal={handleModalClose}
           />
         )}
@@ -172,9 +147,6 @@ const Candidate = () => {
         {selectedComponent === "list" && (
           <ListCandidates
             currentData={currentData}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            handlePageChange={handlePageChange}
             onCloseModal={handleModalClose}
           />
         )}
@@ -189,7 +161,7 @@ const Candidate = () => {
           />
         )}
       </C.Container>
-    </>
+    </C.Content>
   );
 };
 
