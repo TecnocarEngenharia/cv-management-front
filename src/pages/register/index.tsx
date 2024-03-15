@@ -169,7 +169,6 @@ const Register: React.FC = () => {
       setIsSubmitting(false);
     } catch (error: any) {
       setIsSubmitting(false);
-
       setErrorPost(error.response.data.message);
       setTimeout(() => {
         setErrorPost(null);
@@ -430,7 +429,7 @@ const Register: React.FC = () => {
 
         <C.ContentButton className="ContentButton">
           <C.SubmitButton onClick={() => handleCheckFields()}>
-            Cadastrar
+            {_isSubmitting ? "Cadastrando ..." : "Cadastrar"}
           </C.SubmitButton>
         </C.ContentButton>
       </C.Form>
