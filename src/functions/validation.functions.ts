@@ -28,7 +28,7 @@ export const validarDados = (dados: any) => {
     home_office,
     vaga_hibrida_goiana_pe,
     vaga_hibrida_sao_paulo,
-    vaga_hibrida_porto_real,
+    vaga_hibrida_porto_real_rj,
   } = dados;
 
   const camposVazios = [];
@@ -64,7 +64,7 @@ export const validarDados = (dados: any) => {
   if (!vaga_hibrida_betim) camposVazios.push("vaga_hibrida_betim");
   if (!home_office) camposVazios.push("home_office");
   if (!vaga_hibrida_goiana_pe) camposVazios.push("vaga_hibrida_goiana_pe");
-  if (!vaga_hibrida_porto_real) camposVazios.push("vaga_hibrida_porto_real");
+  if (!vaga_hibrida_porto_real_rj) camposVazios.push("vaga_hibrida_porto_real");
   if (!vaga_hibrida_sao_paulo) camposVazios.push("vaga_hibrida_sao_paulo");
   if (camposVazios.length > 10) {
     return "Preencha todos os campos.";

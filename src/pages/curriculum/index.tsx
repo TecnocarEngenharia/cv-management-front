@@ -42,13 +42,12 @@ const Curriculum = () => {
       html2canvas: { scale: 2 },
       jsPDF: {
         unit: "in",
-        format: [11, 11.69], // Largura: 8.5 polegadas, Altura: 11.69 polegadas (formato padrão A4 com largura maior)
+        format: [11, 11.69], 
         orientation: "portrait",
       },
     };
-
-    // Gerando e salvando o PDF
     html2pdf().from(content).set(options).save();
+    setHideImage(false);
   };
 
   const handleCapitaliza = (text: string) => {
@@ -315,8 +314,7 @@ const Curriculum = () => {
                         {data.conhecimento_espanhol &&
                           data.conhecimento_espanhol.trim() !== "N/A" && (
                             <p>
-                              Espanhol - Nível
-                              {data.conhecimento_espanhol.trim()}.
+                              Espanhol - Nível  {data.conhecimento_espanhol.trim()}.
                             </p>
                           )}
                       </>
