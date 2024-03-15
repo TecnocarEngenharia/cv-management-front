@@ -1,5 +1,3 @@
-// style.js
-
 import styled from "styled-components";
 
 interface PageButtonProps {
@@ -15,6 +13,10 @@ export const TableContainer = styled.div`
     max-width: 80vw;
     margin-top: 3%;
     margin-left: 20.2%;
+  }
+
+  @media screen and (max-width: 1580px) {
+    width: 70vw;
   }
 `;
 
@@ -39,6 +41,9 @@ export const TableHeader = styled.th`
   @media (min-height: 0px) and (max-height: 700px) {
     font-size: 10px;
   }
+  @media screen and (max-width: 1580px) {
+    font-weight: 600;
+  }
 `;
 
 export const TableHeaderCentered = styled(TableHeader)`
@@ -60,6 +65,11 @@ export const TableData = styled.td`
   font-size: 12px;
   text-align: start;
 
+  @media screen and (max-width: 1580px) {
+    width: 15%;
+    font-size: 10px;
+  }
+
   &.idade {
     text-align: center;
   }
@@ -77,10 +87,7 @@ export const TableData = styled.td`
     text-align: center;
   }
 
-  &.nome {
-    max-width: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &.name {
   }
 `;
 
@@ -96,6 +103,8 @@ export const TableDataRow = styled.tr`
 export const TableHeaderSpecial = styled(TableHeader)`
   background-color: #fff;
   transition: background-color 0.3s, box-shadow 0.3s;
+
+
 
   th {
     border: none;

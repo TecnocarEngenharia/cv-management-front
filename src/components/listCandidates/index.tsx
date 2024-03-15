@@ -77,7 +77,7 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
               <C.TableBody>
                 {currentData.map((candidate: Candidate) => (
                   <tr key={candidate.id}>
-                    <C.TableData>{candidate.profissional}</C.TableData>
+                    <C.TableData className="name">{candidate.profissional}</C.TableData>
                     <C.TableData className="idade">
                       {candidate.idade}
                     </C.TableData>

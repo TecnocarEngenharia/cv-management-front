@@ -30,6 +30,12 @@ export const ContainerSearch = styled.div`
     margin-left: 10.4%;
   }
 
+  @media (min-width: 2000px) {
+    margin-top: -3%;
+    margin-left: 12%;
+    width: 75%;
+  }
+
   @media (max-width: 1650px) {
     margin-top: -2%;
     margin-left: 21%;

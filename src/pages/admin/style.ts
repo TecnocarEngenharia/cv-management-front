@@ -82,10 +82,17 @@ export const Table = styled.table`
     width: 70.4%;
   }
 
+  @media (min-width: 2000px) {
+    margin-top: -9%;
+    margin-left: 18.7%;
+    width: 75%;
+  }
+
+  /* 
   @media (min-height: 0px) and (max-height: 700px) {
     font-size: 12px;
     margin-top: -5em;
-  }
+  } */
 `;
 
 export const TableBody = styled.tbody`

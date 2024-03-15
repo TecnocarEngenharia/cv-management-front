@@ -110,7 +110,7 @@ export const camposRadioLocalizacao: FieldRadio[] = [
   {
     label: "Vaga Híbrida Porto Real",
     type: "select",
-    field: "vaga_hibrida_porto_real",
+    field: "vaga_hibrida_porto_real_rj",
     options: [" ", "Sim", "Não"],
   },
   {

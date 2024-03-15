@@ -144,6 +144,9 @@ export const Pagination = styled.div`
   @media (max-width: 450px) {
     display: none;
   }
+  @media screen and (max-width: 1580px) {
+    bottom: 2.4em;
+  }
 `;
 
 export const PageButton = styled.button<PageButtonProps>`
@@ -155,10 +158,12 @@ export const PageButton = styled.button<PageButtonProps>`
   border-radius: 5px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border: none;
+
+  
 `;
 
 export const Image = styled.img`
   position: absolute;
-  top: -1em;
+  bottom: -1em;
   right: 0;
 `;
