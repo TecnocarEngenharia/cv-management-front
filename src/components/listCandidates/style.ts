@@ -1,8 +1,5 @@
 import styled from "styled-components";
 
-interface PageButtonProps {
-  $active: boolean;
-}
 
 export const TableContainer = styled.div`
   overflow-x: auto;
@@ -132,25 +129,4 @@ export const TableBody = styled.tbody`
   td:last-child {
     border-right: 1px solid #ddd;
   }
-`;
-
-export const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 7px;
-  position: fixed;
-  bottom: 4.4em;
-  left: 80%;
-  transform: translateX(-50%);
-`;
-
-export const PageButton = styled.button<PageButtonProps>`
-  width: 30px;
-  height: 31px;
-  cursor: pointer;
-  background-color: ${(props) => (props.$active ? "#b67070" : "#fff")};
-  color: ${(props) => (props.$active ? "#fff" : "#333")};
-  border-radius: 5px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border: none;
 `;

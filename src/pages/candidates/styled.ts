@@ -13,6 +13,16 @@ export const Container = styled.div`
   margin-left: 5%;
   justify-content: center;
   align-items: start;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9b3f39;
+    border-radius: 10px;
+}
 
   @media (max-width: 600px) {
     width: 90%;
@@ -59,8 +69,6 @@ export const Container = styled.div`
     margin-top: 30%;
     height: 100%;
   }
-
- 
 `;
 
 export const ContainerList = styled.div`
@@ -270,4 +278,8 @@ export const ContainerNoFilter = styled.div`
   @media (min-width: 601px) and (max-width: 1199px) {
     right: 32vw;
   }
+`;
+
+export const Content = styled.div`
+  position: relative;
 `;

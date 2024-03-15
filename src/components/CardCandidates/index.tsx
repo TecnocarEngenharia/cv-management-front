@@ -6,9 +6,9 @@ import { useState } from "react";
 import { ModalInfoCandidate } from "../modalInfoCandidates";
 
 interface Candidate {
-  id: string;
+  id: number;
   profissional: string;
-  idade: string;
+  idade: number;
   email: string;
   telefone: string;
   cidade: string;
@@ -20,29 +20,25 @@ interface CardCandidatesProps {
   currentPage?: number;
   handlePageChange?: (newPage: number) => void;
   availiado?: boolean;
-  onCloseModal? : any
+  onCloseModal?: any;
 }
 
 const CardCandidates = ({
   currentData,
-  totalPages,
-  currentPage,
-  handlePageChange,
   availiado,
-  onCloseModal 
+  onCloseModal,
 }: CardCandidatesProps) => {
   const [modal, setModal] = useState(false);
   const [userID, setUserID] = useState<number | undefined>();
 
   const openModal = (id: number) => {
     setUserID(id);
-    setModal(true); 
-    
+    setModal(true);
   };
 
   const closeModal = () => {
     setModal(false);
-    onCloseModal()
+    onCloseModal();
   };
 
   return (
@@ -71,7 +67,7 @@ const CardCandidates = ({
                 </C.InfoCandidate>
               </C.ContentInfo>
               <C.Button
-                onClick={() => openModal(parseInt(candidate.id))}
+                onClick={() => openModal(candidate.id)}
                 style={{ marginLeft: "2em" }}
               >
                 Ver Mais
@@ -83,24 +79,9 @@ const CardCandidates = ({
         )}
       </C.ContainerGrid>
 
-      <C.Pagination>
-        {totalPages &&
-          Array.from({ length: totalPages }).map((_, index) => (
-            <C.PageButton
-              key={index}
-              onClick={() => handlePageChange && handlePageChange(index + 1)}
-              $active={currentPage === index + 1}
-            >
-              {index + 1}
-            </C.PageButton>
-          ))}
-      </C.Pagination>
-
       {currentData?.length === 0 && <h1> SEM CANDIDATOS</h1>}
 
-      {modal && (
-        <ModalInfoCandidate id={userID} toggleModal={closeModal} />
-      )}
+      {modal && <ModalInfoCandidate id={userID} toggleModal={closeModal} />}
     </>
   );
 };

@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
-interface PageButtonProps {
-  $active: boolean;
-}
+
 
 export const ContainerGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 50px;
   justify-content: center;
   margin: 30px 30px 0;
 
@@ -130,36 +128,6 @@ export const Button = styled.button`
   &:hover {
     background-color: #6b2323;
   }
-`;
-
-export const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 7px;
-  position: fixed;
-  bottom: 4.4em;
-  left: 80%;
-  transform: translateX(-50%);
-
-  @media (max-width: 450px) {
-    display: none;
-  }
-  @media screen and (max-width: 1580px) {
-    bottom: 2.4em;
-  }
-`;
-
-export const PageButton = styled.button<PageButtonProps>`
-  width: 30px;
-  height: 31px;
-  cursor: pointer;
-  background-color: ${(props) => (props.$active ? "#b67070" : "#fff")};
-  color: ${(props) => (props.$active ? "#fff" : "#333")};
-  border-radius: 5px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border: none;
-
-  
 `;
 
 export const Image = styled.img`
