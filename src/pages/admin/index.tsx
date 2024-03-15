@@ -17,15 +17,14 @@ interface UserData {
 }
 
 const TelaAdmin = () => {
-  const [_userData, setUserData] = useState<UserData[]>([]);
+  const [userData, setUserData] = useState<UserData[]>([]);
   const [allUserData, setAllUserData] = useState<UserData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(4);
   const [searchText, setSearchText] = useState("");
   const [filteredUsers, setFilteredUsers] = useState<UserData[]>([]);
   const [userInfo, setUserInfo] = useState(false);
-  const [userTwo, setUserTwo] = useState({});
-
+  const [userTwo, setUserTwo] = useState<UserData | {}>({});
 
   const roleMapping: Record<string, string> = {
     technique: "Técnico",
@@ -83,20 +82,42 @@ const TelaAdmin = () => {
     setCurrentPage(pageNumber);
   };
 
-  const openModal = (user: {
-    id: number;
-    name: string;
-    email: string;
-    registration: string;
-    role: string;
-  }) => {
+  const openModal = (user: UserData) => {
     setUserTwo(user);
     setUserInfo(true);
   };
 
-  const closeModal = () => {
-    setUserInfo(false)
-  }
+  const closeModal = async () => {
+    setUserInfo(false);
+    await fetchData(); // Faz um novo GET para atualizar os dados
+  };
+
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("Token não encontrado no localStorage.");
+        return;
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_GET_ALL_URL}`,
+        config
+      );
+
+      setUserData(response.data);
+      setAllUserData(response.data);
+    } catch (error) {
+      console.error("Erro ao obter os dados:", error);
+    }
+  };
 
   return (
     <>
@@ -140,7 +161,7 @@ const TelaAdmin = () => {
         )}
       </C.Pagination>
 
-      {userInfo && <ModalUser user={userTwo} onclose={closeModal}/>}
+      {userInfo && <ModalUser user={userTwo} onclose={closeModal} />}
     </>
   );
 };

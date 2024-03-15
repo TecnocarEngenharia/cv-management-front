@@ -4,47 +4,44 @@ import InputSelect from "../inputSelect";
 import * as C from "./style";
 import axios from "axios";
 
+interface IUser {
+  id?: number;
+  name?: string;
+  email?: string;
+  registration?: string;
+  role?: string;
+  password?: string;
+  isActive?: boolean;
+}
+
 interface IModalProps {
   onclose?: () => void;
-  user?: {
-    id?: number;
-    name?: string;
-    email?: string;
-    registration?: string;
-    role?: string;
-    password?: string;
-    isActive?: boolean;
-  };
+  user?: IUser;
 }
 
 const ModalUser = ({ onclose, user }: IModalProps) => {
-  const [name, setNome] = useState("");
+  const [name, setName] = useState("");
   const [registration, setRegistration] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmaSenha, setConfirmaSenha] = useState("");
   const [role, setRole] = useState("");
   const [erroSenha, setErroSenha] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [isActiveUser, setIsActiveUser] = useState(false);
-  const [info, setInfo] = useState("");
-  const [isActive, setIsActive] = useState(true);
-  const [messagePassword, setMessagePassword] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
     if (user) {
-      setNome(user.name || "");
-      setRegistration(user.registration || "");
-      setEmail(user.email || "");
-      setRole(user.role || "");
-      setPassword(user.password || "");
-      setIsActive(user.isActive || true);
+      const { name, registration, email, role, password } = user;
+      setName(name || "");
+      setRegistration(registration || "");
+      setEmail(email || "");
+      setRole(role || "");
+      setPassword(password || "");
     }
   }, [user]);
 
   const cleanForm = () => {
-    setNome("");
+    setName("");
     setRegistration("");
     setPassword("");
     setConfirmaSenha("");
@@ -53,32 +50,30 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
   };
 
   const resetPassword = () => {
-    setPassword("123456");
-    setMessagePassword(true);
-    setTimeout(() => setMessagePassword(false), 2000);
+    setPassword("123456789");
+    setFeedbackMessage({ text: "Senha resetada com sucesso", type: "success" });
+    setTimeout(() => setFeedbackMessage(null), 2000);
   };
 
   const handleSave = async () => {
     try {
+      if (!name || !registration || !password || !confirmaSenha || !role) {
+        setFeedbackMessage({ text: "Por favor, preencha todos os campos.", type: "error" });
+        return;
+      }
+
+      if (password !== confirmaSenha) {
+        setErroSenha(true);
+        return;
+      } else {
+        setErroSenha(false);
+      }
+
       const equipeMapping: Record<string, string> = {
         Recrutamento: "recruitment",
         Técnico: "technique",
         Administrador: "admin",
       };
-
-      if (!user) {
-        if (!name || !registration || !password || !confirmaSenha || !role) {
-          setInfo("Por favor, preencha todos os campos.");
-          return;
-        }
-
-        if (password !== confirmaSenha) {
-          setErroSenha(true);
-          return;
-        } else {
-          setErroSenha(false);
-        }
-      }
 
       const equipeSalvaNoBanco = equipeMapping[role];
 
@@ -99,28 +94,31 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
         await axios.post(import.meta.env.VITE_API_REGISTER_URL, data);
       }
       cleanForm();
-      setShowSuccessMessage(true);
-      setTimeout(() => setShowSuccessMessage(false), 2000);
+      setFeedbackMessage({ text: "Cadastro concluído com sucesso!", type: "success" });
+      setTimeout(() => setFeedbackMessage(null), 2000);
     } catch (error) {
       console.error("Erro ao salvar:", error);
-      setShowErrorMessage(true);
-      setTimeout(() => setShowErrorMessage(false), 2000);
+      setFeedbackMessage({ text: "Erro ao salvar. Por favor, tente novamente.", type: "error" });
+      setTimeout(() => setFeedbackMessage(null), 2000);
     }
   };
 
   const toggleUserStatus = async () => {
     try {
-      if (user) {
+      if (user && user.isActive !== undefined) {
+        const isActive = !user.isActive;
         await axios.patch(
           `${import.meta.env.VITE_API_GET_ALL_URL}/${user.id}`,
-          { isActive: !isActive }
+          { isActive }
         );
-        setIsActive(!isActive);
-        setIsActiveUser(true);
-        setTimeout(() => setIsActiveUser(false), 2000);
+        setFeedbackMessage({ text: isActive ? "Usuário ativado com sucesso" : "Usuário desativado com sucesso", type: "success" });
+        setTimeout(() => setFeedbackMessage(null), 2000);
+      } else {
+        console.error("Usuário não está definido ou 'isActive' é 'undefined'");
       }
     } catch (error) {
       console.error("Erro ao alterar status do usuário:", error);
+      setTimeout(() => setFeedbackMessage(null), 2000);
     }
   };
 
@@ -128,32 +126,16 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
     <C.ModalBG>
       <C.ContainerModal className={user ? "userOn" : ""}>
         <C.ContentTitle>
-          {user ? <h2>Edição do usuário</h2> : <h2>Registro novo usuário</h2>}
-          {erroSenha && (
-            <p style={{ color: "red" }}>As senhas não coincidem.</p>
-          )}
-          {showSuccessMessage && (
-            <p style={{ color: "green" }}>Cadastro concluído com sucesso!</p>
-          )}
-          {showErrorMessage && (
-            <p style={{ color: "red" }}>
-              Erro ao salvar. Por favor, tente novamente.
-            </p>
-          )}
-          {isActiveUser && (
-            <p style={{ color: "green" }}>Usuario desativado com sucesso</p>
-          )}
-          {messagePassword && (
-            <p style={{ color: "green" }}>Senha resetada com sucesso</p>
-          )}
-          {info && <p style={{ color: "red" }}> {info}</p>}
+          <h2>{user ? "Edição do usuário" : "Registro novo usuário"}</h2>
+          {erroSenha && <p style={{ color: "red" }}>As senhas não coincidem.</p>}
+          {feedbackMessage && <p style={{ color: feedbackMessage.type === "success" ? "green" : "red" }}>{feedbackMessage.text}</p>}
           <button onClick={onclose}>X</button>
         </C.ContentTitle>
         <C.ContentsInputs>
           <InputField
             label="Nome do usuário"
             value={name}
-            onChange={(e) => setNome(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
           <InputField
             label="Matrícula"
@@ -210,7 +192,7 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
               {user.isActive ? "Desativar Usuário" : "Ativar Usuário"}
             </C.StyledButton>
           )}
-          <C.StyledButton onClick={() => handleSave()}>
+          <C.StyledButton onClick={handleSave}>
             {user ? "Salvar Dados" : "Cadastrar Usuário"}
           </C.StyledButton>
         </C.ContentButton>
