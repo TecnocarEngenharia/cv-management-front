@@ -81,11 +81,12 @@ export const Label = styled.label`
   }
   &.alwaysActive {
     width: 120%;
-    font-size: 13px;
+    font-size: 11px;
   }
 
   @media (min-width: 451px) and (max-width: 1400px) {
-    font-size: 13px;
+    font-size: 11px;
+
   }
 `;
 

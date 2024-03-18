@@ -42,6 +42,12 @@ export const ContainerSearch = styled.div`
     width: 70%;
   }
 
+  @media (min-width: 1350px) and (max-width: 1440px) {
+    margin-top: -6%;
+    margin-left: 20.3%;
+    width: 75%;
+  }
+
   @media (min-height: 0px) and (max-height: 700px) {
     margin-top: 2em;
   }

@@ -88,6 +88,11 @@ export const Table = styled.table`
     width: 75%;
   }
 
+  @media (min-width: 1350px) and (max-width: 1440px) {
+    margin-top: -6%;
+    margin-left: 22.3%;
+    width: 75.4%;
+  }
   /* 
   @media (min-height: 0px) and (max-height: 700px) {
     font-size: 12px;
@@ -116,6 +121,10 @@ export const TableBody = styled.tbody`
   td:last-child {
     border-right: 1px solid #ddd;
   }
+
+  @media (min-width: 1350px) and (max-width: 1440px) {
+    font-size: 12px;
+  }
 `;
 
 export const CabecalhoTable = styled.tr`
@@ -126,6 +135,9 @@ export const CabecalhoTable = styled.tr`
 
   th {
     border: none;
+  }
+  @media (min-width: 1350px) and (max-width: 1440px) {
+    font-size: 14px;
   }
 `;
 

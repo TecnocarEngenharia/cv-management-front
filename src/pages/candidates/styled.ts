@@ -14,6 +14,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: start;
   overflow-y: auto;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 10px; 
@@ -41,8 +42,8 @@ export const Container = styled.div`
   }
 
   @media (min-width: 1300px) and (max-width: 1400px) {
-    margin-left: 26.5%;
-    width: 73vw;
+    margin-left: 22.5%;
+    width: 76vw;
   }
 
   @media (min-width: 1401px) and (max-width: 1599px) {

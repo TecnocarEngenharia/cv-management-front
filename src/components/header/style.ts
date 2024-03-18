@@ -121,6 +121,7 @@ export const SairText = styled.p`
   margin: 0;
   padding: 16px;
   cursor: pointer;
+  width: 10%;
 
   @media (min-height: 0px) and (max-height: 700px) {
     font-size: 13px;
