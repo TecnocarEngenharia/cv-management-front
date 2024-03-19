@@ -6,29 +6,41 @@ interface FieldRadio {
   type?: string;
   options?: string[];
   class?: string;
+  optionsTwo?: string[];
 }
 
 export const camposSelect: FieldRadio[] = [
   {
-    label: "Está Empregado?",
+    label: "Atualmente Empregado?",
     type: "select",
     field: "esta_empregado",
     options: [" ", "Sim", "Não"],
     class: "esta_empregado",
   },
   {
-    label: "Nome da empresa atual",
+    label: "Nome da Empresa Atual",
     field: "empresa_atual",
     type: "text",
   },
   {
-    label: "Experiência no segmento automotivo",
+    label: "Salário Atual",
+    field: "salario_atual",
+    type: "text",
+  },
+  {
+    label: "Ultimo Salário",
+    field: "ultimo_salario",
+    type: "text",
+  },
+
+  {
+    label: "Possui Experiência no Segmento Automotivo?",
     type: "select",
     field: "experiencia_ramo_automotivo",
     options: [" ", "Sim", "Não"],
   },
   {
-    label: "Modalidade Atual:",
+    label: "Situação Atual de Trabalho",
     field: "modalidade_atual",
     type: "select",
     options: [
@@ -36,24 +48,36 @@ export const camposSelect: FieldRadio[] = [
       "CLT",
       "Desempregado",
       "Estagiário",
-      "Freelance",
       "Prestador de serviços",
     ],
+    optionsTwo: [" ", "CLT", "Estagiário", "Prestador de serviços"],
+  },
+
+  {
+    label: "Valor Hora Recebida",
+    field: "salario_hora",
+    type: "text",
   },
   {
-    label: "Tipo desejado (Vagas abertas no Linkedin)",
+    label: "Vaga da candidatura",
     type: "select",
     field: "tipo_desejado_linkedin",
-    options: [" ", "Opção A", "Opção B", "Opção C"],
+    options: [" ", "Analista de Gestão de Manutenção"],
   },
   {
-    label: "Nível Atual na função",
+    label: "Nível Atual de Experiência",
     field: "nivel_funcao",
     type: "select",
     options: [" ", "Júnior", "Pleno", "Sênior"],
   },
   {
-    label: "Formação",
+    label: "Tem Interesse Imediato na Ocupação da Vaga?",
+    field: "interesse_imediato",
+    type: "select",
+    options: [" ", "Sim", "Não"],
+  },
+  {
+    label: "Curso de Formação",
     field: "formacao",
     type: "select",
     options: [
@@ -74,17 +98,8 @@ export const camposSelect: FieldRadio[] = [
       "Engenharia Mecânica",
       "Engenharia Química",
       "Ensino Médio",
-      "Enfermagem",
-      "Fisioterapia",
-      "Letras",
       "Marketing",
     ],
-  },
-  {
-    label: "Possui interesse IMEDIATO na ocupação da vaga:",
-    field: "interesse_imediato",
-    type: "select",
-    options: [" ", "Sim", "Não"],
   },
 ];
 
@@ -153,52 +168,51 @@ export const camposRadioLocalizacao: FieldRadio[] = [
 
 export const camposDisponibilidadeForm: FieldRadio[] = [
   {
-    label: "Disponibilidade ENTREVISTA on-line",
+    label: "Disponibilidade para Entrevistas Online",
     type: "select",
     field: "entrevista_online",
     options: [" ", "Manhã", "Tarde", "Noite"],
   },
   {
-    label: "Disponibilidade TESTE TÉCNICO on-line (seg a sex).",
+    label: "Disponibilidade para Testes Técnicos Online (Seg a Sex)",
     type: "select",
     field: "teste_tecnico",
     options: [" ", "09:00 as 10:00hs", "12:00 as 13:00hs", "18:00 as 19:00hs"],
   },
   {
-    label: "Possui CNPJ ativo? ",
+    label: "Possui CNPJ Ativo?",
     type: "select",
     field: "cnpj",
     options: [" ", "Sim", "Não"],
   },
   {
-    label: "Tipo CPNJ",
+    label: "Tipo de CNPJ",
     type: "select",
     field: "tipo_cnpj",
     options: [" ", "Mei", "ME / Eirelli / Ltda"],
   },
 ];
-
 export const conhecimentoIdiomas: FieldRadio[] = [
   {
-    label: "Proficiência em Inglês (Conversação)",
+    label: "Conversação em Inglês",
     type: "select",
     field: "conhecimento_ingles",
     options: [" ", "Básico", "Intermediário", "Avançado", "Fluente", "N/A"],
   },
   {
-    label: "Proficiência em Francês (Conversação)",
+    label: "Conversação em Francês",
     type: "select",
     field: "conhecimento_frances",
     options: [" ", "Básico", "Intermediário", "Avançado", "Fluente", "N/A"],
   },
   {
-    label: "Proficiência em Italiano (Conversação)",
+    label: "Conversação em Italiano",
     type: "select",
     field: "conhecimento_italiano",
     options: [" ", "Básico", "Intermediário", "Avançado", "Fluente", "N/A"],
   },
   {
-    label: "Proficiência em Espanhol (Conversação)",
+    label: "Conversação em Espanhol",
     type: "select",
     field: "conhecimento_espanhol",
     options: [" ", "Básico", "Intermediário", "Avançado", "Fluente", "N/A"],

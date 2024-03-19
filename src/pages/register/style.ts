@@ -148,8 +148,9 @@ export const Content = styled.div`
 export const AddressFields = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 4px;
   justify-content: center;
+  margin-bottom: 1em;
 `;
 
 export const Form = styled.form`

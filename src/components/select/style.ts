@@ -7,6 +7,7 @@ export const InputWrapper = styled.div`
 
   &.UF{
     margin-bottom: 0;
+    
   }
 `;
 
@@ -35,7 +36,7 @@ export const SelectContent = styled.div`
     transition: border-color 0.3s ease;
 
     &.UF {
-      width: 95%;
+      width: 93%;
     }
   }
 

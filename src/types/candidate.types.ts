@@ -9,8 +9,11 @@ export interface Candidate {
   email: string;
   esta_empregado: string;
   empresa_atual: string;
+  salario_atual: string;
+  ultimo_salario: string;
   experiencia_ramo_automotivo: string;
   modalidade_atual: string;
+  salario_hora: string;
   tipo_desejado_linkedin: string;
   nivel_funcao: string;
   formacao: string;

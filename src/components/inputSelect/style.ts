@@ -23,7 +23,7 @@ export const InputWrapper = styled.div`
   }
   &.genero {
     margin: 0;
-    margin: 5px 1.1em;
+    margin: 5px 1.4em;
   }
 
   &.cursos {
@@ -55,6 +55,10 @@ export const SelectContent = styled.div`
 
   &.register {
     width: 97.6%;
+  }
+
+  &.genero {
+   width: 98.9%;
   }
   
 
