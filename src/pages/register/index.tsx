@@ -30,8 +30,11 @@ const Register: React.FC = () => {
     email: "",
     esta_empregado: "",
     empresa_atual: "",
+    salario_atual: "",
+    ultimo_salario: "",
     experiencia_ramo_automotivo: "",
     modalidade_atual: "",
+    salario_hora: "",
     tipo_desejado_linkedin: "",
     nivel_funcao: "",
     formacao: "",
@@ -82,10 +85,25 @@ const Register: React.FC = () => {
     const salarioFormatado = new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
-      minimumFractionDigits: 2,
+      minimumFractionDigits: 2,k
     }).format(salarioNumerico / 100);
 
     setNewCandidate({ ...newCandidate, pretensao_salarial: salarioFormatado });
+  };
+
+  const handleChangeSalaryTwo = (field: keyof Candidate, value: string) => {
+    let salarioSemFormato = value.replace(/[^\d]/g, ""); 
+    salarioSemFormato = salarioSemFormato.slice(0, 7); 
+
+    const salarioNumerico = Number(salarioSemFormato); // Converte para número
+    const salarioFormatado = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+    }).format(salarioNumerico / 100); // Formata como moeda brasileira
+
+    // Atualiza o estado com o valor formatado
+    setNewCandidate({ ...newCandidate, [field]: salarioFormatado });
   };
 
   const handleChangeSalaryPJ = (e: { target: { value: string } }) => {
@@ -121,6 +139,7 @@ const Register: React.FC = () => {
       setTimeout(() => {
         setMessage("");
       }, 3000);
+      setIsSubmitting(false);
       return;
     }
 
@@ -130,6 +149,7 @@ const Register: React.FC = () => {
       setTimeout(() => {
         setMessage("");
       }, 3000);
+      setIsSubmitting(false);
     } else {
       handleCadastro();
     }
@@ -241,18 +261,6 @@ const Register: React.FC = () => {
                   className="UF"
                 />
               </C.AddressFields>
-              <InputField
-                value={newCandidate.resumoProfissional}
-                label="Resumo Profissional"
-                placeholder="Resumo profissional"
-                className="resumoProfissional"
-                onChange={(e) => {
-                  setNewCandidate({
-                    ...newCandidate,
-                    resumoProfissional: e.target.value,
-                  });
-                }}
-              />
             </>
           )}
         </C.Content>
@@ -286,43 +294,71 @@ const Register: React.FC = () => {
         <C.Content className="situacao">
           {view === 2 && (
             <>
-              {camposSelect.map((campo, index) => (
-                <div key={index} className="campo-container">
-                  {/* Verifica o tipo de campo e renderiza o componente apropriado */}
-                  {campo.type === "select" && (
-                    <InputSelect
-                      label={campo.label}
-                      options={campo.options}
-                      onChange={(
-                        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-                      ) => handleInputChange(campo.field, e.target.value)}
-                      value={newCandidate[campo.field]}
-                      className={
-                        newCandidate.esta_empregado === "Sim" && campo.class
-                          ? campo.class
-                          : "mobile"
-                      }
-                    />
-                  )}
-                  {campo.type === "text" &&
-                    campo.field === "empresa_atual" &&
-                    newCandidate.esta_empregado === "Sim" && (
+              {camposSelect.map((campo, index) => {
+                if (
+                  (campo.field === "empresa_atual" &&
+                    (newCandidate.esta_empregado !== "Sim" ||
+                      !newCandidate.esta_empregado)) ||
+                  (campo.field === "salario_atual" &&
+                    (newCandidate.esta_empregado !== "Sim" ||
+                      !newCandidate.esta_empregado)) ||
+                  (campo.field === "ultimo_salario" &&
+                    (newCandidate.esta_empregado !== "Não" ||
+                      !newCandidate.esta_empregado)) ||
+                  (campo.field === "salario_hora" &&
+                    newCandidate.modalidade_atual !== "Prestador de serviços")
+                ) {
+                  return null;
+                }
+
+                return (
+                  <div key={index} className="campo-container">
+                    {campo.type === "select" && (
+                      <InputSelect
+                        label={campo.label}
+                        options={
+                          campo.field === "modalidade_atual" &&
+                          newCandidate.esta_empregado === "Sim"
+                            ? campo.optionsTwo
+                            : campo.options
+                        }
+                        onChange={(
+                          e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+                        ) => handleInputChange(campo.field, e.target.value)}
+                        value={newCandidate[campo.field]}
+                        className={
+                          newCandidate.esta_empregado === "Sim" && campo.class
+                            ? campo.class
+                            : "mobile"
+                        }
+                      />
+                    )}
+                    {campo.type === "text" && (
                       <InputField
                         label={campo.label}
                         value={newCandidate[campo.field]}
-                        onChange={(e) =>
-                          handleInputChange(campo.field, e.target.value)
+                        //@ts-ignore
+                        onChange={
+                          (e: ChangeEvent<HTMLInputElement>) =>
+                            campo.field === "empresa_atual" // Verifica se é o campo "empresa_atual"
+                              ? handleInputChange(campo.field, e.target.value) // Se for, usa a função handleInputChange diretamente
+                              : handleChangeSalaryTwo(
+                                  campo.field,
+                                  e.target.value
+                                ) // Senão, aplica a formatação de salário
                         }
                         className="situacao"
                       />
                     )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </>
           )}
         </C.Content>
+
         <C.Search onClick={() => setView(3)}>
-          <C.Title>Disponibilidade e Pretensão</C.Title>
+          <C.Title>Preferências e Disponibilidade</C.Title>
           <img src={Menos} alt="" onClick={() => setView(3)} />
         </C.Search>
         {view === 3 && (
