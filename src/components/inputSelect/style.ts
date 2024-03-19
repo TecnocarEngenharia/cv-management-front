@@ -96,6 +96,10 @@ export const SelectContent = styled.div`
 
   select option {
     font-size: 16px;
+
+    @media (min-width: 451px) and (max-width: 1400px) {
+      font-size: 10px;
+    }
   }
 `;
 
@@ -109,7 +113,7 @@ export const ContentLabel = styled.div`
   color: #333;
 
   @media (min-width: 451px) and (max-width: 1400px) {
-    font-size: 13px;
+    font-size: 10px;
   }
 
   @media (max-width: 391px) {

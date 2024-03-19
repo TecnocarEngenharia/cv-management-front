@@ -17,8 +17,8 @@ export const Container = styled.div`
 
   @media (min-height: 500px) and (max-height: 700px) {
     overflow-y: auto;
-    gap: 1.5em;
-    width: 280px;
+    gap: 1em;
+    width: 270px;
   }
 
   @media (min-width: 800px) and (max-width: 1100px) {
@@ -29,7 +29,8 @@ export const Container = styled.div`
 `;
 
 export const ImageLogo = styled.img`
-  margin: 50px 0;
+  margin: 40px 0;
+  object-fit: cover;
 
   @media (min-width: 800px) and (max-width: 1100px) {
     width: 150px;
@@ -58,7 +59,7 @@ export const Content = styled.div`
     line-height: normal;
 
     @media (min-height: 0px) and (max-height: 700px) {
-      font-size: 16px;
+      font-size: 12px;
     }
 
     &.active {
@@ -90,8 +91,14 @@ export const Content = styled.div`
     background: #eee;
   }
   @media (min-height: 0px) and (max-height: 700px) {
-    width: 260px;
-    height: 40px;
+    width: 250px;
+    height: 35px;
+
+    img {
+      width: 25px;
+      height: 25px;
+      object-fit: contain;
+    }
   }
 
   @media (min-width: 0) and (max-width: 600px) {

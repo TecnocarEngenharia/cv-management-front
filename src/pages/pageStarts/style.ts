@@ -21,9 +21,9 @@ export const Container = styled.div`
     margin-left: 0em;
   }
 
-  /* @media (min-height: 0px) and (max-height: 700px) {
-    margin-left: 16em;
-  } */
+  @media (min-height: 0px) and (max-height: 700px) {
+    margin-left: 17em;
+  }
 `;
 
 export const CardVideo = styled.div`
@@ -48,8 +48,9 @@ export const CardVideo = styled.div`
     width: 385px;
   }
 
-  @media (max-height: 650px) {
-    height: 300px;
+  @media (min-height: 0px) and (max-height: 700px) {
+    height: 320px;
+    width: 90%;
   }
 `;
 
@@ -61,6 +62,7 @@ export const ContentVideo = styled.div`
   max-width: 320px;
   padding-left: 30px;
   padding-top: 26px;
+  
 
   h4 {
     color: #000;
@@ -70,7 +72,13 @@ export const ContentVideo = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    @media (min-height: 0px) and (max-height: 700px) {
+      font-size: 12px;
+    }
   }
+
+
 `;
 
 export const ContainerPlay = styled.div`
@@ -150,7 +158,7 @@ export const ContentCard = styled.div`
     width: 350px;
   }
 
-  @media (max-height: 650px) {
-    height: 150px;
+  @media (min-height: 0px) and (max-height: 700px) {
+   height: 150px;
   }
 `;
