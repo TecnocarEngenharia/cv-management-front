@@ -77,6 +77,9 @@ export const Search = styled.div`
   &.localizacao {
     margin-top: 1em;
   }
+  &.Anexos {
+    margin-top: 1em;
+  }
 `;
 
 export const Title = styled.h2`
@@ -123,7 +126,7 @@ export const Content = styled.div`
   }
 
   &.localizacao {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     @media (max-width: 450px) {
       grid-template-columns: 1fr;
     }
@@ -240,4 +243,28 @@ export const ContentUpload = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 40%;
+`;
+
+export const InputCheck = styled.input`
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 0.5px solid #5e5656;
+  background: #fff;
+  cursor: pointer;
+`;
+
+export const ContentInputsOptions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  label {
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
 `;

@@ -58,9 +58,12 @@ export const SelectContent = styled.div`
   }
 
   &.genero {
-   width: 98.9%;
+    width: 98.9%;
   }
-  
+
+  &.disponibilidade-check {
+    width: 60%;
+  }
 
   select {
     width: 100%;
@@ -113,5 +116,9 @@ export const ContentLabel = styled.div`
     &.mobile {
       font-size: 13px;
     }
+  }
+
+  &.disponibilidade-check {
+    margin-top: 1em;
   }
 `;

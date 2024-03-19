@@ -103,68 +103,6 @@ export const camposSelect: FieldRadio[] = [
   },
 ];
 
-export const camposRadioLocalizacao: FieldRadio[] = [
-  {
-    label: "Vaga 100% Presencial Betim/MG",
-    type: "select",
-    field: "vaga_100_presencial_betim_mg",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga Híbrida Betim",
-    field: "vaga_hibrida_betim",
-    type: "select",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga 100% Presencial Porto Real/RJ",
-    type: "select",
-    field: "vaga_100_presencial_porto_real_rj",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga Híbrida Porto Real",
-    type: "select",
-    field: "vaga_hibrida_porto_real_rj",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga 100% Presencial Goiana/PE",
-    type: "select",
-    field: "vaga_100_presencial_goiana_pe",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga Híbrida Goiana",
-    type: "select",
-    field: "vaga_hibrida_goiana_pe",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga 100% Presencial São Paulo / SP",
-    field: "vaga_100_presencial_sao_paulo",
-    type: "select",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga Híbrida São Paulo",
-    field: "vaga_hibrida_sao_paulo",
-    type: "select",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Home Office",
-    field: "home_office",
-    type: "select",
-    options: [" ", "Sim", "Não"],
-  },
-  {
-    label: "Vaga Internacional",
-    field: "vaga_internacional",
-    type: "select",
-    options: [" ", "Sim", "Não"],
-  },
-];
 
 export const camposDisponibilidadeForm: FieldRadio[] = [
   {

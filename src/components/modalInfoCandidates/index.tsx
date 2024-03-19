@@ -449,46 +449,7 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
                 />
               </M.ContentFourViewTwo>
               <M.ContentFourViewThree>
-                <InputField
-                  label="Vaga Híbrida Porto Real"
-                  value={editedData.vaga_hibrida_porto_real_rj || ""}
-                  disabled={!editMode}
-                  onChange={handleInputChange}
-                  name="vaga_hibrida_porto_real_rj"
-                  className={
-                    editMode ? "infoPessoaisEdit" : "infoPessoais infoTwo"
-                  }
-                />
-                <InputField
-                  label="Vaga Híbrida Goiana"
-                  value={editedData.vaga_hibrida_goiana_pe || ""}
-                  disabled={!editMode}
-                  onChange={handleInputChange}
-                  name="vaga_hibrida_goiana_pe"
-                  className={
-                    editMode ? "infoPessoaisEdit" : "infoPessoais infoTwo"
-                  }
-                />
-                <InputField
-                  label="Vaga Híbrida Betim"
-                  value={editedData.vaga_hibrida_betim || ""}
-                  disabled={!editMode}
-                  onChange={handleInputChange}
-                  name="vaga_hibrida_betim"
-                  className={
-                    editMode ? "infoPessoaisEdit" : "infoPessoais infoTwo"
-                  }
-                />
-                <InputField
-                  label="Vaga Híbrida São Paulo"
-                  value={editedData.vaga_hibrida_sao_paulo || ""}
-                  disabled={!editMode}
-                  onChange={handleInputChange}
-                  name="vaga_hibrida_sao_paulo"
-                  className={
-                    editMode ? "infoPessoaisEdit" : "infoPessoais infoTwo"
-                  }
-                />
+              
               </M.ContentFourViewThree>
               <M.ContentFourViewFour>
                 <InputField

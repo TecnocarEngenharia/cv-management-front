@@ -143,30 +143,9 @@ const Curriculum = () => {
                     )}
                   </C.VagasItem>
                   <C.VagasItem className="item_right">
-                    {data.vaga_hibrida_betim === "Sim" && (
-                      <div>
-                        <span>Vaga Híbrida Betim:</span>{" "}
-                        {data.vaga_hibrida_betim}
-                      </div>
-                    )}
-                    {data.vaga_hibrida_goiana_pe === "Sim" && (
-                      <div>
-                        <span>Vaga Híbrida Goiana:</span>{" "}
-                        {data.vaga_hibrida_goiana_pe}
-                      </div>
-                    )}
-                    {data.vaga_hibrida_porto_real_rj === "Sim" && (
-                      <div>
-                        <span>Vaga Híbrida Porto Real:</span>{" "}
-                        {data.vaga_hibrida_porto_real_rj}
-                      </div>
-                    )}
-                    {data.vaga_hibrida_sao_paulo === "Sim" && (
-                      <div>
-                        <span>Vaga Híbrida São Paulo:</span>{" "}
-                        {data.vaga_hibrida_sao_paulo}
-                      </div>
-                    )}
+                
+              
+                    
                     {data.vaga_internacional === "Sim" && (
                       <div>
                         <span>Vaga Internacional:</span>{" "}

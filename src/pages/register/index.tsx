@@ -10,7 +10,6 @@ import { formatCPF, formatPhoneNumber } from "../../utils/regex";
 import { handleKeyDown } from "../../functions/handleKeyDown.fucntions";
 import {
   camposDisponibilidadeForm,
-  camposRadioLocalizacao,
   camposSelect,
   conhecimentoIdiomas,
 } from "../../utils/campoForms";
@@ -54,10 +53,6 @@ const Register: React.FC = () => {
     vaga_100_presencial_betim_mg: "",
     vaga_100_presencial_sao_paulo: "",
     vaga_internacional: "",
-    vaga_hibrida_betim: "",
-    vaga_hibrida_sao_paulo: "",
-    vaga_hibrida_goiana_pe: "",
-    vaga_hibrida_porto_real_rj: "",
     home_office: "",
     genero: "",
     resumoProfissional: "",
@@ -68,6 +63,27 @@ const Register: React.FC = () => {
   const [upload, setUpload] = useState<File | undefined>(undefined);
   const [view, setView] = useState(0);
   const [_isSubmitting, setIsSubmitting] = useState(false);
+  interface CheckboxState {
+    [key: string]: boolean;
+  }
+
+  const [checkboxState, setCheckboxState] = useState<CheckboxState>({
+    betimCheck: false,
+    portoCheck: false,
+    goianaCheck: false,
+    saoPauloCheck: false,
+    homeCheck: false,
+    internacional: false,
+  });
+  const handleCheckboxChange = (
+    fieldName: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setCheckboxState({
+      ...checkboxState,
+      [fieldName]: e.target.checked,
+    });
+  };
 
   const handleChangeTelefone = (e: { target: { value: string } }) => {
     const formattedPhoneNumber = formatPhoneNumber(e.target.value);
@@ -85,24 +101,22 @@ const Register: React.FC = () => {
     const salarioFormatado = new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
-      minimumFractionDigits: 2,k
+      minimumFractionDigits: 2,
     }).format(salarioNumerico / 100);
 
     setNewCandidate({ ...newCandidate, pretensao_salarial: salarioFormatado });
   };
 
   const handleChangeSalaryTwo = (field: keyof Candidate, value: string) => {
-    let salarioSemFormato = value.replace(/[^\d]/g, ""); 
-    salarioSemFormato = salarioSemFormato.slice(0, 7); 
+    let salarioSemFormato = value.replace(/[^\d]/g, "");
+    salarioSemFormato = salarioSemFormato.slice(0, 7);
 
-    const salarioNumerico = Number(salarioSemFormato); // Converte para número
+    const salarioNumerico = Number(salarioSemFormato);
     const salarioFormatado = new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
       minimumFractionDigits: 2,
-    }).format(salarioNumerico / 100); // Formata como moeda brasileira
-
-    // Atualiza o estado com o valor formatado
+    }).format(salarioNumerico / 100);
     setNewCandidate({ ...newCandidate, [field]: salarioFormatado });
   };
 
@@ -128,6 +142,15 @@ const Register: React.FC = () => {
   const handleLimparCampos = () => {
     setNewCandidate(LimparCampos());
     setUpload(undefined);
+
+    setCheckboxState({
+      betimCheck: false,
+      portoCheck: false,
+      goianaCheck: false,
+      saoPauloCheck: false,
+      homeCheck: false,
+      internacional: false,
+    });
   };
 
   const handleCheckFields = () => {
@@ -154,6 +177,40 @@ const Register: React.FC = () => {
       handleCadastro();
     }
   };
+
+  const renderLocationCheckbox = (
+    id: string,
+    label: string,
+    stateKey: keyof typeof checkboxState,
+    selectKey: keyof Candidate
+  ) => (
+    <div key={id}>
+      <C.ContentInputsOptions>
+        <C.InputCheck
+          type="checkbox"
+          id={id}
+          name={id}
+          checked={checkboxState[stateKey]} // Definir checked com base no estado
+          onChange={(e) => handleCheckboxChange(String(stateKey), e)} // Convertendo stateKey para string
+        />
+        <label htmlFor={id}>{label}</label>
+      </C.ContentInputsOptions>
+      {/* Renderizar InputSelect apenas se o checkbox correspondente estiver marcado */}
+      {checkboxState[stateKey] && (
+        <InputSelect
+          label="Disponibilidade"
+          options={
+            stateKey === "homeCheck" || stateKey === "internacional"
+              ? ["", "Sim", "Não"]
+              : [" ", "Presencial", "Híbrida", "Presencial/Híbrida"]
+          }
+          onChange={(e) => handleInputChange(selectKey, e.target.value)}
+          value={newCandidate[selectKey]}
+          className="disponibilidade-check"
+        />
+      )}
+    </div>
+  );
 
   const handleCadastro = async () => {
     try {
@@ -340,12 +397,12 @@ const Register: React.FC = () => {
                         //@ts-ignore
                         onChange={
                           (e: ChangeEvent<HTMLInputElement>) =>
-                            campo.field === "empresa_atual" // Verifica se é o campo "empresa_atual"
-                              ? handleInputChange(campo.field, e.target.value) // Se for, usa a função handleInputChange diretamente
+                            campo.field === "empresa_atual" 
+                              ? handleInputChange(campo.field, e.target.value) 
                               : handleChangeSalaryTwo(
                                   campo.field,
                                   e.target.value
-                                ) // Senão, aplica a formatação de salário
+                                ) 
                         }
                         className="situacao"
                       />
@@ -407,62 +464,97 @@ const Register: React.FC = () => {
         )}
 
         <C.Search className="localizacao" onClick={() => setView(4)}>
-          <C.Title>Localização e Anexos</C.Title>
+          <C.Title>Localização</C.Title>
           <img src={Menos} alt="" onClick={() => setView(4)} />
         </C.Search>
         {view === 4 && (
           <C.Content className="localizacao">
             <>
-              {camposRadioLocalizacao.map((campo, index) => (
-                <div key={index}>
-                  {campo.type === "select" && (
-                    <>
-                      <InputSelect
-                        label={campo.label}
-                        options={campo.options}
-                        onChange={(
-                          e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-                        ) => handleInputChange(campo.field, e.target.value)}
-                        value={newCandidate[campo.field]}
-                        className="localizacao"
-                      />
-                    </>
-                  )}
-                </div>
-              ))}
-              {view === 4 && (
-                <>
-                  <C.FileInputContainer>
-                    <C.ContentUpload>
-                      <label htmlFor="upload-curriculo">
-                        Anexe seu currículo
-                      </label>
-                      <input
-                        type="file"
-                        id="upload-curriculo"
-                        onChange={(e) => {
-                          const files = e.target.files;
-                          if (files && files.length > 0) {
-                            setUpload(files[0]);
-                          }
-                        }}
-                        accept=".pdf"
-                      />
-                      <label
-                        className="custom-file-upload"
-                        htmlFor="upload-curriculo"
-                      >
-                        Escolher Arquivo
-                      </label>
-                    </C.ContentUpload>
-                    {upload && <p> {upload.name}</p>}
-                  </C.FileInputContainer>
-                </>
+              {renderLocationCheckbox(
+                "betim-mg",
+                "Betim / MG",
+                "betimCheck",
+                "vaga_100_presencial_betim_mg"
+              )}
+              {renderLocationCheckbox(
+                "porto-rj",
+                "Porto / RJ",
+                "portoCheck",
+                "vaga_100_presencial_porto_real_rj"
+              )}
+              {renderLocationCheckbox(
+                "saopaulo-sp",
+                "Goiana / PE",
+                "goianaCheck",
+                "vaga_100_presencial_goiana_pe"
+              )}
+              {renderLocationCheckbox(
+                "saopaulo",
+                "São Paulo / SP",
+                "saoPauloCheck",
+                "vaga_100_presencial_sao_paulo"
+              )}
+              {renderLocationCheckbox(
+                "home",
+                "Home Office",
+                "homeCheck",
+                "home_office"
+              )}
+              {renderLocationCheckbox(
+                "internacional",
+                "Internacional",
+                "internacional",
+                "vaga_internacional"
               )}
             </>
           </C.Content>
         )}
 
+        <C.Search className="Anexos" onClick={() => setView(5)}>
+          <C.Title>Resumo Profissional e Currículo</C.Title>
+
+          <img src={Menos} alt="" onClick={() => setView(5)} />
+        </C.Search>
+
+        {view === 5 && (
+          <>
+            <InputField
+              value={newCandidate.resumoProfissional}
+              label="Resumo Profissional"
+              placeholder="Resumo profissional"
+              className="resumoProfissional"
+              onChange={(e) => {
+                setNewCandidate({
+                  ...newCandidate,
+                  resumoProfissional: e.target.value,
+                });
+              }}
+            />
+            <C.FileInputContainer>
+              <C.ContentUpload>
+                <label htmlFor="upload-curriculo">Anexe seu currículo</label>
+                <input
+                  type="file"
+                  id="upload-curriculo"
+                  onChange={(e) => {
+                    const files = e.target.files;
+                    if (files && files.length > 0) {
+                      setUpload(files[0]);
+                    }
+                  }}
+                  accept=".pdf"
+                />
+                <label
+                  className="custom-file-upload"
+                  htmlFor="upload-curriculo"
+                >
+                  Escolher Arquivo
+                </label>
+              </C.ContentUpload>
+              {upload && <p> {upload.name}</p>}
+            </C.FileInputContainer>
+          </>
+        )}
         <C.ContentButton className="ContentButton">
           <C.SubmitButton onClick={() => handleCheckFields()}>
             {_isSubmitting ? "Cadastrando ..." : "Cadastrar"}

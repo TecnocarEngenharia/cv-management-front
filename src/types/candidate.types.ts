@@ -33,10 +33,6 @@ export interface Candidate {
   vaga_100_presencial_betim_mg: string;
   vaga_100_presencial_sao_paulo: string;
   vaga_internacional: string;
-  vaga_hibrida_betim: string;
-  vaga_hibrida_sao_paulo: string;
-  vaga_hibrida_goiana_pe: string;
-  vaga_hibrida_porto_real_rj: string;
   home_office: string;
   genero: string;
   resumoProfissional: string;
