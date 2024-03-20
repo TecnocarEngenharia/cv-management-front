@@ -65,12 +65,23 @@ export const Table = styled.table`
     margin-left: 10%;
   }
 
-  /* Estilos para larguras entre 1000px e 1300px */
   @media (min-width: 1000px) and (max-width: 1300px) {
     width: 70%;
     margin-top: -4em;
     margin-left: 20.3em;
     margin-right: auto;
+  }
+
+  @media (min-width: 1910px) {
+    margin-top: -10%;
+    margin-left: 20.3%;
+    width: 75.4%;
+  }
+
+  @media (min-width: 1650px) and (max-width: 1800px) {
+    margin-top: -7%;
+    margin-left: 25.3%;
+    width: 70.4%;
   }
 `;
 

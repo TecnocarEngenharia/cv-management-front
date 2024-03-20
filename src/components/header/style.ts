@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2em;
-  width: 270px;
+  width: 340px;
   height: 100vh;
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -128,12 +128,11 @@ export const SairText = styled.p`
   margin: 0;
   padding: 16px;
   cursor: pointer;
-  width: 10%;
 
   @media (min-height: 0px) and (max-height: 700px) {
     font-size: 13px;
     right: 0;
-    left:14em;
+    left: 14em;
   }
 
   @media (min-width: 800px) and (max-width: 1100px) {
