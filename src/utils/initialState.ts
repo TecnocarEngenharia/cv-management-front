@@ -15,6 +15,9 @@ export const initialState = {
   formacao: "",
   interesse_imediato: "",
   entrevista_online: "",
+  salario_atual: "", 
+  ultimo_salario: "", 
+  salario_hora: "",
   teste_tecnico: "",
   conhecimento_ingles: "",
   conhecimento_frances: "",
@@ -30,7 +33,6 @@ export const initialState = {
   vaga_100_presencial_sao_paulo: "",
   vaga_internacional: "",
   home_office: "",
-  status: "",
   genero: "",
   resumoProfissional: "",
 };

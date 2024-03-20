@@ -18,14 +18,14 @@ const App = () => {
         // Token expirado, remover token e redirecionar para tela inicial
         localStorage.removeItem("token");
         localStorage.removeItem("tokenExpiration");
-        navigate("/");
+        navigate("/login");
       } else {
         // Token ainda é válido, agendar a remoção do token após o tempo de expiração
         const expirationTimeout = expirationTime.getTime() - currentTime.getTime();
         setTimeout(() => {
           localStorage.removeItem("token");
           localStorage.removeItem("tokenExpiration");
-          navigate("/");
+          navigate("/login");
         }, expirationTimeout);
       }
     }
@@ -35,7 +35,7 @@ const App = () => {
     <div className="Content">
       {token &&
         !(
-          location.pathname === "/" ||
+          location.pathname === "/login" ||
           location.pathname.startsWith("/curriculum/")
         ) && <Header />}
     </div>

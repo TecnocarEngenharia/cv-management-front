@@ -80,17 +80,30 @@ export const Search = styled.div`
   &.Anexos {
     margin-top: 1em;
   }
+
+  @media (min-width: 451px) and (max-width: 1400px) {
+    margin-bottom: 15px;
+
+    img {
+      width: 15px;
+      height: 15px;
+    }
+  }
 `;
 
 export const Title = styled.h2`
   font-size: 23px;
   color: #333;
+
   @media (max-width: 450px) {
     font-size: 15px;
   }
 
   @media (min-width: 451px) and (max-width: 909px) {
     font-size: 15px;
+  }
+  @media (min-width: 451px) and (max-width: 1400px) {
+    font-size: 16px;
   }
 `;
 
@@ -203,6 +216,9 @@ export const FileInputContainer = styled.div`
   align-items: center;
   gap: 15px;
 
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    margin: 0 1.5em;
+  }
   p {
     display: block;
     font-size: 14px;
@@ -218,6 +234,10 @@ export const FileInputContainer = styled.div`
     font-size: 14px;
     margin-bottom: 3px;
     color: #333;
+
+    @media (min-width: 1000px) and (max-width: 1300px) {
+      font-size: 10px;
+    }
   }
 
   input {
@@ -243,6 +263,10 @@ export const ContentUpload = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 40%;
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    width: 30%;
+  }
 `;
 
 export const InputCheck = styled.input`
@@ -266,5 +290,11 @@ export const ContentInputsOptions = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+  }
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    label {
+      font-size: 12px;
+    }
   }
 `;

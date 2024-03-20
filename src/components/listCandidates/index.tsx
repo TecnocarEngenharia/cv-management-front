@@ -51,6 +51,12 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
     onCloseModal();
   };
 
+  const getInitials = (phrase: string) => {
+    const words = phrase.split(' ');
+    const initials = words.map(word => word[0].toUpperCase()).join('.');
+    return initials;
+  };
+
   return (
     <>
       <C.TableContainer>
@@ -59,14 +65,14 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
             <C.StyledTable>
               <thead>
                 <tr>
-                  <C.TableHeaderSpecial>Profissional</C.TableHeaderSpecial>
+                  <C.TableHeaderSpecial className="profissional">Profissional</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Idade</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Telefone</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Cidade</C.TableHeaderSpecial>
-                  <C.TableHeaderSpecial>UF</C.TableHeaderSpecial>
+                  <C.TableHeaderSpecial className="UF">UF</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Pretensão CLT</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Pretensão PJ</C.TableHeaderSpecial>
-                  <C.TableHeaderSpecial>Vaga Cadastrada</C.TableHeaderSpecial>
+                  <C.TableHeaderSpecial className="vaga">Vaga Cadastrada</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Nivel</C.TableHeaderSpecial>
                   <C.TableHeaderSpecial>Informações</C.TableHeaderSpecial>
                 </tr>
@@ -92,7 +98,7 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
                       </C.TableData>
                     )}
                     <C.TableData>
-                      {candidate.tipo_desejado_linkedin}
+                      {getInitials(candidate.tipo_desejado_linkedin)}
                     </C.TableData>
                     <C.TableData>{candidate.nivel_funcao}</C.TableData>
                     <C.TableData

@@ -400,7 +400,7 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
             <M.ContentFourView>
               <M.ContentFourViewTwo>
                 <InputField
-                  label="Vaga 100% Presencial Porto Real / RJ"
+                  label="Vaga Porto Real / RJ"
                   value={editedData.vaga_100_presencial_porto_real_rj || ""}
                   disabled={!editMode}
                   onChange={handleInputChange}
@@ -412,7 +412,7 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
                   }
                 />
                 <InputField
-                  label="Vaga 100% Presencial Goiana / PE"
+                  label="Vaga Goiana / PE"
                   value={editedData.vaga_100_presencial_goiana_pe || ""}
                   disabled={!editMode}
                   onChange={handleInputChange}
@@ -424,7 +424,7 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
                   }
                 />
                 <InputField
-                  label="Vaga 100% Presencial Betim / MG"
+                  label="Vaga Betim / MG"
                   value={editedData.vaga_100_presencial_betim_mg || ""}
                   disabled={!editMode}
                   onChange={handleInputChange}
@@ -436,7 +436,7 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
                   }
                 />
                 <InputField
-                  label="Vaga 100% Presencial São Paulo / SP"
+                  label="Vaga São Paulo / SP"
                   value={editedData.vaga_100_presencial_sao_paulo || ""}
                   disabled={!editMode}
                   onChange={handleInputChange}
@@ -448,9 +448,6 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
                   }
                 />
               </M.ContentFourViewTwo>
-              <M.ContentFourViewThree>
-              
-              </M.ContentFourViewThree>
               <M.ContentFourViewFour>
                 <InputField
                   label="Vaga Internacional"

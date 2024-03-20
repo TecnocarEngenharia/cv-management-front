@@ -27,7 +27,7 @@ const Login = () => {
         navigate("/tutorial");
       }, 1000);
     } else {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 

@@ -78,6 +78,11 @@ export const SelectContent = styled.div`
     cursor: pointer;
     transition: border-color 0.3s ease;
 
+
+    @media (min-width: 451px) and (max-width: 1400px) {
+      font-size: 11px;
+    }
+
     &.software {
       color: #313131;
     }
@@ -98,7 +103,7 @@ export const SelectContent = styled.div`
     font-size: 16px;
 
     @media (min-width: 451px) and (max-width: 1400px) {
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 `;

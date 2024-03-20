@@ -31,10 +31,10 @@ const Header = () => {
   const handleButtonClick = (path: string) => {
     navigate(path);
     setDrop(false)
-    if (path === "/") {
+    if (path === "/login") {
       localStorage.removeItem("token");
       localStorage.removeItem("tokenExpiration");
-      navigate("/");
+      navigate("/login");
     }
   };
 
@@ -46,7 +46,7 @@ const Header = () => {
       {drop && (
         <C.ListHeader>
           <p onClick={() => handleButtonClick("/tutorial")}>Tutorial</p>
-          <p onClick={() => handleButtonClick("/register")}>
+          <p onClick={() => handleButtonClick("/")}>
             Cadastro de Candidatos
           </p>
           <p onClick={() => handleButtonClick("/candidates")}>
@@ -77,16 +77,16 @@ const Header = () => {
         {(userRole === "admin" || userRole === "recruitment") && (
           <>
             <C.Content
-              className={location.pathname === "/register" ? "active" : "other"}
-              onClick={() => handleButtonClick("/register")}
+              className={location.pathname === "/" ? "active" : "other"}
+              onClick={() => handleButtonClick("/")}
             >
               <img
-                src={location.pathname === "/register" ? User : UserBlack}
+                src={location.pathname === "/" ? User : UserBlack}
                 alt="Icone de Usuario"
               />
               <p
                 className={
-                  location.pathname === "/register" ? "active" : "other"
+                  location.pathname === "/" ? "active" : "other"
                 }
               >
                 Cadastro de candidatos
@@ -156,7 +156,7 @@ const Header = () => {
             </p>
           </C.Content>
         )}
-        <C.SairText onClick={() => handleButtonClick("/")}>Sair</C.SairText>
+        <C.SairText onClick={() => handleButtonClick("/login")}>Sair</C.SairText>
       </C.Container>
     </>
   );

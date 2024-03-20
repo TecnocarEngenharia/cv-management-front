@@ -204,4 +204,7 @@ export const Input = styled.input`
       font-size: 10px;
     }
   }
+  @media (min-width: 451px) and (max-width: 1400px) {
+    font-size: 12px;
+  }
 `;

@@ -219,6 +219,13 @@ export const NavBar = styled.div`
       border-bottom: 1px solid #851f2c;
     }
   }
+
+  @media (min-width: 1100px) and (max-width: 1300px) {
+
+    p {
+      font-size: 12px;
+    }
+  }
 `;
 
 export const ContentViewOne = styled.div`
@@ -351,7 +358,7 @@ export const ContentFourView = styled.div`
   gap: 50px;
   align-items: center;
   width: 90%;
-  
+
   @media (max-width: 490px) {
     flex-direction: column;
     gap: 10px;
@@ -364,8 +371,6 @@ export const ContentFourViewTwo = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   gap: 15px;
-
-
 `;
 
 export const ContentFourViewThree = styled.div`

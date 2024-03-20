@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-
-
 export const ContainerGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -17,7 +15,7 @@ export const ContainerGrid = styled.div`
     grid-template-columns: 1fr;
   }
 
-  @media (min-width: 601px) and (max-width: 1300px) {
+  @media (min-width: 601px) and (max-width: 1100px) {
     grid-template-columns: repeat(2, 1fr);
   }
 `;
@@ -31,8 +29,8 @@ export const Content = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
   @media (min-height: 0px) and (max-height: 700px) {
-    width: 280px;
-    height: 226px;
+    width: 260px;
+    height: 216px;
   }
 `;
 
@@ -78,6 +76,10 @@ export const Title = styled.h4`
   text-align: center;
   font-weight: 500;
   color: #9b3f39;
+
+  @media (min-width: 1100px) and (max-width: 1300px) {
+    font-size: 14px;
+  }
 `;
 
 export const ContentInfo = styled.div`
@@ -97,19 +99,28 @@ export const ContentInfo = styled.div`
     font-weight: 500;
     color: #000000;
   }
+
+  @media (min-width: 1100px) and (max-width: 1300px) {
+    p {
+      font-size: 13px;
+    }
+    span {
+      font-size: 13px;
+    }
+  }
 `;
 
 export const InfoCandidate = styled.div`
-  @media (min-height: 0px) and (max-height: 700px) {
-    font-size: 12px;
-  }
   color: #5a5a5a;
-
   font-family: Poppins;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  @media (min-height: 0px) and (max-height: 700px) {
+    font-size: 12px;
+  }
 `;
 export const Button = styled.button`
   width: 103px;
@@ -127,6 +138,12 @@ export const Button = styled.button`
 
   &:hover {
     background-color: #6b2323;
+  }
+
+  @media (min-height: 0px) and (max-height: 700px) {
+    font-size: 12px;
+    width: 80px;
+    height: 25px;
   }
 `;
 
