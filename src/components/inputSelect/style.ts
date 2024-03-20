@@ -5,6 +5,12 @@ export const InputWrapper = styled.div`
   margin-bottom: 15px;
   margin-left: 2em;
 
+  &.vagasDisponiveis {
+    margin: 0;
+    margin-top: 1.3em;
+    margin-left: 1em;
+  }
+
   &.register {
     margin-top: 10px;
     margin-left: 1.4em;
@@ -61,6 +67,10 @@ export const SelectContent = styled.div`
     width: 98.9%;
   }
 
+  &.vagasDisponiveis {
+    width: 94%;
+  }
+
   &.disponibilidade-check {
     width: 60%;
   }
@@ -77,7 +87,6 @@ export const SelectContent = styled.div`
     background-color: #fff;
     cursor: pointer;
     transition: border-color 0.3s ease;
-
 
     @media (min-width: 451px) and (max-width: 1400px) {
       font-size: 11px;

@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, FocusEvent } from "react";
 import * as C from "./style";
 
 interface InputFieldProps {
@@ -6,6 +6,7 @@ interface InputFieldProps {
   value?: string;
   type?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void; // tornando onBlur opcional
   className?: string;
   disabled?: boolean;
   placeholder?: string;
@@ -18,12 +19,12 @@ const InputField = ({
   value,
   type,
   onChange,
+  onBlur, // adicionando onBlur aos argumentos
   className,
   disabled,
   placeholder,
   required,
   name,
-
 }: InputFieldProps) => (
   <C.InputWrapper className={className}>
     <C.Label className={className}>{label}</C.Label>
@@ -31,6 +32,7 @@ const InputField = ({
       value={value}
       type={type}
       onChange={onChange}
+      onBlur={onBlur} // passando onBlur para o input
       disabled={disabled}
       placeholder={placeholder}
       className={className}
@@ -38,7 +40,6 @@ const InputField = ({
       name={name}
       autoComplete="off"
     />
-    
   </C.InputWrapper>
 );
 
