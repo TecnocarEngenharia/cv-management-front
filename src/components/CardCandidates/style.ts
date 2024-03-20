@@ -149,6 +149,6 @@ export const Button = styled.button`
 
 export const Image = styled.img`
   position: absolute;
-  bottom: -1em;
+  top: -1em;
   right: 0;
 `;

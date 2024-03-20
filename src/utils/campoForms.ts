@@ -62,7 +62,12 @@ export const camposSelect: FieldRadio[] = [
     label: "Vaga da candidatura",
     type: "select",
     field: "tipo_desejado_linkedin",
-    options: [" ", "Analista de Gestão de Manutenção"],
+    options: [
+      " ",
+      "Analista de Gestão de Manutenção",
+      "Analista de Supply Chain",
+      "Analista de Exportação",
+    ],
   },
   {
     label: "Nível Atual de Experiência",
@@ -102,7 +107,6 @@ export const camposSelect: FieldRadio[] = [
     ],
   },
 ];
-
 
 export const camposDisponibilidadeForm: FieldRadio[] = [
   {

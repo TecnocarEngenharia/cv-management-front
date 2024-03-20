@@ -322,7 +322,7 @@ const Register: React.FC = () => {
           )}
         </C.Content>
         <C.Search onClick={() => setView(1)}>
-          <C.Title>Nível de conhecimento em Idiomas</C.Title>
+          <C.Title>Proficiência em Idiomas (Conversação)</C.Title>
           <img src={Menos} alt="" onClick={() => setView(1)} />
         </C.Search>
         <C.Content className="idiomas">
@@ -395,14 +395,10 @@ const Register: React.FC = () => {
                         label={campo.label}
                         value={newCandidate[campo.field]}
                         //@ts-ignore
-                        onChange={
-                          (e: ChangeEvent<HTMLInputElement>) =>
-                            campo.field === "empresa_atual" 
-                              ? handleInputChange(campo.field, e.target.value) 
-                              : handleChangeSalaryTwo(
-                                  campo.field,
-                                  e.target.value
-                                ) 
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                          campo.field === "empresa_atual"
+                            ? handleInputChange(campo.field, e.target.value)
+                            : handleChangeSalaryTwo(campo.field, e.target.value)
                         }
                         className="situacao"
                       />
@@ -469,6 +465,7 @@ const Register: React.FC = () => {
         </C.Search>
         {view === 4 && (
           <C.Content className="localizacao">
+            <C.PGenti>Gentileza assinalar todas as localidades de interesse</C.PGenti>
             <>
               {renderLocationCheckbox(
                 "betim-mg",
@@ -478,7 +475,7 @@ const Register: React.FC = () => {
               )}
               {renderLocationCheckbox(
                 "porto-rj",
-                "Porto / RJ",
+                "Porto Real / RJ",
                 "portoCheck",
                 "vaga_100_presencial_porto_real_rj"
               )}
@@ -512,7 +509,6 @@ const Register: React.FC = () => {
 
         <C.Search className="Anexos" onClick={() => setView(5)}>
           <C.Title>Resumo Profissional e Currículo</C.Title>
-
           <img src={Menos} alt="" onClick={() => setView(5)} />
         </C.Search>
 

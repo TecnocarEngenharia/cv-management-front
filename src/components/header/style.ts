@@ -115,7 +115,7 @@ export const Content = styled.div`
       width: 20px;
       height: 20px;
     }
-  }
+  } 
 `;
 
 export const SairText = styled.p`

@@ -76,6 +76,7 @@ export const Search = styled.div`
   }
   &.localizacao {
     margin-top: 1em;
+    margin-bottom: 2em;
   }
   &.Anexos {
     margin-top: 1em;
@@ -297,4 +298,11 @@ export const ContentInputsOptions = styled.div`
       font-size: 12px;
     }
   }
+`;
+
+export const PGenti = styled.h6`
+  font-size: 14px;
+  position: absolute;
+  top: -1.6em;
+  font-weight: 400;
 `;

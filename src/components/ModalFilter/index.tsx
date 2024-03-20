@@ -43,6 +43,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
   const [vaga_100_presencial_sao_paulo, setVaga_100_presencial_sao_paulo] =
     useState("N/A");
   const [uf, setUf] = useState<string[]>([]);
+  const [genero, setGenero] = useState("");
 
   useEffect(() => {
     const savedFilters = localStorage.getItem("filtros");
@@ -77,10 +78,11 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
         parsedFilters.vaga_100_presencial_sao_paulo
       );
       setUf(parsedFilters.uf);
+      setGenero(parsedFilters.genero);
     }
   }, []);
 
-  const closeFilter = () => { 
+  const closeFilter = () => {
     if (toggleFilter) {
       toggleFilter();
     }
@@ -109,6 +111,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
       interesse_imediato,
       home_office,
       vaga_100_presencial_sao_paulo,
+      genero,
     };
 
     const filtroJSON = JSON.stringify(filtro);
@@ -145,6 +148,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
     setHomeOffice("N/A");
     setVaga_100_presencial_sao_paulo("N/A");
     setUf([]);
+    setGenero("")
   };
 
   useEffect(() => {
@@ -229,7 +233,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
               { label: "Outros", value: "outros" },
             ]}
             onChange={(value) => setUf(value)}
-            checked={uf} // Passando os valores selecionados
+            checked={uf} 
           />
         </C.ContentCheck>
         <C.ContentSelect>
@@ -253,6 +257,13 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
               }
               onChange={(e) => setModalidadeAtual(e.target.value)}
               value={modalidade_atual}
+            />
+            <InputSelect
+              label="Gênero"
+              className="filter"
+              onChange={(e) => setGenero(e.target.value)}
+              value={genero}
+              options={["", "Masculino", "Feminino"]}
             />
           </C.ContentSelectInput>
           <div>
