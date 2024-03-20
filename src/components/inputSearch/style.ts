@@ -50,7 +50,9 @@ export const ContainerSearch = styled.div`
 
   @media (min-height: 0px) and (max-height: 700px) {
     margin-top: 2em;
+    height: 90px;
   }
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,6 +96,11 @@ export const ContentInput = styled.input`
   @media (max-width: 1650px) {
     width: 600px;
   }
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    width: 65%;
+    height: 40px;
+  }
 `;
 
 export const ContentImage = styled.img`
@@ -106,6 +113,11 @@ export const ContentImage = styled.img`
   justify-content: center;
 
   cursor: pointer;
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    width: 50px;
+    height: 30px;
+  }
 `;
 
 export const ContentButton = styled.button`
@@ -124,5 +136,14 @@ export const ContentButton = styled.button`
   img {
     width: 35px;
     height: 35px;
+  }
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    width: 50px;
+    height: 30px;
+    img {
+      width: 25px;
+      height: 25px;
+    }
   }
 `;

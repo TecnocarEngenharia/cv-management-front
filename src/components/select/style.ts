@@ -5,7 +5,7 @@ export const InputWrapper = styled.div`
   margin-bottom: 15px;
   margin-left: 2em;
 
-  &.UF{
+  &.UF {
     margin-bottom: 0;
   }
 `;
@@ -35,7 +35,7 @@ export const SelectContent = styled.div`
     transition: border-color 0.3s ease;
 
     &.UF {
-      width: 95%;
+      width: 93%;
     }
   }
 
@@ -49,6 +49,9 @@ export const SelectContent = styled.div`
 
   select option {
     font-size: 16px;
+    @media (min-width: 451px) and (max-width: 1400px) {
+      font-size: 10px;
+    }
   }
 `;
 
@@ -81,7 +84,11 @@ export const ContentLabel = styled.div`
   margin-bottom: 5px;
   color: #333;
   &.UF {
-    margin-top: .35em;
+    margin-top: 0.35em;
+  }
+
+  @media (min-width: 451px) and (max-width: 1400px) {
+    font-size: 10px;
   }
 `;
 
@@ -96,5 +103,6 @@ export const Select = styled.select`
 
   option {
     font-weight: 400;
+    
   }
 `;

@@ -23,7 +23,7 @@ export const InputWrapper = styled.div`
   }
   &.genero {
     margin: 0;
-    margin: 5px 1.1em;
+    margin: 5px 1.4em;
   }
 
   &.cursos {
@@ -56,7 +56,14 @@ export const SelectContent = styled.div`
   &.register {
     width: 97.6%;
   }
-  
+
+  &.genero {
+    width: 98.9%;
+  }
+
+  &.disponibilidade-check {
+    width: 60%;
+  }
 
   select {
     width: 100%;
@@ -70,6 +77,11 @@ export const SelectContent = styled.div`
     background-color: #fff;
     cursor: pointer;
     transition: border-color 0.3s ease;
+
+
+    @media (min-width: 451px) and (max-width: 1400px) {
+      font-size: 11px;
+    }
 
     &.software {
       color: #313131;
@@ -89,6 +101,10 @@ export const SelectContent = styled.div`
 
   select option {
     font-size: 16px;
+
+    @media (min-width: 451px) and (max-width: 1400px) {
+      font-size: 12px;
+    }
   }
 `;
 
@@ -102,12 +118,16 @@ export const ContentLabel = styled.div`
   color: #333;
 
   @media (min-width: 451px) and (max-width: 1400px) {
-    font-size: 13px;
+    font-size: 10px;
   }
 
   @media (max-width: 391px) {
     &.mobile {
       font-size: 13px;
     }
+  }
+
+  &.disponibilidade-check {
+    margin-top: 1em;
   }
 `;

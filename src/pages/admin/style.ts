@@ -5,6 +5,7 @@ interface PageButtonProps {
 }
 
 export const Table = styled.table`
+  /* Estilos para larguras maiores que 1300px */
   width: 75%;
   border-collapse: separate;
   border-spacing: 0;
@@ -64,40 +65,13 @@ export const Table = styled.table`
     margin-left: 10%;
   }
 
-  @media (min-width: 2511px) {
-    margin-top: -2%;
-    margin-left: 16.3%;
-    width: 78%;
+  /* Estilos para larguras entre 1000px e 1300px */
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    width: 70%;
+    margin-top: -4em;
+    margin-left: 20.3em;
+    margin-right: auto;
   }
-
-  @media (max-width: 1920px) {
-    margin-top: -10%;
-    margin-left: 20.3%;
-    width: 75.4%;
-  }
-
-  @media (max-width: 1650px) {
-    margin-top: -7%;
-    margin-left: 25.3%;
-    width: 70.4%;
-  }
-
-  @media (min-width: 2000px) {
-    margin-top: -9%;
-    margin-left: 18.7%;
-    width: 75%;
-  }
-
-  @media (min-width: 1350px) and (max-width: 1440px) {
-    margin-top: -6%;
-    margin-left: 22.3%;
-    width: 75.4%;
-  }
-  /* 
-  @media (min-height: 0px) and (max-height: 700px) {
-    font-size: 12px;
-    margin-top: -5em;
-  } */
 `;
 
 export const TableBody = styled.tbody`
@@ -125,6 +99,10 @@ export const TableBody = styled.tbody`
   @media (min-width: 1350px) and (max-width: 1440px) {
     font-size: 12px;
   }
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    font-size: 12px;
+  }
 `;
 
 export const CabecalhoTable = styled.tr`
@@ -138,6 +116,9 @@ export const CabecalhoTable = styled.tr`
   }
   @media (min-width: 1350px) and (max-width: 1440px) {
     font-size: 14px;
+  }
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    font-size: 12px;
   }
 `;
 

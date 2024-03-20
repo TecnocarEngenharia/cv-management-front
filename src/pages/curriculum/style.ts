@@ -392,7 +392,13 @@ export const ContentButton = styled.div`
     flex-direction: column;
     gap: 0.5em;
     position: absolute;
-    right: 0.5em;
+    right: 0em;
+    
+
+    button {
+      width: 110px;
+
+    }
   }
 `;
 

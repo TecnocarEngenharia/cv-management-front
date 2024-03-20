@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2em;
-  width: 340px;
+  width: 270px;
   height: 100vh;
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -17,8 +17,8 @@ export const Container = styled.div`
 
   @media (min-height: 500px) and (max-height: 700px) {
     overflow-y: auto;
-    gap: 1.5em;
-    width: 280px;
+    gap: 1em;
+    width: 250px;
   }
 
   @media (min-width: 800px) and (max-width: 1100px) {
@@ -29,7 +29,8 @@ export const Container = styled.div`
 `;
 
 export const ImageLogo = styled.img`
-  margin: 50px 0;
+  margin: 40px 0;
+  object-fit: cover;
 
   @media (min-width: 800px) and (max-width: 1100px) {
     width: 150px;
@@ -58,7 +59,7 @@ export const Content = styled.div`
     line-height: normal;
 
     @media (min-height: 0px) and (max-height: 700px) {
-      font-size: 16px;
+      font-size: 12px;
     }
 
     &.active {
@@ -90,8 +91,14 @@ export const Content = styled.div`
     background: #eee;
   }
   @media (min-height: 0px) and (max-height: 700px) {
-    width: 260px;
-    height: 40px;
+    width: 230px;
+    height: 35px;
+
+    img {
+      width: 25px;
+      height: 25px;
+      object-fit: contain;
+    }
   }
 
   @media (min-width: 0) and (max-width: 600px) {
@@ -114,7 +121,7 @@ export const Content = styled.div`
 export const SairText = styled.p`
   position: fixed;
   bottom: 0;
-  left: 17em;
+  left: 14em;
   color: #851f2c;
   font-size: 16px;
   font-weight: 600;
@@ -126,6 +133,7 @@ export const SairText = styled.p`
   @media (min-height: 0px) and (max-height: 700px) {
     font-size: 13px;
     right: 0;
+    left:14em;
   }
 
   @media (min-width: 800px) and (max-width: 1100px) {

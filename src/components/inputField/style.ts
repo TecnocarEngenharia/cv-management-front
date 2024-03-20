@@ -9,6 +9,11 @@ export const InputWrapper = styled.div`
     margin-bottom: 20px;
   }
 
+  &.situacao {
+    margin-left: 2em;
+    top: -0.38em;
+  }
+
   @media (max-width: 450px) {
     &.pretensao {
       margin-left: 0;
@@ -85,8 +90,7 @@ export const Label = styled.label`
   }
 
   @media (min-width: 451px) and (max-width: 1400px) {
-    font-size: 11px;
-
+    font-size: 10px;
   }
 `;
 
@@ -101,6 +105,10 @@ export const Input = styled.input`
   font-size: 14px;
   color: #75757e;
   background-color: #fff;
+
+  &.situacao {
+    width: 94%;
+  }
 
   &.infoPessoais {
     width: 100%;
@@ -135,6 +143,7 @@ export const Input = styled.input`
     width: 90%;
     margin-bottom: 4%;
   }
+
   &.data {
     color: #75757e;
   }
@@ -188,5 +197,14 @@ export const Input = styled.input`
       width: 100%;
       margin-left: 0;
     }
+  }
+
+  &::placeholder {
+    @media (min-width: 451px) and (max-width: 1400px) {
+      font-size: 10px;
+    }
+  }
+  @media (min-width: 451px) and (max-width: 1400px) {
+    font-size: 12px;
   }
 `;

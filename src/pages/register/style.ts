@@ -23,7 +23,7 @@ export const Container = styled.div`
 
   @media (min-width: 930px) and (max-width: 1300px) {
     width: 70%;
-    margin: 2% 28%;
+    margin: 1% 26%;
   }
 
   @media (min-width: 1301px) and (max-width: 1440px) {
@@ -77,17 +77,33 @@ export const Search = styled.div`
   &.localizacao {
     margin-top: 1em;
   }
+  &.Anexos {
+    margin-top: 1em;
+  }
+
+  @media (min-width: 451px) and (max-width: 1400px) {
+    margin-bottom: 15px;
+
+    img {
+      width: 15px;
+      height: 15px;
+    }
+  }
 `;
 
 export const Title = styled.h2`
   font-size: 23px;
   color: #333;
+
   @media (max-width: 450px) {
     font-size: 15px;
   }
 
   @media (min-width: 451px) and (max-width: 909px) {
     font-size: 15px;
+  }
+  @media (min-width: 451px) and (max-width: 1400px) {
+    font-size: 16px;
   }
 `;
 
@@ -123,7 +139,7 @@ export const Content = styled.div`
   }
 
   &.localizacao {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     @media (max-width: 450px) {
       grid-template-columns: 1fr;
     }
@@ -148,8 +164,9 @@ export const Content = styled.div`
 export const AddressFields = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 4px;
   justify-content: center;
+  margin-bottom: 1em;
 `;
 
 export const Form = styled.form`
@@ -199,6 +216,9 @@ export const FileInputContainer = styled.div`
   align-items: center;
   gap: 15px;
 
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    margin: 0 1.5em;
+  }
   p {
     display: block;
     font-size: 14px;
@@ -214,6 +234,10 @@ export const FileInputContainer = styled.div`
     font-size: 14px;
     margin-bottom: 3px;
     color: #333;
+
+    @media (min-width: 1000px) and (max-width: 1300px) {
+      font-size: 10px;
+    }
   }
 
   input {
@@ -239,4 +263,38 @@ export const ContentUpload = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 40%;
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    width: 30%;
+  }
+`;
+
+export const InputCheck = styled.input`
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 0.5px solid #5e5656;
+  background: #fff;
+  cursor: pointer;
+`;
+
+export const ContentInputsOptions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  label {
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  @media (min-width: 1000px) and (max-width: 1300px) {
+    label {
+      font-size: 12px;
+    }
+  }
 `;

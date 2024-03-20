@@ -20,15 +20,7 @@ export const validarDados = (dados: any) => {
     pretensao_salarial,
     pretensao_pj,
     cnpj,
-    vaga_100_presencial_porto_real_rj,
-    vaga_100_presencial_goiana_pe,
-    vaga_100_presencial_betim_mg,
-    vaga_internacional,
-    vaga_hibrida_betim,
-    home_office,
-    vaga_hibrida_goiana_pe,
-    vaga_hibrida_sao_paulo,
-    vaga_hibrida_porto_real_rj,
+
   } = dados;
 
   const camposVazios = [];
@@ -54,19 +46,7 @@ export const validarDados = (dados: any) => {
   if (!pretensao_salarial) camposVazios.push("pretensao_salarial");
   if (!pretensao_pj) camposVazios.push("pretensao_pj");
   if (!cnpj) camposVazios.push("cnpj");
-  if (!vaga_100_presencial_porto_real_rj)
-    camposVazios.push("vaga_100_presencial_porto_real_rj");
-  if (!vaga_100_presencial_goiana_pe)
-    camposVazios.push("vaga_100_presencial_goiana_pe");
-  if (!vaga_100_presencial_betim_mg)
-    camposVazios.push("vaga_100_presencial_betim_mg");
-  if (!vaga_internacional) camposVazios.push("vaga_internacional");
-  if (!vaga_hibrida_betim) camposVazios.push("vaga_hibrida_betim");
-  if (!home_office) camposVazios.push("home_office");
-  if (!vaga_hibrida_goiana_pe) camposVazios.push("vaga_hibrida_goiana_pe");
-  if (!vaga_hibrida_porto_real_rj) camposVazios.push("vaga_hibrida_porto_real");
-  if (!vaga_hibrida_sao_paulo) camposVazios.push("vaga_hibrida_sao_paulo");
-  if (camposVazios.length > 10) {
+  if (camposVazios.length > 5) {
     return "Preencha todos os campos.";
   }
 

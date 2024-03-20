@@ -20,7 +20,7 @@ const RoutesApp = () => {
     <BrowserRouter>
       <App />
       <Routes>
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Register />} />
         <Route
           path="/candidates"
           element={
@@ -37,7 +37,7 @@ const RoutesApp = () => {
             </PrivateRoute>
           }
         />
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/technique"
           element={

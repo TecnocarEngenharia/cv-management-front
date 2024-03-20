@@ -10,7 +10,7 @@ const TemplateInfo: React.FC<TemplateInfoProps> = ({ role }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    navigate("/login");
   };
 
   const handleAdmin = () => {

@@ -31,7 +31,7 @@ const PrivateRoute = ({ children, allowedRoles }: any) => {
     return <>{children}</>;
   } else {
     alert('Você não tem acesso a essa página');
-    return <Navigate to="/register" />;
+    return <Navigate to="/" />;
   }
 };
 

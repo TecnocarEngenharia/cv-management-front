@@ -17,13 +17,13 @@ export const Container = styled.div`
   overflow-x: hidden;
 
   &::-webkit-scrollbar {
-    width: 10px; 
+    width: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #9b3f39;
     border-radius: 10px;
-}
+  }
 
   @media (max-width: 600px) {
     width: 90%;
@@ -37,8 +37,8 @@ export const Container = styled.div`
   }
 
   @media (min-width: 1200px) and (max-width: 1299px) {
-    margin-left: 30%;
-    width: 65vw;
+    margin-left: 23%;
+    width: 75vw;
   }
 
   @media (min-width: 1300px) and (max-width: 1400px) {
@@ -117,6 +117,13 @@ export const ContainerList = styled.div`
   @media (min-width: 601px) and (max-width: 1199px) {
     right: 0vw;
   }
+
+  @media (min-width: 1200px) and (max-width: 1299px) {
+    right: 3vw;
+    img {
+      width: 30px;
+    }
+  }
 `;
 
 export const ContainerExcel = styled.div`
@@ -155,6 +162,12 @@ export const ContainerExcel = styled.div`
   }
   @media (min-width: 601px) and (max-width: 1199px) {
     right: 8vw;
+  }
+  @media (min-width: 1200px) and (max-width: 1299px) {
+    right: 19vw;
+    img {
+      width: 30px;
+    }
   }
 `;
 
@@ -202,6 +215,12 @@ export const ContainerBloco = styled.div`
   @media (min-width: 601px) and (max-width: 1199px) {
     right: 16vw;
   }
+  @media (min-width: 1200px) and (max-width: 1299px) {
+    right: 11vw;
+    img {
+      width: 30px;
+    }
+  }
 `;
 
 export const ContainerFilter = styled.div`
@@ -242,6 +261,12 @@ export const ContainerFilter = styled.div`
   @media (min-width: 601px) and (max-width: 1199px) {
     right: 24vw;
   }
+  @media (min-width: 1200px) and (max-width: 1299px) {
+    right: 27vw;
+    img {
+      width: 30px;
+    }
+  }
 `;
 
 export const ContainerNoFilter = styled.div`
@@ -278,6 +303,12 @@ export const ContainerNoFilter = styled.div`
 
   @media (min-width: 601px) and (max-width: 1199px) {
     right: 32vw;
+  }
+  @media (min-width: 1200px) and (max-width: 1299px) {
+    right: 35vw;
+    img {
+      width: 30px;
+    }
   }
 `;
 
