@@ -13,7 +13,7 @@ export const LimparCampos = () => ({
   experiencia_ramo_automotivo: "",
   modalidade_atual: "",
   salario_hora: "",
-  tipo_desejado_linkedin: "",
+  tipo_desejado_linkedin: [],
   nivel_funcao: "",
   formacao: "",
   interesse_imediato: "",

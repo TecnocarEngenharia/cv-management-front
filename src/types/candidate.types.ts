@@ -14,7 +14,7 @@ export interface Candidate {
   experiencia_ramo_automotivo: string;
   modalidade_atual: string;
   salario_hora: string;
-  tipo_desejado_linkedin: string;
+  tipo_desejado_linkedin: string[];
   nivel_funcao: string;
   formacao: string;
   interesse_imediato: string;

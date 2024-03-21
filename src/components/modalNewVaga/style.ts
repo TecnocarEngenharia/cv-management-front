@@ -259,3 +259,24 @@ export const ContentButtonTwo = styled.div`
     padding: 0.2em 0.8em;
   }
 `;
+
+export const FeedBackMessage = styled.h5`
+  display: block;
+  text-align: center;
+  color: #4caf50;
+  font-style: 600;
+
+  &.mt {
+    margin-top: 20px;
+  }
+`;
+export const FeedBackMessageErr = styled.h5`
+  display: block;
+  text-align: center;
+  color: #851f23;
+  font-style: 600;
+
+  &.mt {
+    margin-top: 20px;
+  }
+`;

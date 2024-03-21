@@ -17,6 +17,7 @@ import axios from "axios";
 import { validarDados } from "../../functions/validation.functions";
 import InputSelect from "../../components/inputSelect";
 import SelectUF from "../../components/select";
+import { ModalNewVaga } from "../../components/modalNewVaga";
 
 const Register: React.FC = () => {
   const [newCandidate, setNewCandidate] = useState<Candidate>({
@@ -34,7 +35,7 @@ const Register: React.FC = () => {
     experiencia_ramo_automotivo: "",
     modalidade_atual: "",
     salario_hora: "",
-    tipo_desejado_linkedin: "",
+    tipo_desejado_linkedin: [],
     nivel_funcao: "",
     formacao: "",
     interesse_imediato: "",
@@ -63,6 +64,10 @@ const Register: React.FC = () => {
   const [upload, setUpload] = useState<File | undefined>(undefined);
   const [view, setView] = useState(0);
   const [_isSubmitting, setIsSubmitting] = useState(false);
+  const [newVaga, setNewvaga] = useState(false);
+  const [name, setName] = useState("");
+  const [vagas, setVagas] = useState<string>();
+  const [candidateID, setCandidateID] = useState<number>();
   interface CheckboxState {
     [key: string]: boolean;
   }
@@ -195,7 +200,6 @@ const Register: React.FC = () => {
         />
         <label htmlFor={id}>{label}</label>
       </C.ContentInputsOptions>
-      {/* Renderizar InputSelect apenas se o checkbox correspondente estiver marcado */}
       {checkboxState[stateKey] && (
         <InputSelect
           label="Disponibilidade"
@@ -254,310 +258,356 @@ const Register: React.FC = () => {
     }
   };
 
+  const handleNewVaga = () => {
+    setNewvaga(!newVaga);
+  };
+
+  const handleCPFBlur = () => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}cpf`, {
+        params: {
+          cpf: newCandidate.cpf,
+        },
+      })
+      .then((response) => {
+        handleNewVaga();
+        const profissional = response.data.profissional;
+        const tipoDesejadoLinkedin = response.data.tipo_desejado_linkedin;
+        const candidateID = response.data.id;
+        if (profissional && tipoDesejadoLinkedin && candidateID) {
+          setName(profissional);
+          setVagas(tipoDesejadoLinkedin);
+          setCandidateID(candidateID);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
-    <C.Container>
-      <C.Form onSubmit={(e) => e.preventDefault()} onKeyDown={handleKeyDown}>
-        <C.ContentTitle>
-          <C.Search onClick={() => setView(0)}>
-            <C.Title>Informações Candidato</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(0)} />
-          </C.Search>
-          <C.ContentMessage>
-            {message && <p className="Err"> {message}</p>}
-            {errorPost && <p className="Err">Erro ao cadastrar: {errorPost}</p>}
-            <p className="Sucess">{successMessage}</p>
-          </C.ContentMessage>
-          <img src={Borracha} alt="" onClick={() => handleLimparCampos()} />
-        </C.ContentTitle>
-        <C.Content>
-          {view === 0 && (
-            <>
-              {fields.map((fieldInfo) => (
-                <InputField
-                  key={fieldInfo.field}
-                  label={fieldInfo.label}
-                  value={newCandidate[fieldInfo.field]}
-                  type={fieldInfo.type}
-                  className={fieldInfo.class}
-                  placeholder={fieldInfo.placeholder}
-                  onChange={(
-                    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-                  ) => {
-                    if (fieldInfo.label === "Contato") {
-                      handleChangeTelefone(e);
-                    } else if (fieldInfo.label === "CPF") {
-                      handleChangeCPF(e);
-                    } else {
-                      handleInputChange(fieldInfo.field, e.target.value);
-                    }
-                  }}
-                />
-              ))}
-              <InputSelect
-                label="Gênero"
-                className="genero"
-                value={newCandidate.genero}
-                options={["Selecione seu gênero", "Masculino", "Feminino"]}
-                onChange={(e) =>
-                  setNewCandidate({ ...newCandidate, genero: e.target.value })
-                }
-              />
-              <C.AddressFields>
-                <InputField
-                  label="Cidade"
-                  value={newCandidate.cidade}
-                  onChange={(e) =>
-                    setNewCandidate({ ...newCandidate, cidade: e.target.value })
-                  }
-                  placeholder="Cidade"
-                />
-                <SelectUF
-                  label="UF"
-                  selectedUF={newCandidate.uf}
-                  onChange={(value) => handleInputChange("uf", value)}
-                  className="UF"
-                />
-              </C.AddressFields>
-            </>
-          )}
-        </C.Content>
-        <C.Search onClick={() => setView(1)}>
-          <C.Title>Proficiência em Idiomas (Conversação)</C.Title>
-          <img src={Menos} alt="" onClick={() => setView(1)} />
-        </C.Search>
-        <C.Content className="idiomas">
-          {view === 1 && (
-            <>
-              {conhecimentoIdiomas.map((idioma, index) => (
-                <div key={index}>
-                  <InputSelect
-                    label={idioma.label}
-                    options={idioma.options}
+    <>
+      {" "}
+      <C.Container>
+        <C.Form onSubmit={(e) => e.preventDefault()} onKeyDown={handleKeyDown}>
+          <C.ContentTitle>
+            <C.Search onClick={() => setView(0)}>
+              <C.Title>Informações Candidato</C.Title>
+              <img src={Menos} alt="" onClick={() => setView(0)} />
+            </C.Search>
+            <C.ContentMessage>
+              {message && <p className="Err"> {message}</p>}
+              {errorPost && (
+                <p className="Err">Erro ao cadastrar: {errorPost}</p>
+              )}
+              <p className="Sucess">{successMessage}</p>
+            </C.ContentMessage>
+            <img src={Borracha} alt="" onClick={() => handleLimparCampos()} />
+          </C.ContentTitle>
+          <C.Content>
+            {view === 0 && (
+              <>
+                {fields.map((fieldInfo) => (
+                  <InputField
+                    key={fieldInfo.field}
+                    label={fieldInfo.label}
+                    value={newCandidate[fieldInfo.field]}
+                    type={fieldInfo.type}
+                    className={fieldInfo.class}
+                    placeholder={fieldInfo.placeholder}
                     onChange={(
                       e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-                    ) => handleInputChange(idioma.field, e.target.value)}
-                    value={newCandidate[idioma.field]}
-                    className="idiomas"
+                    ) => {
+                      if (fieldInfo.label === "Contato") {
+                        handleChangeTelefone(e);
+                      } else if (fieldInfo.label === "CPF") {
+                        handleChangeCPF(e);
+                      } else {
+                        handleInputChange(fieldInfo.field, e.target.value);
+                      }
+                    }}
+                    onBlur={
+                      fieldInfo.label === "CPF" ? handleCPFBlur : undefined
+                    }
                   />
-                </div>
-              ))}
-            </>
-          )}
-        </C.Content>
-        <C.Search onClick={() => setView(2)}>
-          <C.Title>Situação Profissisional Atual</C.Title>
-          <img src={Menos} alt="" onClick={() => setView(2)} />
-        </C.Search>
-        <C.Content className="situacao">
-          {view === 2 && (
-            <>
-              {camposSelect.map((campo, index) => {
-                if (
-                  (campo.field === "empresa_atual" &&
-                    (newCandidate.esta_empregado !== "Sim" ||
-                      !newCandidate.esta_empregado)) ||
-                  (campo.field === "salario_atual" &&
-                    (newCandidate.esta_empregado !== "Sim" ||
-                      !newCandidate.esta_empregado)) ||
-                  (campo.field === "ultimo_salario" &&
-                    (newCandidate.esta_empregado !== "Não" ||
-                      !newCandidate.esta_empregado)) ||
-                  (campo.field === "salario_hora" &&
-                    newCandidate.modalidade_atual !== "Prestador de serviços")
-                ) {
-                  return null;
-                }
-
-                return (
-                  <div key={index} className="campo-container">
-                    {campo.type === "select" && (
-                      <InputSelect
-                        label={campo.label}
-                        options={
-                          campo.field === "modalidade_atual" &&
-                          newCandidate.esta_empregado === "Sim"
-                            ? campo.optionsTwo
-                            : campo.options
-                        }
-                        onChange={(
-                          e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-                        ) => handleInputChange(campo.field, e.target.value)}
-                        value={newCandidate[campo.field]}
-                        className={
-                          newCandidate.esta_empregado === "Sim" && campo.class
-                            ? campo.class
-                            : "mobile"
-                        }
-                      />
-                    )}
-                    {campo.type === "text" && (
-                      <InputField
-                        label={campo.label}
-                        value={newCandidate[campo.field]}
-                        //@ts-ignore
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                          campo.field === "empresa_atual"
-                            ? handleInputChange(campo.field, e.target.value)
-                            : handleChangeSalaryTwo(campo.field, e.target.value)
-                        }
-                        className="situacao"
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </>
-          )}
-        </C.Content>
-
-        <C.Search onClick={() => setView(3)}>
-          <C.Title>Preferências e Disponibilidade</C.Title>
-          <img src={Menos} alt="" onClick={() => setView(3)} />
-        </C.Search>
-        {view === 3 && (
-          <C.Content className="disponibilidade">
-            {camposDisponibilidadeForm.map((campo, index) => (
-              <div key={index}>
-                {campo.type === "select" && (
-                  <>
-                    {(campo.field !== "tipo_cnpj" ||
-                      newCandidate.cnpj === "Sim") && (
-                      <InputSelect
-                        label={campo.label}
-                        options={campo.options}
-                        onChange={(
-                          e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-                        ) => handleInputChange(campo.field, e.target.value)}
-                        value={newCandidate[campo.field]}
-                        className="pretensao"
-                      />
-                    )}
-                  </>
-                )}
-              </div>
-            ))}
-            {view === 3 && (
-              <>
-                <InputField
-                  label="Pretensão salarial no regime CLT"
-                  value={newCandidate.pretensao_salarial}
-                  onChange={(e) => handleChangeSalary(e)}
-                  className={
-                    newCandidate.cnpj === "Não" || newCandidate.cnpj === ""
-                      ? "pretensao_Clt"
-                      : "pretensao"
+                ))}
+                <InputSelect
+                  label="Gênero"
+                  className="genero"
+                  value={newCandidate.genero}
+                  options={["Selecione seu gênero", "Masculino", "Feminino"]}
+                  onChange={(e) =>
+                    setNewCandidate({ ...newCandidate, genero: e.target.value })
                   }
                 />
-                <InputField
-                  label="Pretensão PJ, valor hora"
-                  value={newCandidate.pretensao_pj}
-                  onChange={(e) => handleChangeSalaryPJ(e)}
-                  className="pretensao"
-                />
+                <C.AddressFields>
+                  <InputField
+                    label="Cidade"
+                    value={newCandidate.cidade}
+                    onChange={(e) =>
+                      setNewCandidate({
+                        ...newCandidate,
+                        cidade: e.target.value,
+                      })
+                    }
+                    placeholder="Cidade"
+                  />
+                  <SelectUF
+                    label="UF"
+                    selectedUF={newCandidate.uf}
+                    onChange={(value) => handleInputChange("uf", value)}
+                    className="UF"
+                  />
+                </C.AddressFields>
               </>
             )}
           </C.Content>
-        )}
-
-        <C.Search className="localizacao" onClick={() => setView(4)}>
-          <C.Title>Localização</C.Title>
-          <img src={Menos} alt="" onClick={() => setView(4)} />
-        </C.Search>
-        {view === 4 && (
-          <C.Content className="localizacao">
-            <C.PGenti>Gentileza assinalar todas as localidades de interesse</C.PGenti>
-            <>
-              {renderLocationCheckbox(
-                "betim-mg",
-                "Betim / MG",
-                "betimCheck",
-                "vaga_100_presencial_betim_mg"
-              )}
-              {renderLocationCheckbox(
-                "porto-rj",
-                "Porto Real / RJ",
-                "portoCheck",
-                "vaga_100_presencial_porto_real_rj"
-              )}
-              {renderLocationCheckbox(
-                "saopaulo-sp",
-                "Goiana / PE",
-                "goianaCheck",
-                "vaga_100_presencial_goiana_pe"
-              )}
-              {renderLocationCheckbox(
-                "saopaulo",
-                "São Paulo / SP",
-                "saoPauloCheck",
-                "vaga_100_presencial_sao_paulo"
-              )}
-              {renderLocationCheckbox(
-                "home",
-                "Home Office",
-                "homeCheck",
-                "home_office"
-              )}
-              {renderLocationCheckbox(
-                "internacional",
-                "Internacional",
-                "internacional",
-                "vaga_internacional"
-              )}
-            </>
+          <C.Search onClick={() => setView(1)}>
+            <C.Title>Proficiência em Idiomas (Conversação)</C.Title>
+            <img src={Menos} alt="" onClick={() => setView(1)} />
+          </C.Search>
+          <C.Content className="idiomas">
+            {view === 1 && (
+              <>
+                {conhecimentoIdiomas.map((idioma, index) => (
+                  <div key={index}>
+                    <InputSelect
+                      label={idioma.label}
+                      options={idioma.options}
+                      onChange={(
+                        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+                      ) => handleInputChange(idioma.field, e.target.value)}
+                      value={newCandidate[idioma.field]}
+                      className="idiomas"
+                    />
+                  </div>
+                ))}
+              </>
+            )}
           </C.Content>
-        )}
+          <C.Search onClick={() => setView(2)}>
+            <C.Title>Situação Profissisional Atual</C.Title>
+            <img src={Menos} alt="" onClick={() => setView(2)} />
+          </C.Search>
+          <C.Content className="situacao">
+            {view === 2 && (
+              <>
+                {camposSelect.map((campo, index) => {
+                  if (
+                    (campo.field === "empresa_atual" &&
+                      (newCandidate.esta_empregado !== "Sim" ||
+                        !newCandidate.esta_empregado)) ||
+                    (campo.field === "salario_atual" &&
+                      (newCandidate.esta_empregado !== "Sim" ||
+                        !newCandidate.esta_empregado)) ||
+                    (campo.field === "ultimo_salario" &&
+                      (newCandidate.esta_empregado !== "Não" ||
+                        !newCandidate.esta_empregado)) ||
+                    (campo.field === "salario_hora" &&
+                      newCandidate.modalidade_atual !== "Prestador de serviços")
+                  ) {
+                    return null;
+                  }
 
-        <C.Search className="Anexos" onClick={() => setView(5)}>
-          <C.Title>Resumo Profissional e Currículo</C.Title>
-          <img src={Menos} alt="" onClick={() => setView(5)} />
-        </C.Search>
+                  return (
+                    <div key={index} className="campo-container">
+                      {campo.type === "select" && (
+                        <InputSelect
+                          label={campo.label}
+                          options={
+                            campo.field === "modalidade_atual" &&
+                            newCandidate.esta_empregado === "Sim"
+                              ? campo.optionsTwo
+                              : campo.options
+                          }
+                          onChange={(
+                            e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+                          ) => handleInputChange(campo.field, e.target.value)}
+                          value={newCandidate[campo.field]}
+                          className={
+                            newCandidate.esta_empregado === "Sim" && campo.class
+                              ? campo.class
+                              : "mobile"
+                          }
+                        />
+                      )}
+                      {campo.type === "text" && (
+                        <InputField
+                          label={campo.label}
+                          value={newCandidate[campo.field]}
+                          //@ts-ignore
+                          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            campo.field === "empresa_atual"
+                              ? handleInputChange(campo.field, e.target.value)
+                              : handleChangeSalaryTwo(
+                                  campo.field,
+                                  e.target.value
+                                )
+                          }
+                          className="situacao"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </>
+            )}
+          </C.Content>
 
-        {view === 5 && (
-          <>
-            <InputField
-              value={newCandidate.resumoProfissional}
-              label="Resumo Profissional"
-              placeholder="Resumo profissional"
-              className="resumoProfissional"
-              onChange={(e) => {
-                setNewCandidate({
-                  ...newCandidate,
-                  resumoProfissional: e.target.value,
-                });
-              }}
-            />
-            <C.FileInputContainer>
-              <C.ContentUpload>
-                <label htmlFor="upload-curriculo">Anexe seu currículo</label>
-                <input
-                  type="file"
-                  id="upload-curriculo"
-                  onChange={(e) => {
-                    const files = e.target.files;
-                    if (files && files.length > 0) {
-                      setUpload(files[0]);
+          <C.Search onClick={() => setView(3)}>
+            <C.Title>Preferências e Disponibilidade</C.Title>
+            <img src={Menos} alt="" onClick={() => setView(3)} />
+          </C.Search>
+          {view === 3 && (
+            <C.Content className="disponibilidade">
+              {camposDisponibilidadeForm.map((campo, index) => (
+                <div key={index}>
+                  {campo.type === "select" && (
+                    <>
+                      {(campo.field !== "tipo_cnpj" ||
+                        newCandidate.cnpj === "Sim") && (
+                        <InputSelect
+                          label={campo.label}
+                          options={campo.options}
+                          onChange={(
+                            e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+                          ) => handleInputChange(campo.field, e.target.value)}
+                          value={newCandidate[campo.field]}
+                          className="pretensao"
+                        />
+                      )}
+                    </>
+                  )}
+                </div>
+              ))}
+              {view === 3 && (
+                <>
+                  <InputField
+                    label="Pretensão salarial no regime CLT"
+                    value={newCandidate.pretensao_salarial}
+                    onChange={(e) => handleChangeSalary(e)}
+                    className={
+                      newCandidate.cnpj === "Não" || newCandidate.cnpj === ""
+                        ? "pretensao_Clt"
+                        : "pretensao"
                     }
-                  }}
-                  accept=".pdf"
-                />
-                <label
-                  className="custom-file-upload"
-                  htmlFor="upload-curriculo"
-                >
-                  Escolher Arquivo
-                </label>
-              </C.ContentUpload>
-              {upload && <p> {upload.name}</p>}
-            </C.FileInputContainer>
-          </>
-        )}
-        <C.ContentButton className="ContentButton">
-          <C.SubmitButton onClick={() => handleCheckFields()}>
-            {_isSubmitting ? "Cadastrando ..." : "Cadastrar"}
-          </C.SubmitButton>
-        </C.ContentButton>
-      </C.Form>
-    </C.Container>
+                  />
+                  <InputField
+                    label="Pretensão PJ, valor hora"
+                    value={newCandidate.pretensao_pj}
+                    onChange={(e) => handleChangeSalaryPJ(e)}
+                    className="pretensao"
+                  />
+                </>
+              )}
+            </C.Content>
+          )}
+
+          <C.Search className="localizacao" onClick={() => setView(4)}>
+            <C.Title>Localização</C.Title>
+            <img src={Menos} alt="" onClick={() => setView(4)} />
+          </C.Search>
+          {view === 4 && (
+            <C.Content className="localizacao">
+              <C.PGenti>
+                Gentileza assinalar todas as localidades de interesse
+              </C.PGenti>
+              <>
+                {renderLocationCheckbox(
+                  "betim-mg",
+                  "Betim / MG",
+                  "betimCheck",
+                  "vaga_100_presencial_betim_mg"
+                )}
+                {renderLocationCheckbox(
+                  "porto-rj",
+                  "Porto Real / RJ",
+                  "portoCheck",
+                  "vaga_100_presencial_porto_real_rj"
+                )}
+                {renderLocationCheckbox(
+                  "saopaulo-sp",
+                  "Goiana / PE",
+                  "goianaCheck",
+                  "vaga_100_presencial_goiana_pe"
+                )}
+                {renderLocationCheckbox(
+                  "saopaulo",
+                  "São Paulo / SP",
+                  "saoPauloCheck",
+                  "vaga_100_presencial_sao_paulo"
+                )}
+                {renderLocationCheckbox(
+                  "home",
+                  "Home Office",
+                  "homeCheck",
+                  "home_office"
+                )}
+                {renderLocationCheckbox(
+                  "internacional",
+                  "Internacional",
+                  "internacional",
+                  "vaga_internacional"
+                )}
+              </>
+            </C.Content>
+          )}
+
+          <C.Search className="Anexos" onClick={() => setView(5)}>
+            <C.Title>Resumo Profissional e Currículo</C.Title>
+            <img src={Menos} alt="" onClick={() => setView(5)} />
+          </C.Search>
+
+          {view === 5 && (
+            <>
+              <InputField
+                value={newCandidate.resumoProfissional}
+                label="Resumo Profissional"
+                placeholder="Resumo profissional"
+                className="resumoProfissional"
+                onChange={(e) => {
+                  setNewCandidate({
+                    ...newCandidate,
+                    resumoProfissional: e.target.value,
+                  });
+                }}
+              />
+              <C.FileInputContainer>
+                <C.ContentUpload>
+                  <label htmlFor="upload-curriculo">Anexe seu currículo</label>
+                  <input
+                    type="file"
+                    id="upload-curriculo"
+                    onChange={(e) => {
+                      const files = e.target.files;
+                      if (files && files.length > 0) {
+                        setUpload(files[0]);
+                      }
+                    }}
+                    accept=".pdf"
+                  />
+                  <label
+                    className="custom-file-upload"
+                    htmlFor="upload-curriculo"
+                  >
+                    Escolher Arquivo
+                  </label>
+                </C.ContentUpload>
+                {upload && <p> {upload.name}</p>}
+              </C.FileInputContainer>
+            </>
+          )}
+          <C.ContentButton className="ContentButton">
+            <C.SubmitButton onClick={() => handleCheckFields()}>
+              {_isSubmitting ? "Cadastrando ..." : "Cadastrar"}
+            </C.SubmitButton>
+          </C.ContentButton>
+        </C.Form>
+      </C.Container>
+      {newVaga && (
+        <ModalNewVaga onClose={handleNewVaga} name={name} vagas={vagas} id={candidateID}/>
+      )}
+    </>
   );
 };
 
