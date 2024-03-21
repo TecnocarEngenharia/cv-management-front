@@ -253,6 +253,9 @@ export const ContentButtonTwo = styled.div`
         background-color: #851f3d;
       }
     }
+    &:disabled {
+      background-color: #333333;
+    }
   }
 
   @media (max-width: 1300px) {

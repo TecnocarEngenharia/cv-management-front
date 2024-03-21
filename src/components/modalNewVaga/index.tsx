@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { camposSelect } from "../../utils/campoForms";
 import * as C from "./style";
 import InputSelect from "../inputSelect";
+import { useAxiosCandidate } from "../../hooks/requestAxios";
 
 interface IModalProps {
-  name?: string;
-  vagas?: string | string[];
   onClose: () => void;
   id: number | undefined;
 }
 
-const ModalNewVaga: React.FC<IModalProps> = ({ onClose, name, vagas, id }) => {
+const ModalNewVaga: React.FC<IModalProps> = ({ onClose, id }) => {
   const [selectedVagas, setSelectedVagas] = useState<string[]>([]);
+  const [dataVagas, setDataVagas] = useState<string[]>([]);
   const [newVaga, setNewVaga] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [feedbackMessageErr, setFeedbackMessageErr] = useState("");
+  const [disable, setDisable] = useState(false);
+  const [name, setName] = useState("");
+  const { data: candidateData, refetch } = useAxiosCandidate(
+    `http://localhost:8080/v1/candidate/${id}`
+  );
+
+  useEffect(() => {
+    setDataVagas(candidateData?.tipo_desejado_linkedin || []);
+    setName(candidateData?.profissional ?? "");
+  }, [candidateData]);
 
   const handleVagas = () => {
     setNewVaga(!newVaga);
@@ -23,11 +33,19 @@ const ModalNewVaga: React.FC<IModalProps> = ({ onClose, name, vagas, id }) => {
 
   const handleSelectVaga = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = e.target.value;
-    setSelectedVagas((prevSelected) => [...prevSelected, selected]);
+    if (dataVagas.includes(selected)) {
+      setFeedbackMessageErr(`Você já está cadastrado nessa vaga `);
+      setDisable(true);
+    } else {
+      setFeedbackMessageErr(` `);
+      setDisable(false);
+      setSelectedVagas((prevSelected) => [...prevSelected, selected]);
+    }
   };
 
   const handleCadastro = () => {
-    const vagasExistentes = typeof vagas === "string" ? [vagas] : vagas || [];
+    const vagasExistentes =
+      typeof dataVagas === "string" ? [dataVagas] : dataVagas || [];
     const vagasSelecionadas = [...vagasExistentes, ...selectedVagas];
 
     axios
@@ -36,7 +54,11 @@ const ModalNewVaga: React.FC<IModalProps> = ({ onClose, name, vagas, id }) => {
       })
       .then(() => {
         setFeedbackMessage("Vagas cadastradas com sucesso!");
-        setTimeout(() => setFeedbackMessage(""), 2000);
+        refetch();
+        setTimeout(() => {
+          setFeedbackMessage("");
+          handleVagas();
+        }, 2000);
       })
       .catch((error) => {
         console.error("Erro ao atualizar os dados:", error);
@@ -51,24 +73,30 @@ const ModalNewVaga: React.FC<IModalProps> = ({ onClose, name, vagas, id }) => {
       <C.ModalBG>
         <C.ModalContent>
           <C.ContentTitle>
-            <h1>Que bom ter você de volta</h1>
-            <button onClick={onClose}>X</button>
+            {candidateData ? (
+              <>
+                <h1>Que bom ter você de volta</h1>
+                <button onClick={onClose}>X</button>
+              </>
+            ) : (
+              <h1>Carregando...</h1>
+            )}
           </C.ContentTitle>
           <C.Description>
-            Olá <span>{name}</span>, vimos aqui no nosso sistema que você
-            está cadastrado nessas vagas abaixo:
+            Olá <span>{name}</span>, vimos aqui no nosso sistema que você está
+            cadastrado nessas vagas abaixo:
           </C.Description>
 
           <C.ContentForm>
             <C.ContentVagas>
               <h3>Vagas Cadastradas</h3>
               <C.List>
-                {Array.isArray(vagas) && vagas.length > 0 ? (
-                  vagas.map((vaga, index) => (
+                {Array.isArray(dataVagas) && dataVagas.length > 0 ? (
+                  dataVagas.map((vaga, index) => (
                     <C.ListItem key={index}>{vaga}</C.ListItem>
                   ))
                 ) : (
-                  <C.ListItem>{vagas}</C.ListItem>
+                  <C.ListItem>{dataVagas}</C.ListItem>
                 )}
               </C.List>
             </C.ContentVagas>
@@ -112,7 +140,9 @@ const ModalNewVaga: React.FC<IModalProps> = ({ onClose, name, vagas, id }) => {
             />
 
             <C.ContentButtonTwo>
-              <button onClick={handleCadastro}>Cadastrar</button>
+              <button onClick={handleCadastro} disabled={disable}>
+                Cadastrar
+              </button>
               <button className="Nao" onClick={handleVagas}>
                 Cancelar
               </button>

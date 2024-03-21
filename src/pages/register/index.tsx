@@ -65,8 +65,6 @@ const Register: React.FC = () => {
   const [view, setView] = useState(0);
   const [_isSubmitting, setIsSubmitting] = useState(false);
   const [newVaga, setNewvaga] = useState(false);
-  const [name, setName] = useState("");
-  const [vagas, setVagas] = useState<string>();
   const [candidateID, setCandidateID] = useState<number>();
   interface CheckboxState {
     [key: string]: boolean;
@@ -271,17 +269,10 @@ const Register: React.FC = () => {
       })
       .then((response) => {
         handleNewVaga();
-        const profissional = response.data.profissional;
-        const tipoDesejadoLinkedin = response.data.tipo_desejado_linkedin;
         const candidateID = response.data.id;
-        if (profissional && tipoDesejadoLinkedin && candidateID) {
-          setName(profissional);
-          setVagas(tipoDesejadoLinkedin);
+        if (candidateID) {
           setCandidateID(candidateID);
         }
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -604,9 +595,7 @@ const Register: React.FC = () => {
           </C.ContentButton>
         </C.Form>
       </C.Container>
-      {newVaga && (
-        <ModalNewVaga onClose={handleNewVaga} name={name} vagas={vagas} id={candidateID}/>
-      )}
+      {newVaga && <ModalNewVaga onClose={handleNewVaga} id={candidateID} />}
     </>
   );
 };
