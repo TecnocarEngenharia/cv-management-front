@@ -1,3 +1,5 @@
+
+
 export interface Candidate {
   [x: string]: any;
   profissional: string;

@@ -18,6 +18,7 @@ import { validarDados } from "../../functions/validation.functions";
 import InputSelect from "../../components/inputSelect";
 import SelectUF from "../../components/select";
 import { ModalNewVaga } from "../../components/modalNewVaga";
+import { Formacoes } from "../../types/formacoes.types";
 
 const Register: React.FC = () => {
   const [newCandidate, setNewCandidate] = useState<Candidate>({
@@ -58,6 +59,15 @@ const Register: React.FC = () => {
     genero: "",
     status: "",
     resumoProfissional: "",
+  });
+
+  const [formations, setFormations] = useState<Formacoes>({
+    escolaridade: "",
+    instituicao: "",
+    curso: "",
+    inicio: "",
+    termino_previsao: "",
+    status: "",
   });
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorPost, setErrorPost] = useState(null);
@@ -143,6 +153,16 @@ const Register: React.FC = () => {
     });
   };
 
+  const handleInputChangeTwo = (
+    field: keyof Formacoes,
+    value: string
+  ): void => {
+    setFormations({
+      ...formations,
+      [field]: value,
+    });
+  };
+
   const handleLimparCampos = () => {
     setNewCandidate(LimparCampos());
     setUpload(undefined);
@@ -155,11 +175,20 @@ const Register: React.FC = () => {
       homeCheck: false,
       internacional: false,
     });
+
+    setFormations({
+      escolaridade: "",
+      instituicao: "",
+      curso: "",
+      inicio: "",
+      termino_previsao: "",
+      status: "",
+    });
   };
 
   const handleCheckFields = () => {
     setIsSubmitting(true);
-    const camposValidos = validarDados(newCandidate);
+    const camposValidos = validarDados(newCandidate, formations);
 
     if (typeof camposValidos === "string") {
       setMessage(camposValidos);
@@ -178,7 +207,21 @@ const Register: React.FC = () => {
       }, 3000);
       setIsSubmitting(false);
     } else {
-      handleCadastro();
+      const tipoDesejadoLinkedin = [...newCandidate.tipo_desejado_linkedin]; // Cria uma cópia do array existente
+      if (!tipoDesejadoLinkedin.includes("")) {
+        tipoDesejadoLinkedin.unshift(""); // Adiciona uma opção vazia no início do array
+      }
+
+      // Concatena os elementos do array em uma única string, removendo espaços em branco no início e no fim
+      const tipoDesejadoLinkedinString = tipoDesejadoLinkedin.join("").trim();
+
+      // Atualiza o campo tipo_desejado_linkedin com a nova string
+      const candidateWithFormations = {
+        ...newCandidate,
+        tipo_desejado_linkedin: [tipoDesejadoLinkedinString], // Atualiza o campo tipo_desejado_linkedin com a nova string
+        formacoes: [formations], // Supondo que só há uma formação por candidato
+      };
+      handleCadastro(candidateWithFormations); // Envie o objeto completo para a função de cadastro
     }
   };
 
@@ -215,23 +258,23 @@ const Register: React.FC = () => {
     </div>
   );
 
-  const handleCadastro = async () => {
+  const handleCadastro = async (candidateData: any) => {
     try {
       const token = !!localStorage.getItem("token");
       const formData = new FormData();
 
-      formData.append("data", JSON.stringify(newCandidate));
+      formData.append("data", JSON.stringify(candidateData));
 
       if (upload) {
         formData.append("curriculo", upload);
       }
 
       const newDataWithUpload = {
-        ...newCandidate,
+        ...candidateData,
         pretensao_salarial:
-          Number(newCandidate.pretensao_salarial.replace(/[^\d]/g, "")) / 100,
+          Number(candidateData.pretensao_salarial.replace(/[^\d]/g, "")) / 100,
         pretensao_pj:
-          Number(newCandidate.pretensao_pj.replace(/[^\d]/g, "")) / 100,
+          Number(candidateData.pretensao_pj.replace(/[^\d]/g, "")) / 100,
         foi_avaliado_recrutamento: token,
         curriculo: upload,
       };
@@ -259,7 +302,7 @@ const Register: React.FC = () => {
 
   const handleNewVaga = () => {
     setNewvaga(!newVaga);
-    handleLimparCampos()
+    handleLimparCampos();
   };
 
   const handleCPFBlur = () => {
@@ -356,11 +399,82 @@ const Register: React.FC = () => {
             )}
           </C.Content>
           <C.Search onClick={() => setView(1)}>
-            <C.Title>Proficiência em Idiomas (Conversação)</C.Title>
+            <C.Title>Formações do Candidato</C.Title>
             <img src={Menos} alt="" onClick={() => setView(1)} />
           </C.Search>
-          <C.Content className="idiomas">
+          <C.Content className="formacao">
             {view === 1 && (
+              <>
+                <InputSelect
+                  label="Selecione a escolaridade"
+                  className="escolaridade"
+                  options={[
+                    "",
+                    "Ensino Técnico",
+                    "Ensino Superior",
+                    "Especialização",
+                    "Mestrado",
+                    "Doutorado",
+                  ]}
+                  onChange={(e) =>
+                    handleInputChangeTwo("escolaridade", e.target.value)
+                  }
+                  value={formations.escolaridade}
+                />
+                <InputField
+                  label="Instituição"
+                  className="escolaridade"
+                  onChange={(e) =>
+                    handleInputChangeTwo("instituicao", e.target.value)
+                  }
+                  value={formations.instituicao}
+                />
+                <InputField
+                  label="Curso"
+                  className="escolaridade"
+                  onChange={(e) =>
+                    handleInputChangeTwo("curso", e.target.value)
+                  }
+                  value={formations.curso}
+                />
+                <C.ContentData>
+                  <InputField
+                    label="Início"
+                    className="escolaridade"
+                    type="date"
+                    onChange={(e) =>
+                      handleInputChangeTwo("inicio", e.target.value)
+                    }
+                    value={formations.inicio}
+                  />
+                  <InputField
+                    label="Término/Previsão"
+                    className="escolaridade"
+                    type="date"
+                    onChange={(e) =>
+                      handleInputChangeTwo("termino_previsao", e.target.value)
+                    }
+                    value={formations.termino_previsao}
+                  />
+                </C.ContentData>
+                <InputSelect
+                  label="Status"
+                  className="escolaridade statusTwo"
+                  onChange={(e) =>
+                    handleInputChangeTwo("status", e.target.value)
+                  }
+                  value={formations.status}
+                  options={["", "Concluída", "Em Andamento", "Trancada"]}
+                />
+              </>
+            )}
+          </C.Content>
+          <C.Search onClick={() => setView(2)}>
+            <C.Title>Proficiência em Idiomas (Conversação)</C.Title>
+            <img src={Menos} alt="" onClick={() => setView(2)} />
+          </C.Search>
+          <C.Content className="idiomas">
+            {view === 2 && (
               <>
                 {conhecimentoIdiomas.map((idioma, index) => (
                   <div key={index}>
@@ -378,12 +492,12 @@ const Register: React.FC = () => {
               </>
             )}
           </C.Content>
-          <C.Search onClick={() => setView(2)}>
+          <C.Search onClick={() => setView(3)}>
             <C.Title>Situação Profissisional Atual</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(2)} />
+            <img src={Menos} alt="" onClick={() => setView(3)} />
           </C.Search>
           <C.Content className="situacao">
-            {view === 2 && (
+            {view === 3 && (
               <>
                 {camposSelect.map((campo, index) => {
                   if (
@@ -447,11 +561,11 @@ const Register: React.FC = () => {
             )}
           </C.Content>
 
-          <C.Search onClick={() => setView(3)}>
+          <C.Search onClick={() => setView(4)}>
             <C.Title>Preferências e Disponibilidade</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(3)} />
+            <img src={Menos} alt="" onClick={() => setView(4)} />
           </C.Search>
-          {view === 3 && (
+          {view === 4 && (
             <C.Content className="disponibilidade">
               {camposDisponibilidadeForm.map((campo, index) => (
                 <div key={index}>
@@ -473,7 +587,7 @@ const Register: React.FC = () => {
                   )}
                 </div>
               ))}
-              {view === 3 && (
+              {view === 4 && (
                 <>
                   <InputField
                     label="Pretensão salarial no regime CLT"
@@ -496,11 +610,11 @@ const Register: React.FC = () => {
             </C.Content>
           )}
 
-          <C.Search className="localizacao" onClick={() => setView(4)}>
+          <C.Search className="localizacao" onClick={() => setView(5)}>
             <C.Title>Localização</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(4)} />
+            <img src={Menos} alt="" onClick={() => setView(5)} />
           </C.Search>
-          {view === 4 && (
+          {view === 5 && (
             <C.Content className="localizacao">
               <C.PGenti>
                 Gentileza assinalar todas as localidades de interesse
@@ -546,12 +660,12 @@ const Register: React.FC = () => {
             </C.Content>
           )}
 
-          <C.Search className="Anexos" onClick={() => setView(5)}>
+          <C.Search className="Anexos" onClick={() => setView(6)}>
             <C.Title>Resumo Profissional e Currículo</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(5)} />
+            <img src={Menos} alt="" onClick={() => setView(6)} />
           </C.Search>
 
-          {view === 5 && (
+          {view === 6 && (
             <>
               <InputField
                 value={newCandidate.resumoProfissional}

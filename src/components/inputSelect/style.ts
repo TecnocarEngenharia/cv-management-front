@@ -19,6 +19,7 @@ export const InputWrapper = styled.div`
     margin-left: 1.4em;
   }
 
+
   &.filter {
     margin-left: 1em;
   }
@@ -61,6 +62,11 @@ export const InputWrapper = styled.div`
 
 export const SelectContent = styled.div`
   width: 100%;
+
+  
+  &.statusTwo{
+    margin-bottom: 1em;
+  }
 
   &.register {
     width: 97.6%;

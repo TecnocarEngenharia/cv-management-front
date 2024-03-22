@@ -1,4 +1,4 @@
-export const validarDados = (dados: any) => {
+export const validarDados = (dados: any, formations: any) => {
   const {
     profissional,
     data_de_nascimento,
@@ -20,8 +20,9 @@ export const validarDados = (dados: any) => {
     pretensao_salarial,
     pretensao_pj,
     cnpj,
-
   } = dados;
+  const { escolaridade, instituicao, curso, inicio, termino_previsao, status } =
+    formations;
 
   const camposVazios = [];
 
@@ -46,6 +47,12 @@ export const validarDados = (dados: any) => {
   if (!pretensao_salarial) camposVazios.push("pretensao_salarial");
   if (!pretensao_pj) camposVazios.push("pretensao_pj");
   if (!cnpj) camposVazios.push("cnpj");
+  if(!escolaridade) camposVazios.push("escolaridade");
+  if(!instituicao) camposVazios.push("instituicao");
+  if(!curso) camposVazios.push("curso");
+  if(!inicio) camposVazios.push("inicio");
+  if(!termino_previsao) camposVazios.push("termino_previsao");
+  if(!status) camposVazios.push("status");
   if (camposVazios.length > 5) {
     return "Preencha todos os campos.";
   }

@@ -304,6 +304,11 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
               className="filter"
               onChange={(e) => setTipo_desejado_linkedin(e.target.value)}
               value={tipo_desejado_linkedin}
+              options={
+                camposSelect.find(
+                  (campo) => campo.field === "tipo_desejado_linkedin"
+                )?.options || []
+              }
             />
           </div>
         </C.ContentSelect>

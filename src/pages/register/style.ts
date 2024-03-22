@@ -160,6 +160,11 @@ export const Content = styled.div`
       grid-template-columns: 1fr;
     }
   }
+
+  &.formacao {
+    width: 94.5%;
+    padding-left: 1.4em;
+  }
 `;
 
 export const AddressFields = styled.div`
@@ -305,4 +310,9 @@ export const PGenti = styled.h6`
   position: absolute;
   top: -1.6em;
   font-weight: 400;
+`;
+
+export const ContentData = styled.div`
+  display: flex;
+  gap: 2em;
 `;
