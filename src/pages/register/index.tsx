@@ -56,6 +56,7 @@ const Register: React.FC = () => {
     vaga_internacional: "",
     home_office: "",
     genero: "",
+    status: "",
     resumoProfissional: "",
   });
   const [successMessage, setSuccessMessage] = useState<string | null>(null);

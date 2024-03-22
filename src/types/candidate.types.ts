@@ -33,6 +33,7 @@ export interface Candidate {
   vaga_100_presencial_betim_mg: string;
   vaga_100_presencial_sao_paulo: string;
   vaga_internacional: string;
+  status: string;
   home_office: string;
   genero: string;
   resumoProfissional: string;

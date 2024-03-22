@@ -9,6 +9,7 @@ import { ModalResumo } from "../modalResumo";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ModalConfirmação } from "../modalConfirmação";
+import InputSelect from "../inputSelect";
 
 interface IModalProps {
   id?: number | undefined;
@@ -24,6 +25,7 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
   const [deleteCandidate, setDeleteCandidate] = useState(false);
   const [view, setView] = useState(0);
   const navigate = useNavigate();
+  const [editedStatus, setEditedStatus] = useState<string>(data?.status || "");
 
   useEffect(() => {
     if (data) {
@@ -37,6 +39,10 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
 
   const handleClose = () => {
     setResumo(!resumo);
+  };
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setEditedStatus(e.target.value);
   };
 
   const handleDelete = () => {
@@ -56,14 +62,12 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
   const handleSaveChanges = async () => {
     try {
       editedData.updatedAt = new Date();
+      editedData.status = editedStatus;
       await patchConfig(editedData);
       setEditMode(false);
     } catch (error) {
       console.error("Erro ao salvar alterações:", error);
     }
-  };
-  const truncateText = (text: string, maxLength: number): string => {
-    return text.length > maxLength ? text.substring(0, maxLength) : text;
   };
 
   const handleCV = async () => {
@@ -232,26 +236,27 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
                   name="formacao"
                 />
                 <M.ContentTeste>
-                  <InputField
-                    label="Resumo Profissional"
+                  <InputSelect
+                    label="Status Candidato"
                     className={
-                      editMode ? "infoPessoaisEdit" : "infoPessoais infoTwo"
+                      editMode
+                        ? "infoPessoaisEdit ModalInfo"
+                        : "infoPessoais ModalInfo"
                     }
                     disabled={!editMode}
-                    value={
-                      editMode
-                        ? editedData.resumoProfissional || ""
-                        : `${truncateText(
-                            editedData.resumoProfissional || "",
-                            40
-                          )}`
-                    }
-                    onChange={handleInputChange}
-                    name="resumoProfissional"
+                    value={editMode ? editedStatus : data?.status || ""}
+                    options={[
+                      "",
+                      "Disponível",
+                      "Sem interesse",
+                      "Concorrência",
+                      "Em entrevista",
+                      "Teste técnico",
+                      "Fora do Perfil",
+                      "Contratado",
+                    ]}
+                    onChange={handleStatusChange}
                   />
-                  {!editMode && (
-                    <M.PA onClick={() => setResumo(!resumo)}>...Ver mais</M.PA>
-                  )}
                 </M.ContentTeste>
               </M.ContentThreeInputs>
             </M.ContentViewOne>

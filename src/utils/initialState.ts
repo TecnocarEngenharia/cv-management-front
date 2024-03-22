@@ -13,6 +13,7 @@ export const initialState = {
   tipo_desejado_linkedin: [],
   nivel_funcao: "",
   formacao: "",
+  status: "",
   interesse_imediato: "",
   entrevista_online: "",
   salario_atual: "", 

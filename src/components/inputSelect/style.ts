@@ -5,6 +5,9 @@ export const InputWrapper = styled.div`
   margin-bottom: 15px;
   margin-left: 2em;
 
+  &.ModalInfo {
+    margin-bottom: 0;
+  }
   &.vagasDisponiveis {
     margin: 0;
     margin-top: 1.3em;

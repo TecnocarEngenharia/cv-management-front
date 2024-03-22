@@ -8,6 +8,7 @@ interface InputSelectProps {
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
   className?: string;
   placeholder?: string;
+  disabled?: boolean;
 }
 
 const InputSelect = ({
@@ -16,6 +17,7 @@ const InputSelect = ({
   options,
   onChange,
   className,
+  disabled
 }: InputSelectProps) => (
   <C.InputWrapper className={className}>
     <C.ContentLabel className={className}>{label}</C.ContentLabel>
@@ -23,6 +25,7 @@ const InputSelect = ({
       <select
         className={className}
         id={label}
+        disabled={disabled}
         name={label}
         value={value}
         onChange={(e) =>
