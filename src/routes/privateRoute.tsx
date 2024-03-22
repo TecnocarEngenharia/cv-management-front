@@ -24,14 +24,14 @@ const PrivateRoute = ({ children, allowedRoles }: any) => {
   const hasAllowedRole = allowedRoles ? allowedRoles.includes(userRole) : false;
 
   if (!token) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   if (isAuthenticated && (hasAllowedRole || userRole === "admin")) {
     return <>{children}</>;
   } else {
     alert('Você não tem acesso a essa página');
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 };
 

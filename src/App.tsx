@@ -35,7 +35,7 @@ const App = () => {
     <div className="Content">
       {token &&
         !(
-          location.pathname === "/login" ||
+          location.pathname === "/login" || location.pathname === "/" ||
           location.pathname.startsWith("/curriculum/")
         ) && <Header />}
     </div>

@@ -13,13 +13,14 @@ import { PageStarts } from "../pages/pageStarts";
 
 import { CandidatesEvaluated } from "../pages/candidatesEvaluated";
 import { Technique } from "../pages/technique";
+import { Welcome } from "../pages/welcome";
 
 const RoutesApp = () => {
   return (
     <BrowserRouter>
       <App />
       <Routes>
-        <Route path="/" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/candidates"
           element={
@@ -78,6 +79,7 @@ const RoutesApp = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/" element={<Welcome />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
