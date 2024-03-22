@@ -158,3 +158,8 @@ export const CardRecrutamento = styled.div`
   border: 2px solid #851f2c;
   border-bottom: none;
 `;
+
+export const ContentSelectFormations = styled.div`
+  display: flex;
+  width: 100%;
+`;

@@ -44,6 +44,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
     useState("N/A");
   const [uf, setUf] = useState<string[]>([]);
   const [genero, setGenero] = useState("");
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const savedFilters = localStorage.getItem("filtros");
@@ -79,6 +80,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
       );
       setUf(parsedFilters.uf);
       setGenero(parsedFilters.genero);
+      setStatus(parsedFilters.status);
     }
   }, []);
 
@@ -112,6 +114,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
       home_office,
       vaga_100_presencial_sao_paulo,
       genero,
+      status,
     };
 
     const filtroJSON = JSON.stringify(filtro);
@@ -148,7 +151,8 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
     setHomeOffice("N/A");
     setVaga_100_presencial_sao_paulo("N/A");
     setUf([]);
-    setGenero("")
+    setGenero("");
+    setStatus("");
   };
 
   useEffect(() => {
@@ -233,7 +237,7 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
               { label: "Outros", value: "outros" },
             ]}
             onChange={(value) => setUf(value)}
-            checked={uf} 
+            checked={uf}
           />
         </C.ContentCheck>
         <C.ContentSelect>
@@ -267,16 +271,34 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
             />
           </C.ContentSelectInput>
           <div>
-            <InputSelect
-              label="Formação"
-              className="filter"
-              options={
-                camposSelect.find((campo) => campo.field === "formacao")
-                  ?.options || []
-              }
-              onChange={(e) => setFormacao(e.target.value)}
-              value={formacao}
-            />
+            <C.ContentSelectFormations>
+              <InputSelect
+                label="Formação"
+                className="filter"
+                options={
+                  camposSelect.find((campo) => campo.field === "formacao")
+                    ?.options || []
+                }
+                onChange={(e) => setFormacao(e.target.value)}
+                value={formacao}
+              />
+              <InputSelect
+                label="Status Candidato"
+                className="filter filterStatus"
+                options={[
+                  "",
+                  "Disponível",
+                  "Sem interesse",
+                  "Concorrência",
+                  "Em entrevista",
+                  "Teste técnico",
+                  "Fora do Perfil",
+                  "Contratado",
+                ]}
+                onChange={(e) => setStatus(e.target.value)}
+                value={status}
+              />
+            </C.ContentSelectFormations>
             <InputSelect
               label="Vaga Linkedin"
               className="filter"

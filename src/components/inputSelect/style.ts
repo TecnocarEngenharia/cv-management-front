@@ -70,6 +70,10 @@ export const SelectContent = styled.div`
     width: 98.9%;
   }
 
+  &.filterStatus{
+    width: 104%;
+  }
+
   &.vagasDisponiveis {
     width: 94%;
   }
