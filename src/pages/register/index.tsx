@@ -258,6 +258,7 @@ const Register: React.FC = () => {
 
   const handleNewVaga = () => {
     setNewvaga(!newVaga);
+    handleLimparCampos()
   };
 
   const handleCPFBlur = () => {

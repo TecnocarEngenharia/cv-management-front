@@ -10,7 +10,7 @@ export const initialState = {
   empresa_atual: "",
   experiencia_ramo_automotivo: "",
   modalidade_atual: "",
-  tipo_desejado_linkedin: "",
+  tipo_desejado_linkedin: [],
   nivel_funcao: "",
   formacao: "",
   interesse_imediato: "",

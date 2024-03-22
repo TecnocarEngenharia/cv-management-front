@@ -51,10 +51,15 @@ const ListCandidates: React.FC<ListCandidatesProps> = ({
     onCloseModal();
   };
 
-  const getInitials = (phrase: string) => {
-    const words = phrase.split(' ');
-    const initials = words.map(word => word[0].toUpperCase()).join('.');
-    return initials;
+  const getInitials = (phrase: string | string[]) => {
+    if (Array.isArray(phrase)) {
+      const initials = phrase.map(word => word[0].toUpperCase()).join('.');
+      return initials;
+    } else {
+      const words = phrase.split(' ');
+      const initials = words.map(word => word[0].toUpperCase()).join('.');
+      return initials;
+    }
   };
 
   return (

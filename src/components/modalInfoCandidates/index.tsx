@@ -471,7 +471,11 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
                 />
                 <InputField
                   label="Vaga desejada"
-                  value={editedData.tipo_desejado_linkedin || ""}
+                  value={
+                    Array.isArray(editedData.tipo_desejado_linkedin)
+                      ? editedData.tipo_desejado_linkedin.join(", ")
+                      : editedData.tipo_desejado_linkedin || ""
+                  }
                   disabled={!editMode}
                   onChange={handleInputChange}
                   name="tipo_desejado_linkedin"
@@ -516,52 +520,31 @@ const ModalInfoCandidate = ({ id, toggleModal }: IModalProps) => {
           )}
           {view === 4 && (
             <M.ContentFiveView>
-              {/* <M.ContentFiveViewTwo>
-                <InputField
-                  label="Observações"
-                  className={
-                    editMode ? "infoPessoaisEdit obs" : "infoPessoais obs"
-                  }
-                  disabled={!editMode}
-                  value={editedData.observacao || ""}
-                  onChange={handleInputChange}
-                  name="observacao"
-                />
+              <M.ContentFiveViewTwo>
+                <M.ContentInfoFive>
+                  <p>
+                    O profissional {editedData.profissional} está cadastrado nas
+                    seguintes vagas:
+                  </p>
+                  {Array.isArray(editedData.tipo_desejado_linkedin) ? (
+                    editedData.tipo_desejado_linkedin.map((item, index) => {
+                      return (
+                        <M.List key={index}>
+                          <M.ListItem> - {item}</M.ListItem>
+                        </M.List>
+                      );
+                    })
+                  ) : (
+                    <M.List>
+                      <M.ListItem>
+                        {" "}
+                        - {editedData.tipo_desejado_linkedin}
+                      </M.ListItem>
+                    </M.List>
+                  )}
+                </M.ContentInfoFive>
               </M.ContentFiveViewTwo>
-              <M.ContentFiveViewThree>
-                <InputField
-                  label="Ligação"
-                  className={editMode ? "infoPessoaisEdit" : "infoPessoais"}
-                  disabled={!editMode}
-                  value={editedData.observacao || ""}
-                  onChange={handleInputChange}
-                  name=""
-                />
-                <InputField
-                  label="E-mail"
-                  className={editMode ? "infoPessoaisEdit" : "infoPessoais "}
-                  disabled={!editMode}
-                  value={editedData.observacao || ""}
-                  onChange={handleInputChange}
-                  name=""
-                />
-                <InputField
-                  label="Chamado"
-                  className={editMode ? "infoPessoaisEdit" : "infoPessoais"}
-                  disabled={!editMode}
-                  value={editedData.observacao || ""}
-                  onChange={handleInputChange}
-                  name=""
-                />
-                <InputField
-                  label="Avaliado pelo Recrutamento"
-                  className={editMode ? "infoPessoaisEdit" : "infoPessoais"}
-                  disabled={true}
-                  value={editedData.foi_avaliado_recrutamento ? "Sim" : ""}
-                  onChange={handleInputChange}
-                  name="foi_avaliado_recrutamento"
-                />
-              </M.ContentFiveViewThree> */}
+              <M.ContentFiveViewThree></M.ContentFiveViewThree>
             </M.ContentFiveView>
           )}
           <M.Footeer>

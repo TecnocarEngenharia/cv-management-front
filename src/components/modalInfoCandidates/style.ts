@@ -221,7 +221,6 @@ export const NavBar = styled.div`
   }
 
   @media (min-width: 1100px) and (max-width: 1300px) {
-
     p {
       font-size: 12px;
     }
@@ -404,4 +403,31 @@ export const ContentFiveViewTwo = styled.div`
 export const ContentFiveViewThree = styled.div`
   display: flex;
   gap: 15px;
+`;
+
+export const ContentInfoFive = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+
+  p {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 500;
+  }
+`;
+
+export const List = styled.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 0;
+  counter-reset: item;
+`;
+
+export const ListItem = styled.li`
+  counter-increment: item;
+  color: #313131;
+  font-size: 14px;
+  font-weight: 500;
 `;
