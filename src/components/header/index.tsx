@@ -46,7 +46,7 @@ const Header = () => {
       {drop && (
         <C.ListHeader>
           <p onClick={() => handleButtonClick("/tutorial")}>Tutorial</p>
-          <p onClick={() => handleButtonClick("/")}>
+          <p onClick={() => handleButtonClick("/register")}>
             Cadastro de Candidatos
           </p>
           <p onClick={() => handleButtonClick("/candidates")}>
@@ -61,7 +61,7 @@ const Header = () => {
       )}
 
       <C.Container>
-        <C.ImageLogo src={Logo} alt="Logo da empresa Tecnocar engenharia" />
+        <C.ImageLogo src={Logo} alt="Logo da empresa Tecnocar engenharia"  onClick={() => navigate("/tutorial")}/>
         <C.Content
           className={location.pathname === "/tutorial" ? "active" : "other"}
           onClick={() => handleButtonClick("/tutorial")}
@@ -77,16 +77,16 @@ const Header = () => {
         {(userRole === "admin" || userRole === "recruitment") && (
           <>
             <C.Content
-              className={location.pathname === "/" ? "active" : "other"}
-              onClick={() => handleButtonClick("/")}
+              className={location.pathname === "/register" ? "active" : "other"}
+              onClick={() => handleButtonClick("/register")}
             >
               <img
-                src={location.pathname === "/" ? User : UserBlack}
+                src={location.pathname === "/register" ? User : UserBlack}
                 alt="Icone de Usuario"
               />
               <p
                 className={
-                  location.pathname === "/" ? "active" : "other"
+                  location.pathname === "/register" ? "active" : "other"
                 }
               >
                 Cadastro de candidatos
