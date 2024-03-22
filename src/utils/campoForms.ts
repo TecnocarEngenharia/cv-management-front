@@ -67,6 +67,7 @@ export const camposSelect: FieldRadio[] = [
       "Analista de Gestão de Manutenção",
       "Analista de Supply Chain",
       "Analista de Exportação",
+      "Analista de processo de solda"
     ],
   },
   {
