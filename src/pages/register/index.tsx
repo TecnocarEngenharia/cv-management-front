@@ -306,6 +306,11 @@ const Register: React.FC = () => {
   };
 
   const handleCPFBlur = () => {
+    // Verifica se o CPF é válido antes de enviar a requisição (opcional)
+    if (!newCandidate.cpf) {
+      return;
+    }
+
     axios
       .get(`${import.meta.env.VITE_API_URL}cpf`, {
         params: {
@@ -313,11 +318,19 @@ const Register: React.FC = () => {
         },
       })
       .then((response) => {
-        handleNewVaga();
-        const candidateID = response.data.id;
-        if (candidateID) {
-          setCandidateID(candidateID);
+        // Verifica se o candidato foi encontrado
+        const candidate = response.data;
+        if (candidate) {
+          // Se o candidato foi encontrado, abre o modal
+          handleNewVaga();
+          const candidateID = candidate.id;
+          if (candidateID) {
+            setCandidateID(candidateID);
+          }
         }
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar candidato por CPF:", error);
       });
   };
 
@@ -530,7 +543,11 @@ const Register: React.FC = () => {
                           onChange={(
                             e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
                           ) => handleInputChange(campo.field, e.target.value)}
-                          value={newCandidate[campo.field]}
+                          value={
+                            Array.isArray(newCandidate[campo.field])
+                              ? newCandidate[campo.field][0]
+                              : newCandidate[campo.field]
+                          }
                           className={
                             newCandidate.esta_empregado === "Sim" && campo.class
                               ? campo.class
