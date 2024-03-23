@@ -310,6 +310,9 @@ export const PGenti = styled.h6`
   position: absolute;
   top: -1.6em;
   font-weight: 400;
+  @media (min-width: 300px) and (max-width: 700px) {
+    font-size: 13px;
+  }
 `;
 
 export const ContentData = styled.div`

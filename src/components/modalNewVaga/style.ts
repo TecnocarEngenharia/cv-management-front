@@ -26,6 +26,10 @@ export const ModalContent = styled.div`
     width: 60%;
     height: 70vh;
   }
+
+  @media (min-width: 300px) and (max-width: 700px) {
+    width: 90%;
+  }
 `;
 
 export const ContentTitle = styled.div`
@@ -79,12 +83,27 @@ export const Description = styled.div`
   @media (max-width: 1300px) {
     font-size: 0.8rem;
   }
+
+  @media (min-width: 300px) and (max-width: 700px) {
+    text-align: justify;
+    padding-left: 14px;
+    max-width: 90%;
+  }
 `;
 
 export const ContentForm = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 2em 5em;
+
+  @media (min-width: 300px) and (max-width: 700px) {
+    margin: 2em 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    width: 100%;
+  }
 `;
 
 export const ContentVagas = styled.div`
@@ -178,6 +197,12 @@ export const ContentButton = styled.div`
   @media (max-width: 1300px) {
     align-items: start;
     justify-content: start;
+  }
+
+  @media (min-width: 300px) and (max-width: 700px) {
+    width: 100%;
+    justify-content: center;
+    
   }
 `;
 export const ContentInputForm = styled.form`
