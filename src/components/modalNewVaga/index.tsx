@@ -19,7 +19,7 @@ const ModalNewVaga: React.FC<IModalProps> = ({ onClose, id }) => {
   const [disable, setDisable] = useState(false);
   const [name, setName] = useState("");
   const { data: candidateData, refetch } = useAxiosCandidate(
-    `http://localhost:8080/v1/candidate/${id}`
+    `${import.meta.env.VITE_API_URL}/${id}`
   );
 
   useEffect(() => {
