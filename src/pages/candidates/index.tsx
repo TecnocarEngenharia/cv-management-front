@@ -62,7 +62,7 @@ const Candidate = () => {
     const queryString = buildQueryString(filters);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}?${queryString}`
+        `${import.meta.env.VITE_API_URL}?${foi_avaliado_recrutamento}&${queryString}`
       );
       setCurrentData(response.data);
       setIsFiltered(true);
@@ -73,7 +73,9 @@ const Candidate = () => {
 
   const removeQueryAndFetchData = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_API_URL);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}?${foi_avaliado_recrutamento}`
+      );
       setCurrentData(response.data);
       setFilter(false);
       setIsFiltered(false);
