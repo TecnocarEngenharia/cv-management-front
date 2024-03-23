@@ -50,6 +50,9 @@ export const ContentTitle = styled.div`
   }
 
   button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     background-color: #851f2c;
     width: 30px;
@@ -202,7 +205,6 @@ export const ContentButton = styled.div`
   @media (min-width: 300px) and (max-width: 700px) {
     width: 100%;
     justify-content: center;
-    
   }
 `;
 export const ContentInputForm = styled.form`
@@ -246,6 +248,11 @@ export const ContentModalBG = styled.div`
   @media (max-width: 1300px) {
     width: 300px;
     height: 200px;
+  }
+
+  @media (min-width: 300px) and (max-width: 700px) {
+    width: 100%;
+    height: 250px;
   }
 `;
 

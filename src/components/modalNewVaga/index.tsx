@@ -49,7 +49,7 @@ const ModalNewVaga: React.FC<IModalProps> = ({ onClose, id }) => {
     const vagasSelecionadas = [...vagasExistentes, ...selectedVagas];
 
     axios
-      .patch(`http://localhost:8080/v1/candidate/${id}`, {
+      .patch(`${import.meta.env.VITE_API_URL}/${id}`, {
         tipo_desejado_linkedin: vagasSelecionadas,
       })
       .then(() => {
