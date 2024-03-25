@@ -4,7 +4,8 @@ import InputField from "../../components/inputField";
 import { fields } from "../../utils/camposForm";
 import { Candidate } from "../../types/candidate.types";
 import Borracha from "../../image/borracha.png";
-import Menos from "../../image/menos.png";
+import Mais from "../../image/menos.png";
+import Menos from "../../image/icon_maisPNG.png";
 import { LimparCampos } from "../../utils/cleanForm";
 import { formatCPF, formatPhoneNumber } from "../../utils/regex";
 import { handleKeyDown } from "../../functions/handleKeyDown.fucntions";
@@ -60,7 +61,6 @@ const Register: React.FC = () => {
     status: "",
     resumoProfissional: "",
   });
-
   const [formations, setFormations] = useState<Formacoes>({
     escolaridade: "",
     instituicao: "",
@@ -73,7 +73,14 @@ const Register: React.FC = () => {
   const [errorPost, setErrorPost] = useState(null);
   const [message, setMessage] = useState("");
   const [upload, setUpload] = useState<File | undefined>(undefined);
-  const [view, setView] = useState(0);
+  const [infoView, setInfoView] = useState(false);
+  const [formationsView, setFormationsView] = useState(false);
+  const [ingView, setIngView] = useState(false);
+  const [profView, setProfView] = useState(false);
+  const [dispView, setDispView] = useState(false);
+  const [locView, setLocView] = useState(false);
+  const [resView, setResView] = useState(false);
+
   const [_isSubmitting, setIsSubmitting] = useState(false);
   const [newVaga, setNewvaga] = useState(false);
   const [candidateID, setCandidateID] = useState<number>();
@@ -89,6 +96,17 @@ const Register: React.FC = () => {
     homeCheck: false,
     internacional: false,
   });
+
+  const initialView = () => {
+    setInfoView(true);
+    setFormationsView(false);
+    setIngView(false);
+    setProfView(false);
+    setDispView(false);
+    setLocView(false);
+    setResView(false);
+  };
+
   const handleCheckboxChange = (
     fieldName: string,
     e: React.ChangeEvent<HTMLInputElement>
@@ -288,7 +306,7 @@ const Register: React.FC = () => {
         setSuccessMessage(null);
       }, 3000);
       handleLimparCampos();
-      setView(0);
+      initialView();
       setIsSubmitting(false);
     } catch (error: any) {
       setIsSubmitting(false);
@@ -296,7 +314,7 @@ const Register: React.FC = () => {
       setTimeout(() => {
         setErrorPost(null);
       }, 3000);
-      setView(0);
+      initialView();
     }
   };
 
@@ -336,13 +354,16 @@ const Register: React.FC = () => {
 
   return (
     <>
-      {" "}
       <C.Container>
         <C.Form onSubmit={(e) => e.preventDefault()} onKeyDown={handleKeyDown}>
           <C.ContentTitle>
-            <C.Search onClick={() => setView(0)}>
+            <C.Search onClick={() => setInfoView(!infoView)}>
               <C.Title>Informações Candidato</C.Title>
-              <img src={Menos} alt="" onClick={() => setView(0)} />
+              <img
+                src={infoView ? Menos : Mais}
+                alt=""
+                onClick={() => setInfoView(!infoView)}
+              />
             </C.Search>
             <C.ContentMessage>
               {message && <p className="Err"> {message}</p>}
@@ -354,7 +375,7 @@ const Register: React.FC = () => {
             <img src={Borracha} alt="" onClick={() => handleLimparCampos()} />
           </C.ContentTitle>
           <C.Content>
-            {view === 0 && (
+            {infoView && (
               <>
                 {fields.map((fieldInfo) => (
                   <InputField
@@ -411,12 +432,16 @@ const Register: React.FC = () => {
               </>
             )}
           </C.Content>
-          <C.Search onClick={() => setView(1)}>
+          <C.Search onClick={() => setFormationsView(!formationsView)}>
             <C.Title>Formações do Candidato</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(1)} />
+            <img
+              src={formationsView ? Menos : Mais}
+              alt=""
+              onClick={() => setFormationsView(!formationsView)}
+            />
           </C.Search>
           <C.Content className="formacao">
-            {view === 1 && (
+            {formationsView && (
               <>
                 <InputSelect
                   label="Selecione a escolaridade"
@@ -482,12 +507,16 @@ const Register: React.FC = () => {
               </>
             )}
           </C.Content>
-          <C.Search onClick={() => setView(2)}>
+          <C.Search onClick={() => setIngView(!ingView)}>
             <C.Title>Proficiência em Idiomas (Conversação)</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(2)} />
+            <img
+              src={ingView ? Menos : Mais}
+              alt=""
+              onClick={() => setIngView(!ingView)}
+            />
           </C.Search>
           <C.Content className="idiomas">
-            {view === 2 && (
+            {ingView && (
               <>
                 {conhecimentoIdiomas.map((idioma, index) => (
                   <div key={index}>
@@ -505,12 +534,16 @@ const Register: React.FC = () => {
               </>
             )}
           </C.Content>
-          <C.Search onClick={() => setView(3)}>
+          <C.Search onClick={() => setProfView(!profView)}>
             <C.Title>Situação Profissisional Atual</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(3)} />
+            <img
+              src={profView ? Menos : Mais}
+              alt=""
+              onClick={() => setProfView(!profView)}
+            />
           </C.Search>
           <C.Content className="situacao">
-            {view === 3 && (
+            {profView && (
               <>
                 {camposSelect.map((campo, index) => {
                   if (
@@ -578,11 +611,15 @@ const Register: React.FC = () => {
             )}
           </C.Content>
 
-          <C.Search onClick={() => setView(4)}>
+          <C.Search onClick={() => setDispView(!dispView)}>
             <C.Title>Preferências e Disponibilidade</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(4)} />
+            <img
+              src={dispView ? Menos : Mais}
+              alt=""
+              onClick={() => setDispView(!dispView)}
+            />
           </C.Search>
-          {view === 4 && (
+          {dispView && (
             <C.Content className="disponibilidade">
               {camposDisponibilidadeForm.map((campo, index) => (
                 <div key={index}>
@@ -604,7 +641,7 @@ const Register: React.FC = () => {
                   )}
                 </div>
               ))}
-              {view === 4 && (
+              {dispView && (
                 <>
                   <InputField
                     label="Pretensão salarial no regime CLT"
@@ -627,11 +664,18 @@ const Register: React.FC = () => {
             </C.Content>
           )}
 
-          <C.Search className="localizacao" onClick={() => setView(5)}>
+          <C.Search
+            className="localizacao"
+            onClick={() => setLocView(!locView)}
+          >
             <C.Title>Localização</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(5)} />
+            <img
+              src={locView ? Menos : Mais}
+              alt=""
+              onClick={() => setLocView(!locView)}
+            />
           </C.Search>
-          {view === 5 && (
+          {locView && (
             <C.Content className="localizacao">
               <C.PGenti>
                 Gentileza assinalar todas as localidades de interesse
@@ -677,12 +721,16 @@ const Register: React.FC = () => {
             </C.Content>
           )}
 
-          <C.Search className="Anexos" onClick={() => setView(6)}>
+          <C.Search className="Anexos" onClick={() => setResView(!resView)}>
             <C.Title>Resumo Profissional e Currículo</C.Title>
-            <img src={Menos} alt="" onClick={() => setView(6)} />
+            <img
+              src={resView ? Menos : Mais}
+              alt=""
+              onClick={() => setResView(!resView)}
+            />
           </C.Search>
 
-          {view === 6 && (
+          {resView && (
             <>
               <InputField
                 value={newCandidate.resumoProfissional}
