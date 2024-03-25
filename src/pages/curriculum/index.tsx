@@ -42,7 +42,7 @@ const Curriculum = () => {
       html2canvas: { scale: 2 },
       jsPDF: {
         unit: "in",
-        format: [11, 11.69], 
+        format: [11, 11.69],
         orientation: "portrait",
       },
     };
@@ -112,43 +112,40 @@ const Curriculum = () => {
                 <C.SubTitle>Disponibilidade</C.SubTitle>
                 <C.Vagas>
                   <C.VagasItem>
-                    {data.vaga_100_presencial_betim_mg === "Sim" && (
+                    {data.vaga_100_presencial_betim_mg !== "" && (
                       <div>
-                        <span>Vaga 100% Presencial Betim/MG:</span>{" "}
+                        <span>Betim / MG :</span>{" "}
                         {data.vaga_100_presencial_betim_mg}
                       </div>
                     )}
-                    {data.vaga_100_presencial_goiana_pe === "Sim" && (
+                    {data.vaga_100_presencial_goiana_pe !== "" && (
                       <div>
-                        <span>Vaga 100% Presencial Goiana/PE:</span>{" "}
+                        <span>Goiana / PE :</span>{" "}
                         {data.vaga_100_presencial_goiana_pe}
                       </div>
                     )}
-                    {data.vaga_100_presencial_porto_real_rj === "Sim" && (
+                    {data.vaga_100_presencial_porto_real_rj !== "" && (
                       <div>
-                        <span>Vaga 100% Presencial Porto Real/RJ:</span>{" "}
+                        <span>Porto Real / RJ :</span>{" "}
                         {data.vaga_100_presencial_porto_real_rj}
                       </div>
                     )}
-                    {data.vaga_100_presencial_sao_paulo === "Sim" && (
+                    {data.vaga_100_presencial_sao_paulo !== "" && (
                       <div>
-                        <span>Vaga 100% Presencial São Paulo/SP:</span>{" "}
+                        <span>São Paulo / SP :</span>{" "}
                         {data.vaga_100_presencial_sao_paulo}
                       </div>
                     )}
-                    {data.home_office === "Sim" && (
+                    {data.home_office !== "" && (
                       <div>
-                        <span>Home Office:</span> {data.home_office}
+                        <span>Home Office :</span> {data.home_office}
                       </div>
                     )}
                   </C.VagasItem>
                   <C.VagasItem className="item_right">
-                
-              
-                    
-                    {data.vaga_internacional === "Sim" && (
+                    {data.vaga_internacional !== "" && (
                       <div>
-                        <span>Vaga Internacional:</span>{" "}
+                        <span>Vaga Internacional :</span>{" "}
                         {data.vaga_internacional}
                       </div>
                     )}
@@ -293,7 +290,8 @@ const Curriculum = () => {
                         {data.conhecimento_espanhol &&
                           data.conhecimento_espanhol.trim() !== "N/A" && (
                             <p>
-                              Espanhol - Nível  {data.conhecimento_espanhol.trim()}.
+                              Espanhol - Nível{" "}
+                              {data.conhecimento_espanhol.trim()}.
                             </p>
                           )}
                       </>

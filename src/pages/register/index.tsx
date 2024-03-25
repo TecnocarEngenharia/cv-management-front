@@ -73,7 +73,7 @@ const Register: React.FC = () => {
   const [errorPost, setErrorPost] = useState(null);
   const [message, setMessage] = useState("");
   const [upload, setUpload] = useState<File | undefined>(undefined);
-  const [infoView, setInfoView] = useState(false);
+  const [infoView, setInfoView] = useState(true);
   const [formationsView, setFormationsView] = useState(false);
   const [ingView, setIngView] = useState(false);
   const [profView, setProfView] = useState(false);
