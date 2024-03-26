@@ -283,8 +283,7 @@ const Curriculum = () => {
                         {data.conhecimento_italiano &&
                           data.conhecimento_italiano.trim() !== "N/A" && (
                             <p>
-                              Italiano - Nível
-                              {data.conhecimento_italiano.trim()}.
+                              Italiano - Nível {data.conhecimento_italiano.trim()}.
                             </p>
                           )}
                         {data.conhecimento_espanhol &&

@@ -13,6 +13,9 @@ export const InputWrapper = styled.div`
     margin-left: 2em;
     top: -0.38em;
   }
+  &.resetPassword{
+    margin-bottom: 1em;
+  }
 
   @media (max-width: 450px) {
     &.pretensao {

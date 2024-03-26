@@ -86,7 +86,7 @@ export const SelectContent = styled.div`
     width: 60%;
   }
   &.fitlerOne {
-    width: 150%;
+    width: 120%;
   }
 
   select {

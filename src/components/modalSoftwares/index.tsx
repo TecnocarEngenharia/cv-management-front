@@ -81,15 +81,16 @@ const ModalSoftware = ({ toggleModal }: IModalProps) => {
             options={[
               "",
               "Catia",
-              "MS Project",
-              "Nx",
-              "Pacote Office",
               "PLM",
-              "PowerBI",
-              "SAP",
+              "Nx",
+              "Tcae",
+              "Auto CAD",
               "SolidWorks",
-              "TCAE",
+              "PowerBI",
               "Excel",
+              "MS Project",
+              "Pacote Office",
+              "SAP",             
             ]}
             className="software"
             value={software.software}

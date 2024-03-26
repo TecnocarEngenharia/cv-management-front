@@ -101,7 +101,7 @@ export const ContentSelectInput = styled.div`
 
 export const ContentOptions = styled.div`
   width: 794px;
-  height: 263px;
+  height: 259px;
   border-radius: 10px;
   border: 1px solid #b67070;
   background: rgba(217, 217, 217, 0);
@@ -110,11 +110,13 @@ export const ContentOptions = styled.div`
   grid-row: 4; 
   display: flex;
   align-items: center;
-  gap: 100px;
+  gap: 2em;
+
+
 `;
 
 export const ContentButtons = styled.div`
-  position: fixed;
+  position: absolute;
   bottom: 1em;
   right: 1em;
   
