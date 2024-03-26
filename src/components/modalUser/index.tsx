@@ -27,7 +27,10 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
   const [confirmaSenha, setConfirmaSenha] = useState("");
   const [role, setRole] = useState("");
   const [erroSenha, setErroSenha] = useState(false);
-  const [feedbackMessage, setFeedbackMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+  const [feedbackMessage, setFeedbackMessage] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -50,7 +53,7 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
   };
 
   const resetPassword = () => {
-    setPassword("123456789");
+    setPassword("123456");
     setFeedbackMessage({ text: "Senha resetada com sucesso", type: "success" });
     setTimeout(() => setFeedbackMessage(null), 2000);
   };
@@ -58,7 +61,10 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
   const handleSave = async () => {
     try {
       if (!name || !registration || !password || !confirmaSenha || !role) {
-        setFeedbackMessage({ text: "Por favor, preencha todos os campos.", type: "error" });
+        setFeedbackMessage({
+          text: "Por favor, preencha todos os campos.",
+          type: "error",
+        });
         return;
       }
 
@@ -94,11 +100,17 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
         await axios.post(import.meta.env.VITE_API_REGISTER_URL, data);
       }
       cleanForm();
-      setFeedbackMessage({ text: "Cadastro concluído com sucesso!", type: "success" });
+      setFeedbackMessage({
+        text: "Cadastro concluído com sucesso!",
+        type: "success",
+      });
       setTimeout(() => setFeedbackMessage(null), 2000);
     } catch (error) {
       console.error("Erro ao salvar:", error);
-      setFeedbackMessage({ text: "Erro ao salvar. Por favor, tente novamente.", type: "error" });
+      setFeedbackMessage({
+        text: "Erro ao salvar. Por favor, tente novamente.",
+        type: "error",
+      });
       setTimeout(() => setFeedbackMessage(null), 2000);
     }
   };
@@ -111,7 +123,12 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
           `${import.meta.env.VITE_API_GET_ALL_URL}/${user.id}`,
           { isActive }
         );
-        setFeedbackMessage({ text: isActive ? "Usuário ativado com sucesso" : "Usuário desativado com sucesso", type: "success" });
+        setFeedbackMessage({
+          text: isActive
+            ? "Usuário ativado com sucesso"
+            : "Usuário desativado com sucesso",
+          type: "success",
+        });
         setTimeout(() => setFeedbackMessage(null), 2000);
       } else {
         console.error("Usuário não está definido ou 'isActive' é 'undefined'");
@@ -127,8 +144,18 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
       <C.ContainerModal className={user ? "userOn" : ""}>
         <C.ContentTitle>
           <h2>{user ? "Edição do usuário" : "Registro novo usuário"}</h2>
-          {erroSenha && <p style={{ color: "red" }}>As senhas não coincidem.</p>}
-          {feedbackMessage && <p style={{ color: feedbackMessage.type === "success" ? "green" : "red" }}>{feedbackMessage.text}</p>}
+          {erroSenha && (
+            <p style={{ color: "red" }}>As senhas não coincidem.</p>
+          )}
+          {feedbackMessage && (
+            <p
+              style={{
+                color: feedbackMessage.type === "success" ? "green" : "red",
+              }}
+            >
+              {feedbackMessage.text}
+            </p>
+          )}
           <button onClick={onclose}>X</button>
         </C.ContentTitle>
         <C.ContentsInputs>
@@ -154,9 +181,6 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {user && (
-              <C.ResetPassword onClick={resetPassword}>Resetar</C.ResetPassword>
-            )}
           </C.ContentPassword>
 
           {!user && (
@@ -188,6 +212,11 @@ const ModalUser = ({ onclose, user }: IModalProps) => {
         </C.ContentsInputs>
         <C.ContentButton>
           {user && (
+            <C.StyledButton onClick={resetPassword}>
+              Resetar Senha
+            </C.StyledButton>
+          )}
+           {user && (
             <C.StyledButton onClick={toggleUserStatus}>
               {user.isActive ? "Desativar Usuário" : "Ativar Usuário"}
             </C.StyledButton>

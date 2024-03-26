@@ -24,6 +24,10 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  @media (min-width: 1100px) and (max-width: 1300px) {
+    width: 40%;
+  }
 `;
 
 export const Title = styled.h3`
@@ -36,6 +40,10 @@ export const Title = styled.h3`
   letter-spacing: 0.1px;
   margin-bottom: 24px;
   text-align: center;
+
+  @media (min-width: 1100px) and (max-width: 1300px) {
+    font-size: 16px;
+  }
 `;
 
 export const Message = styled.p`
@@ -63,11 +71,11 @@ export const ContentButton = styled.div`
     &:first-child {
       background-color: #c7c7c7;
       color: #fff;
-      transition: .5s all;
+      transition: 0.5s all;
 
       &:hover {
         background-color: #851f2c;
-        color: #000;
+        color: #FFFFFF;
       }
     }
 

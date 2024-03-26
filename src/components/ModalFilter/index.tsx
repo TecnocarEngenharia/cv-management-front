@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import RangeSlider from "../inputRange";
 import * as C from "./style";
-import InputRadio from "../inputCheck/inputRadio";
 import InputSelect from "../inputSelect";
 import { camposSelect } from "../../utils/campoForms";
 import { ContentCheckLabel } from "../inputCheck";
@@ -315,65 +314,74 @@ const ModalFilter = ({ onFilterApply, toggleFilter }: ModalFilterProps) => {
 
         <C.ContentOptions>
           <div>
-            <InputRadio
-              label="Vaga Presencial Porto Real/RJ"
-              options={["Sim", "Não", "N/A"]}
+            <InputSelect
+              label="Porto Real/RJ"
+              options={["Presencial", "Híbrida", "Presencial/Híbrida", "N/A"]}
               onChange={(e) =>
                 setVaga_100_presencial_porto_real_rj(e.target.value)
               }
               value={vaga_100_presencial_porto_real_rj}
+              className="fitlerOne"
             />
-            <InputRadio
-              label="Vaga Presencial Goiana / PE"
-              options={["Sim", "Não", "N/A"]}
+            <InputSelect
+              label="Goiana / PE"
+              options={["Presencial", "Híbrida", "Presencial/Híbrida", "N/A"]}
               onChange={(e) => setVaga_100_presencial_goiana_pe(e.target.value)}
               value={vaga_100_presencial_goiana_pe}
+              className="fitlerOne"
             />
-            <InputRadio
-              label="Vaga Presencial Betim / MG"
-              options={["Sim", "Não", "N/A"]}
+            <InputSelect
+              label="Betim / MG"
+              options={["Presencial", "Híbrida", "Presencial/Híbrida", "N/A"]}
               onChange={(e) => setVaga_100_presencial_betim_mg(e.target.value)}
               value={vaga_100_presencial_betim_mg}
+              className="fitlerOne"
             />
           </div>
           <div>
-            <InputRadio
-              label="Vaga Presencial São Paulo / SP"
-              options={["Sim", "Não", "N/A"]}
+            <InputSelect
+              label="São Paulo / SP"
+              options={["Presencial", "Híbrida", "Presencial/Híbrida", "N/A"]}
               onChange={(e) => setVaga_100_presencial_sao_paulo(e.target.value)}
               value={vaga_100_presencial_sao_paulo}
+              className="fitlerOne"
             />
-            <InputRadio
+            <InputSelect
               label="Vaga Internacional"
               options={["Sim", "Não", "N/A"]}
               onChange={(e) => setVagaInternacional(e.target.value)}
               value={vaga_internacional}
+              className="fitlerOne"
             />
-            <InputRadio
+            <InputSelect
               label="Home Office"
               options={["Sim", "Não", "N/A"]}
               onChange={(e) => setHomeOffice(e.target.value)}
               value={home_office}
+              className="fitlerOne"
             />
           </div>
           <div>
-            <InputRadio
+            <InputSelect
               label="Experiencia Ramo Automotivo"
               options={["Sim", "Não", "N/A"]}
               onChange={(e) => setExperienciaRamoAutomotivo(e.target.value)}
               value={experiencia_ramo_automotivo}
+              className="fitlerOne"
             />
-            <InputRadio
+            <InputSelect
               label="Esta Empregado"
               options={["Sim", "Não", "N/A"]}
               onChange={(e) => setEstaEmpregado(e.target.value)}
               value={esta_empregado}
+              className="fitlerOne"
             />
-            <InputRadio
+            <InputSelect
               label="Interesse Imediato"
               options={["Sim", "Não", "N/A"]}
               onChange={(e) => setInteresseImediato(e.target.value)}
               value={interesse_imediato}
+              className="fitlerOne"
             />
           </div>
         </C.ContentOptions>

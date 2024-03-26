@@ -26,12 +26,12 @@ export const ContainerModal = styled.div`
 
   @media (min-height: 0px) and (max-height: 700px) {
     width: 600px;
-    height: 500px;
+    height: 600px;
     margin-top: 0;
   }
 
   &.userOn {
-    height: 60%;
+    height: 70%;
   }
 `;
 

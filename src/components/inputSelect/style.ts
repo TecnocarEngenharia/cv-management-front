@@ -19,7 +19,6 @@ export const InputWrapper = styled.div`
     margin-left: 1.4em;
   }
 
-
   &.filter {
     margin-left: 1em;
   }
@@ -63,8 +62,7 @@ export const InputWrapper = styled.div`
 export const SelectContent = styled.div`
   width: 100%;
 
-  
-  &.statusTwo{
+  &.statusTwo {
     margin-bottom: 1em;
   }
 
@@ -76,7 +74,7 @@ export const SelectContent = styled.div`
     width: 98.9%;
   }
 
-  &.filterStatus{
+  &.filterStatus {
     width: 104%;
   }
 
@@ -86,6 +84,9 @@ export const SelectContent = styled.div`
 
   &.disponibilidade-check {
     width: 60%;
+  }
+  &.fitlerOne {
+    width: 150%;
   }
 
   select {

@@ -18,7 +18,7 @@ export const Content = styled.div`
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 1124px;
-  height: 615px;
+  height: 600px;
   position: relative;
   display: grid;
   grid-template-columns: 291px auto 257px 577px 300px 300px;
@@ -29,6 +29,12 @@ export const Content = styled.div`
 
   @media (max-width: 450px) {
     grid-template-columns: 1fr;
+  }
+
+  @media (min-width :1100px) and (max-width: 1300px) {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 550px;
   }
 `;
 
@@ -100,16 +106,18 @@ export const ContentOptions = styled.div`
   border: 1px solid #b67070;
   background: rgba(217, 217, 217, 0);
   margin-left: 20px;
-  grid-column: 1 / span 5; /* Ocupa todas as colunas */
-  grid-row: 4; /* Ajuste na linha */
+  grid-column: 1 / span 5; 
+  grid-row: 4; 
   display: flex;
   align-items: center;
+  gap: 100px;
 `;
 
 export const ContentButtons = styled.div`
-  position: absolute;
-  bottom: 2em;
+  position: fixed;
+  bottom: 1em;
   right: 1em;
+  
 
   height: 200px;
   width: 250px;

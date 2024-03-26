@@ -71,7 +71,7 @@ const ModalExcel: React.FC<ModalExcelProps> = ({
             img={Export}
             onClick={handleExportClick}
           />
-          <C.Button onClick={onClose}>Fechar Modal</C.Button>
+          <C.Button onClick={onClose}>Fechar Card</C.Button>
         </C.Content>
       </C.Container>
     </>
